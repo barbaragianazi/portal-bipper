@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal Zoetis — Bem-vindo</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+  <script src="theme-switcher.js" defer></script>
+  <meta name="description" content="Redesign moderno da tela de boas-vindas do Portal Zoetis." />
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <div class="brand">
+        <div class="brand__area" aria-label="Marca ativa">
+          <button class="brand__logo-btn" type="button" aria-label="Selecionar marca" aria-haspopup="true"
+            aria-expanded="false">
+            <img src="assets/logos/zoetis-dark.svg" alt="Zoetis" class="brand__logo" data-logo="dark">
+          </button>
+          <div class="brand-dropdown" role="menu" aria-label="Selecionar marca"></div>
+        </div>
+        <button class="brand__toggle" id="sidebarToggle" type="button" aria-label="Recolher menu"
+          aria-expanded="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg></button>
+      </div>
+      <nav class="nav-section" aria-label="Navegação principal">
+        <h2>Áreas</h2>
+        <a href="#" class="nav-link active" aria-current="page"><svg class="icon" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1v-10.5Z" />
+          </svg><span>Início</span></a>
+        <a href="#" class="nav-link " aria-current="false"><svg class="icon" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 6V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1" />
+            <path d="M4 7h16a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1Z" />
+            <path d="M9 12h6" />
+          </svg><span>Gestão</span></a>
+        <a href="#" class="nav-link " aria-current="false"><svg class="icon" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8.5 12.5 11 10l2 2 2.5-2.5" />
+            <path d="m6.5 14.5 2 2a2 2 0 0 0 2.8 0l.7-.7.7.7a2 2 0 0 0 2.8 0l2-2" />
+            <path d="M4 10l3-3h4l1 1 1-1h4l3 3" />
+          </svg><span>Comercial</span></a>
+        <a href="#" class="nav-link " aria-current="false"><svg class="icon" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 13h3l9 4V7L7 11H4v2Z" />
+            <path d="M7 13v4a2 2 0 0 0 2 2h1" />
+            <path d="M18 9.5a3 3 0 0 1 0 5" />
+          </svg><span>Marketing</span></a>
+        <a href="#" class="nav-link " aria-current="false"><svg class="icon" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="m15.5 8.5-2.3 4.7-4.7 2.3 2.3-4.7 4.7-2.3Z" />
+          </svg><span>Operações</span></a>
+        <a href="#" class="nav-link " aria-current="false"><svg class="icon" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 7h15a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1Z" />
+            <path d="M17 12h4v5h-4a2.5 2.5 0 0 1 0-5Z" />
+            <path d="M6 7V5a2 2 0 0 1 2-2h9" />
+          </svg><span>Financeiro</span></a>
+        <a href="#" class="nav-link " aria-current="false"><svg class="icon" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 20V10" />
+            <path d="M10 20V4" />
+            <path d="M16 20v-7" />
+            <path d="M22 20V8" />
+          </svg><span>Inteligência</span></a>
+      </nav>
+      <nav class="nav-section" aria-label="Produtividade">
+        <h2>Produtividade</h2>
+        <a href="#" class="nav-link"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 3v4M17 3v4" />
+            <rect x="3" y="5" width="18" height="16" rx="2" />
+            <path d="M3 10h18" />
+          </svg><span>Agenda</span></a>
+        <a href="#" class="nav-link"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 11l2 2 4-5" />
+            <path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9" />
+          </svg><span>Tarefas</span><span class="nav-badge">12</span></a>
+        <a href="#" class="nav-link"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" />
+            <path d="M10 21h4" />
+          </svg><span>Notificações</span><span class="nav-badge">3</span></a>
+        <a href="#" class="nav-link"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8.92 4a1.65 1.65 0 0 0 1-1.51V2a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.44.5.8.94.94H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+          </svg><span>Configurações</span></a>
+
+      </nav>
+      <div class="sidebar-card">
+        <strong>Central de ajuda</strong>
+        <p>Encontre materiais, novidades e suporte para continuar sua jornada.</p>
+        <a href="#">Abrir suporte <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14" />
+            <path d="m13 6 6 6-6 6" />
+          </svg></a>
+      </div>
+    </aside>
+    <button class="sidebar-overlay" id="sidebarOverlay" type="button" aria-label="Fechar menu"></button>
+    <button class="guided-tip-overlay" id="customizeGuidedTipOverlay" type="button"
+      aria-label="Fechar dica de configuração" hidden></button>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="openMenu" type="button" aria-label="Abrir menu"><svg class="icon"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg></button>
+        <div class="env-pill">Ambiente de qualidade</div>
+        <div class="topbar-actions">
+          <button class="icon-btn" type="button" aria-label="Notificações"><svg class="icon" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+              aria-hidden="true">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" />
+              <path d="M10 21h4" />
+            </svg><span class="notification-dot">3</span></button>
+          <button class="icon-btn" id="openCustomizeAreas" type="button" aria-label="Personalizar dashboard"><svg
+              class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8.92 4a1.65 1.65 0 0 0 1-1.51V2a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.44.5.8.94.94H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+            </svg></button>
+          <div class="guided-tip" id="customizeGuidedTip" role="status" aria-live="polite" hidden>
+            <button class="guided-tip__close" id="customizeGuidedTipClose" type="button"
+              aria-label="Fechar dica de configuração">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
+            </button>
+            <strong>Boas vindas ocultas</strong>
+            <span>Use esta engrenagem para reexibir o módulo quando quiser.</span>
+          </div>
+          <div class="profile" aria-label="Perfil do usuário">
+            <div class="avatar">HD</div>
+            <div><strong>Humberto Delazane</strong><small>humberto.delazane@upper.net.br</small></div>
+          </div>
+        </div>
+      </header>
+
+      <section class="content">
+        <div class="hero-grid">
+          <section class="hero" data-dashboard-area="welcome" aria-labelledby="welcome-title">
+            <div class="hero__content">
+              <span class="eyebrow"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2Z" />
+                  <path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z" />
+                </svg> Painel de gestão atualizado há 2 min</span>
+              <h1 id="welcome-title">Boa tarde, Humberto! 👋</h1>
+              <p>Centralize o acesso aos módulos, acompanhe pendências importantes e retome suas atividades com menos
+                cliques. A página agora prioriza ação rápida, contexto e leitura visual.</p>
+              <div class="hero-actions">
+                <button class="btn btn-primary" type="button">Continuar de onde parei <svg class="icon-xs"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" />
+                    <path d="m13 6 6 6-6 6" />
+                  </svg></button>
+                <button class="btn btn-secondary" id="openCustomizeAreasHero" type="button">Configurar
+                  visualização</button>
+                <button class="btn btn-secondary" type="button">Ver novidades</button>
+              </div>
+            </div>
+          </section>
+
+          <aside class="quick-stack" data-dashboard-area="quick" aria-label="Atalhos frequentes">
+            <div class="quick-stack__header">
+              <h2>Acessos rápidos</h2>
+              <p>Favoritos arrastáveis para retomar módulos com menos cliques.</p>
+            </div>
+            <div class="quick-stack__body" id="quickStackBody">
+              <div class="quick-stack__viewport">
+                <div class="quick-empty-state" id="quickEmptyState">
+                  <span class="quick-empty-state__icon" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="m12 17.3-5.2 3 1.4-5.9L3.5 10l6.1-.5L12 4l2.4 5.5 6.1.5-4.7 4.4 1.4 5.9z" />
+                    </svg>
+                  </span>
+                  <strong>Nenhum módulo favoritado</strong>
+                  <small>Use a estrela nos módulos abaixo para montar seus acessos rápidos.</small>
+                </div>
+                <div class="quick-list" id="quickList" aria-live="polite"></div>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <section class="metrics-grid" data-dashboard-area="metrics" aria-label="Resumo operacional">
+          <article class="metric-card" style="--accent:#ff6b00; --soft:#fff1e8;">
+            <div>
+              <h3>Tarefas pendentes</h3><strong>12</strong>
+              <p><span class="trend">3 urgentes</span> para hoje</p>
+            </div>
+            <div class="metric-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 11l2 2 4-5" />
+                <path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9" />
+              </svg></div>
+          </article>
+          <article class="metric-card warning" style="--accent:#2563eb; --soft:#eaf2ff;">
+            <div>
+              <h3>Projetos ativos</h3><strong>8</strong>
+              <p><span class="trend">2 atrasados</span> em revisão</p>
+            </div>
+            <div class="metric-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 6a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6Z" />
+              </svg></div>
+          </article>
+          <article class="metric-card" style="--accent:#10b981; --soft:#e7fff5;">
+            <div>
+              <h3>Análises no mês</h3><strong>24</strong>
+              <p><span class="trend">↑ 18%</span> vs mês anterior</p>
+            </div>
+            <div class="metric-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 20V10" />
+                <path d="M10 20V4" />
+                <path d="M16 20v-7" />
+                <path d="M22 20V8" />
+              </svg></div>
+          </article>
+          <article class="metric-card warning" style="--accent:#ef4444; --soft:#fef2f2;">
+            <div>
+              <h3>Alertas críticos</h3><strong>3</strong>
+              <p><span class="trend">Requerem atenção</span></p>
+            </div>
+            <div class="metric-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" />
+                <path d="M10 21h4" />
+              </svg></div>
+          </article>
+        </section>
+
+        <div class="toolbar" role="region" aria-label="Filtros de módulos">
+          <label class="search-box">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+            <input id="moduleSearch" type="search" placeholder="Buscar módulo, área ou funcionalidade..."
+              autocomplete="off" />
+          </label>
+          <div class="toggle-group">
+            <span>Visualização compacta</span>
+            <label class="switch" aria-label="Visualização compacta">
+              <input id="categoryToggle" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <button class="btn btn-secondary" type="button"><svg class="icon-xs" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+              aria-hidden="true">
+              <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8.92 4a1.65 1.65 0 0 0 1-1.51V2a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.44.5.8.94.94H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+            </svg></button>
+        </div>
+
+        <div class="filter-panel" id="filters" aria-label="Categorias">
+          <button class="filter-chip is-active" data-filter="all">Todas<span>13</span></button>
+          <button class="filter-chip" data-filter="Gestão">Gestão<span>5</span></button><button class="filter-chip"
+            data-filter="Comercial">Comercial<span>2</span></button><button class="filter-chip"
+            data-filter="Marketing">Marketing<span>2</span></button><button class="filter-chip"
+            data-filter="Operações">Operações<span>2</span></button><button class="filter-chip"
+            data-filter="Financeiro">Financeiro<span>1</span></button><button class="filter-chip"
+            data-filter="Inteligência">Inteligência<span>1</span></button>
+        </div>
+
+        <div class="section-title">
+          <div>
+            <h2 id="areasSectionTitle"></h2>
+            <p id="areasSectionSubtitle"></p>
+          </div>
+          <!-- <a href="#" class="open-link">Ver mapa completo <svg class="icon-xs" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+              aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="m13 6 6 6-6 6" />
+            </svg></a> -->
+        </div>
+
+        <section class="cards-layout category-mode" id="areasGrid" aria-live="polite">
+
+          <article class="area-card" data-category="Gestão"
+            data-search="gestão administração auditoria plano de ação projetos remuneração"
+            style="--accent:#ff6b00; --soft:#fff1e8;">
+            <div class="area-card__top">
+              <div class="area-card__icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 4h6a2 2 0 0 1 2 2v1H7V6a2 2 0 0 1 2-2Z" />
+                  <path d="M7 6H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-2" />
+                  <path d="M8 12h8M8 16h5" />
+                </svg></div>
+            </div>
+            <div class="module-name">
+              <h3>Gestão</h3>
+              <span class="number-modules">5 módulos</span>
+            </div>
+            <p>Controle estratégico, cadastros, auditorias e governança.</p>
+            <ul class="module-list">
+              <li class="module-item" data-module-id="gestao-administracao" data-module-name="Administração"
+                data-module-description="Gerencie cadastros, acessos e configurações gerais.">
+                <div class="module-item__content"><span>Administração</span><small>Gerencie cadastros, acessos e
+                    configurações gerais.</small></div>
+                <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Administração"
+                  aria-pressed="false" type="button">☆</button>
+              </li>
+              <li class="module-item" data-module-id="gestao-auditoria" data-module-name="Auditoria"
+                data-module-description="Monitore auditorias, registros e conformidade.">
+                <div class="module-item__content"><span>Auditoria</span><small>Monitore auditorias, registros e
+                    conformidade.</small></div>
+                <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Auditoria" aria-pressed="false"
+                  type="button">☆</button>
+              </li>
+              <li class="module-item" data-module-id="gestao-plano-acao" data-module-name="Plano de Ação"
+                data-module-description="Gerencie metas, tarefas e prazos.">
+                <div class="module-item__content"><span>Plano de Ação</span><small>Gerencie metas, tarefas e
+                    prazos.</small></div>
+                <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Plano de Ação"
+                  aria-pressed="false" type="button">☆</button>
+              </li>
+              <li class="more">
+                <button class="more-modules-btn" id="openGestaoModules" type="button"
+                  aria-label="Ver todos os módulos de Gestão">
+                  <span class="more-modules-btn__content"><span>+ 2 módulo(s)</span><small>Disponíveis na
+                      categoria</small></span>
+                  <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" />
+                    <path d="m13 6 6 6-6 6" />
+                  </svg>
+                </button>
+              </li>
+            </ul>
+          </article>
+
+          <article class="area-card" data-category="Comercial" data-search="comercial crm solicitações"
+            style="--accent:#2563eb; --soft:#eaf2ff;">
+            <div class="area-card__top">
+              <div class="area-card__icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M8.5 12.5 11 10l2 2 2.5-2.5" />
+                  <path d="m6.5 14.5 2 2a2 2 0 0 0 2.8 0l.7-.7.7.7a2 2 0 0 0 2.8 0l2-2" />
+                  <path d="M4 10l3-3h4l1 1 1-1h4l3 3" />
+                </svg></div>
+            </div>
+            <div class="module-name">
+              <h3>Comercial</h3>
+              <span class="number-modules">2 módulos</span>
+            </div>
+            <p>Clientes, oportunidades, solicitações e relacionamento.</p>
+            <ul class="module-list">
+              <li class="module-item" data-module-id="comercial-crm" data-module-name="CRM"
+                data-module-description="Gerencie clientes e oportunidades comerciais.">
+                <div class="module-item__content"><span>CRM</span><small>Gerencie clientes e oportunidades
+                    comerciais.</small></div>
+                <button class="favorite-btn module-favorite-btn" aria-label="Favoritar CRM" aria-pressed="false"
+                  type="button">☆</button>
+              </li>
+              <li class="module-item" data-module-id="comercial-solicitacoes" data-module-name="Solicitações"
+                data-module-description="Gerencie demandas e solicitações.">
+                <div class="module-item__content"><span>Solicitações</span><small>Gerencie demandas e
+                    solicitações.</small></div>
+                <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Solicitações"
+                  aria-pressed="false" type="button">☆</button>
+              </li>
+            </ul>
+          </article>
+
+          <article class="area-card" data-category="Marketing" data-search="marketing campanha marketing eventos"
+            style="--accent:#f97316; --soft:#fff1e8;">
+            <div class="area-card__top">
+              <div class="area-card__icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 13h3l9 4V7L7 11H4v2Z" />
+                  <path d="M7 13v4a2 2 0 0 0 2 2h1" />
+                  <path d="M18 9.5a3 3 0 0 1 0 5" />
+                </svg></div>
+            </div>
+            <div class="module-name">
+              <h3>Marketing</h3>
+              <span class="number-modules">2 módulos</span>
+            </div>
+            <p>Campanhas, eventos e materiais para execução em campo.</p>
+            <ul class="module-list">
+              <li class="module-item" data-module-id="marketing-campanha" data-module-name="Campanha Marketing"
+                data-module-description="Gerencie campanhas e programas promocionais.">
+                <div class="module-item__content"><span>Campanha Marketing</span><small>Gerencie campanhas e programas
+                    promocionais.</small></div>
+                <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Campanha Marketing"
+                  aria-pressed="false" type="button">☆</button>
+              </li>
+              <li class="module-item" data-module-id="marketing-eventos" data-module-name="Eventos"
+                data-module-description="Planeje ações e desenvolvimento.">
+                <div class="module-item__content"><span>Eventos</span><small>Planeje ações e desenvolvimento.</small>
+                </div>
+                <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Eventos" aria-pressed="false"
+                  type="button">☆</button>
+              </li>
+            </ul>
+          </article>
+
+          <article class="area-card" data-category="Operações" data-search="operações mapeamento treinamentos"
+            style="--accent:#7c3aed; --soft:#f1ecff;">
+            <div class="area-card__top">
+              <div class="area-card__icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="m15.5 8.5-2.3 4.7-4.7 2.3 2.3-4.7 4.7-2.3Z" />
+                </svg></div>
+            </div>
+            <div class="module-name">
+              <h3>Operações</h3>
+              <span class="number-modules">2 módulos</span>
+            </div>
+            <p>Mapeamento territorial, treinamentos e processos operacionais.</p>
+            <ul class="module-list">
+              <li class="module-item" data-module-id="operacoes-mapeamento" data-module-name="Mapeamento"
+                data-module-description="Analise regiões e potencial de mercado.">
+                <div class="module-item__content"><span>Mapeamento</span><small>Analise regiões e potencial de
+                    mercado.</small></div>
+                <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Mapeamento" aria-pressed="false"
+                  type="button">☆</button>
+              </li>
+              <li class="module-item" data-module-id="operacoes-treinamentos" data-module-name="Treinamentos"
+                data-module-description="Centralize materiais e documentos.">
+                <div class="module-item__content"><span>Treinamentos</span><small>Centralize materiais e
+                    documentos.</small></div>
+                <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Treinamentos"
+                  aria-pressed="false" type="button">☆</button>
+              </li>
+            </ul>
+          </article>
+
+          <article class="area-card" data-category="Financeiro" data-search="financeiro pagamentos"
+            style="--accent:#10b981; --soft:#e7fff5;">
+            <div class="area-card__top">
+              <div class="area-card__icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 7h15a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1Z" />
+                  <path d="M17 12h4v5h-4a2.5 2.5 0 0 1 0-5Z" />
+                  <path d="M6 7V5a2 2 0 0 1 2-2h9" />
+                </svg></div>
+            </div>
+            <div class="module-name">
+              <h3>Financeiro</h3>
+              <span class="number-modules">1 módulo</span>
+            </div>
+            <p>Pagamentos, vencimentos, controles e movimentações.</p>
+            <ul class="module-list">
+              <li class="module-item" data-module-id="financeiro-pagamentos" data-module-name="Pagamentos"
+                data-module-description="Controle pagamentos e vencimentos.">
+                <div class="module-item__content"><span>Pagamentos</span><small>Controle pagamentos e
+                    vencimentos.</small></div>
+                <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Pagamentos" aria-pressed="false"
+                  type="button">☆</button>
+              </li>
+            </ul>
+          </article>
+
+          <article class="area-card" data-category="Inteligência" data-search="inteligência dashboards"
+            style="--accent:#00a7b5; --soft:#e8fbfd;">
+            <div class="area-card__top">
+              <div class="area-card__icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 20V10" />
+                  <path d="M10 20V4" />
+                  <path d="M16 20v-7" />
+                  <path d="M22 20V8" />
+                </svg></div>
+            </div>
+            <div class="module-name">
+              <h3>Inteligência</h3>
+              <span class="number-modules">1 módulo</span>
+            </div>
+
+            <p>Indicadores, dashboards e análises gerenciais.</p>
+            <ul class="module-list">
+              <li class="module-item" data-module-id="inteligencia-dashboards" data-module-name="Dashboards"
+                data-module-description="Visualize indicadores em painéis.">
+                <div class="module-item__content"><span>Dashboards</span><small>Visualize indicadores em
+                    painéis.</small></div>
+                <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Dashboards" aria-pressed="false"
+                  type="button">☆</button>
+              </li>
+            </ul>
+          </article>
+
+        </section>
+
+        <section class="insights-grid">
+          <article class="summary-card">
+            <div class="section-title" style="margin:0 0 14px">
+              <div>
+                <h2>Indicadores de desempenho</h2>
+                <p>Visão rápida dos principais sinais de negócio.</p>
+              </div><button class="filter-chip" type="button">Este mês</button>
+            </div>
+            <div class="performance">
+              <div class="metric-card" style="--accent:#10b981; --soft:#e7fff5; min-height:164px;">
+                <div>
+                  <h3>Receita</h3><strong>R$ 2,48M</strong>
+                  <p><span class="trend">↑ 12,5%</span></p>
+                  <div class="mini-chart"><svg viewBox="0 0 220 54" preserveAspectRatio="none">
+                      <path d="M2 45 L32 28 L58 34 L88 19 L116 25 L146 13 L178 22 L218 8" fill="none"
+                        stroke="currentColor" stroke-width="3" />
+                    </svg></div>
+                </div>
+              </div>
+              <div class="metric-card" style="--accent:#2563eb; --soft:#eaf2ff; min-height:164px;">
+                <div>
+                  <h3>Novos clientes</h3><strong>148</strong>
+                  <p><span class="trend">↑ 8,3%</span></p>
+                  <div class="mini-chart"><svg viewBox="0 0 220 54" preserveAspectRatio="none">
+                      <path d="M2 42 L34 30 L62 35 L94 24 L122 18 L152 28 L184 19 L218 13" fill="none"
+                        stroke="currentColor" stroke-width="3" />
+                    </svg></div>
+                </div>
+              </div>
+              <div class="metric-card" style="--accent:#7c3aed; --soft:#f1ecff; min-height:164px;">
+                <div>
+                  <h3>Satisfação</h3><strong>87</strong>
+                  <p><span class="trend">↑ 5,2%</span></p>
+                  <div class="mini-chart"><svg viewBox="0 0 220 54" preserveAspectRatio="none">
+                      <path d="M2 41 L30 26 L56 31 L86 20 L116 15 L150 27 L180 18 L218 10" fill="none"
+                        stroke="currentColor" stroke-width="3" />
+                    </svg></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <aside class="summary-card">
+            <div class="section-title" style="margin:0 0 14px">
+              <div>
+                <h2>Agenda do dia</h2>
+                <p>Próximos compromissos e follow-ups.</p>
+              </div><a class="open-link" href="#">Ver calendário <svg class="icon-xs"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" />
+                    <path d="m13 6 6 6-6 6" />
+                  </svg></a>
+            </div>
+            <ol class="agenda-list">
+              <li class="agenda-item" style="--accent:#ff6b00"><time>09:00</time>
+                <div><strong>Reunião de alinhamento</strong><small>Sala 2 • 1h</small></div>
+              </li>
+              <li class="agenda-item" style="--accent:#2563eb"><time>11:00</time>
+                <div><strong>Acompanhamento de projetos</strong><small>Online • 30min</small></div>
+              </li>
+              <li class="agenda-item" style="--accent:#10b981"><time>14:00</time>
+                <div><strong>Apresentação de resultados</strong><small>Sala 3 • 1h</small></div>
+              </li>
+              <li class="agenda-item" style="--accent:#7c3aed"><time>16:00</time>
+                <div><strong>Revisão de campanhas</strong><small>Marketing • 45min</small></div>
+              </li>
+            </ol>
+          </aside>
+
+          <aside class="summary-card">
+            <div class="section-title" style="margin:0 0 14px">
+              <div>
+                <h2>Tarefas importantes</h2>
+                <p>Priorizadas por prazo e impacto.</p>
+              </div><a class="open-link" href="#">Ver todas <svg class="icon-xs"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" />
+                    <path d="m13 6 6 6-6 6" />
+                  </svg></a>
+            </div>
+            <ul class="todo-list">
+              <li><span class="checkbox"></span>
+                <div><strong>Aprovar orçamento Q2</strong><br><small>Financeiro • Hoje</small></div><span
+                  class="priority high">Urgente</span>
+              </li>
+              <li><span class="checkbox"></span>
+                <div><strong>Revisar contratos</strong><br><small>Comercial • Amanhã</small></div><span
+                  class="priority medium">Alta</span>
+              </li>
+              <li><span class="checkbox"></span>
+                <div><strong>Analisar performance campanha</strong><br><small>Marketing • 2 dias</small></div><span
+                  class="priority medium">Média</span>
+              </li>
+              <li><span class="checkbox"></span>
+                <div><strong>Atualizar treinamento equipe</strong><br><small>Operações • 3 dias</small></div><span
+                  class="priority low">Baixa</span>
+              </li>
+            </ul>
+          </aside>
+
+          <article class="summary-card">
+            <div class="section-title" style="margin:0 0 14px">
+              <div>
+                <h2>Atividades recente</h2>
+                <p>Últimas movimentações relevantes no portal.</p>
+              </div><a class="open-link" href="#">Ver todas <svg class="icon-xs"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" />
+                    <path d="m13 6 6 6-6 6" />
+                  </svg></a>
+            </div>
+            <ul class="activity-list">
+              <li><span class="activity-icon" style="--accent:#ff6b00; --soft:#fff1e8"><svg class="icon"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 6a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6Z" />
+                  </svg></span>
+                <div><strong>Projeto “Lançamento Q3” atualizado</strong><br><small>Há 15 minutos</small></div>
+              </li>
+              <li><span class="activity-icon" style="--accent:#2563eb; --soft:#eaf2ff"><svg class="icon"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M8.5 12.5 11 10l2 2 2.5-2.5" />
+                    <path d="m6.5 14.5 2 2a2 2 0 0 0 2.8 0l.7-.7.7.7a2 2 0 0 0 2.8 0l2-2" />
+                    <path d="M4 10l3-3h4l1 1 1-1h4l3 3" />
+                  </svg></span>
+                <div><strong>Novo cliente cadastrado: Agropecuária Boa Vista</strong><br><small>Há 1 hora</small></div>
+              </li>
+              <li><span class="activity-icon" style="--accent:#10b981; --soft:#e7fff5"><svg class="icon"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 7h15a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1Z" />
+                    <path d="M17 12h4v5h-4a2.5 2.5 0 0 1 0-5Z" />
+                    <path d="M6 7V5a2 2 0 0 1 2-2h9" />
+                  </svg></span>
+                <div><strong>Pagamento processado: R$ 12.450,00</strong><br><small>Há 2 horas</small></div>
+              </li>
+              <li><span class="activity-icon" style="--accent:#7c3aed; --soft:#f1ecff"><svg class="icon"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 20V10" />
+                    <path d="M10 20V4" />
+                    <path d="M16 20v-7" />
+                    <path d="M22 20V8" />
+                  </svg></span>
+                <div><strong>Relatório de vendas gerado</strong><br><small>Há 3 horas</small></div>
+              </li>
+            </ul>
+          </article>
+        </section>
+
+        <footer class="footer">
+          <span>© 2026 UPPER - Todos os direitos reservados.</span>
+          <span><a href="#">Privacidade</a><a href="#">Termos de uso</a><a href="#">Suporte</a></span>
+        </footer>
+      </section>
+    </main>
+  </div>
+
+  <div class="favorite-modal favorite-modal--customize is-positive" id="customizeAreasModal" aria-hidden="true">
+    <div class="favorite-modal__backdrop" data-close-customize-modal></div>
+    <div class="favorite-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="customizeAreasModalTitle">
+      <button class="favorite-modal__close" id="customizeAreasModalClose" type="button"
+        aria-label="Fechar personalização de áreas">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </button>
+      <span class="favorite-modal__status" aria-hidden="true">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 21v-7" />
+          <path d="M4 10V3" />
+          <path d="M12 21v-9" />
+          <path d="M12 8V3" />
+          <path d="M20 21v-5" />
+          <path d="M20 12V3" />
+          <path d="M2 14h4" />
+          <path d="M10 8h4" />
+          <path d="M18 16h4" />
+        </svg>
+      </span>
+      <h2 class="favorite-modal__title" id="customizeAreasModalTitle">Configurar visualização</h2>
+      <p class="favorite-modal__description">Escolha quais módulos aparecem no início do portal.</p>
+      <div class="customize-list" aria-label="Áreas do dashboard">
+        <article class="customize-item">
+          <span class="customize-item__content"><strong>Boas vindas</strong><small>Módulo de boas-vindas e
+              ações principais.</small></span>
+          <button class="customize-eye" type="button" data-customize-toggle="welcome" aria-pressed="true"
+            aria-label="Ocultar Boa tarde, Humberto">
+            <svg class="customize-eye__open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            <svg class="customize-eye__closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m3 3 18 18" />
+              <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+              <path d="M9.1 5.3A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18 18 0 0 1-3 4" />
+              <path d="M6.6 6.6C3.6 8.5 2 12 2 12s3.5 7 10 7c1.3 0 2.5-.3 3.5-.8" />
+            </svg>
+          </button>
+        </article>
+        <article class="customize-item">
+          <span class="customize-item__content"><strong>Acessos rápidos</strong><small>Lista de módulos favoritos e
+              atalhos arrastáveis.</small></span>
+          <button class="customize-eye" type="button" data-customize-toggle="quick" aria-pressed="true"
+            aria-label="Ocultar Acessos rápidos">
+            <svg class="customize-eye__open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            <svg class="customize-eye__closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m3 3 18 18" />
+              <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+              <path d="M9.1 5.3A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18 18 0 0 1-3 4" />
+              <path d="M6.6 6.6C3.6 8.5 2 12 2 12s3.5 7 10 7c1.3 0 2.5-.3 3.5-.8" />
+            </svg>
+          </button>
+        </article>
+        <article class="customize-item">
+          <span class="customize-item__content"><strong>Indicadores</strong><small>Big numbers do resumo operacional.
+            </small></span>
+          <button class="customize-eye" type="button" data-customize-toggle="metrics" aria-pressed="true"
+            aria-label="Ocultar Indicadores">
+            <svg class="customize-eye__open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            <svg class="customize-eye__closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m3 3 18 18" />
+              <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+              <path d="M9.1 5.3A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18 18 0 0 1-3 4" />
+              <path d="M6.6 6.6C3.6 8.5 2 12 2 12s3.5 7 10 7c1.3 0 2.5-.3 3.5-.8" />
+            </svg>
+          </button>
+        </article>
+      </div>
+      <div class="favorite-modal__actions">
+        <button class="favorite-modal__btn favorite-modal__btn--secondary" id="customizeHideAll" type="button">Ocultar
+          todos</button>
+        <button class="favorite-modal__btn favorite-modal__btn--primary" id="customizeApply" type="button">Aplicar
+          alterações</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="favorite-modal" id="favoriteModal" aria-hidden="true">
+    <div class="favorite-modal__backdrop" data-close-favorite-modal></div>
+    <div class="favorite-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="favoriteModalTitle">
+      <button class="favorite-modal__close" id="favoriteModalClose" type="button" aria-label="Fechar confirmação">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </button>
+      <span class="favorite-modal__status" id="favoriteModalStatus" aria-hidden="true"></span>
+      <h2 class="favorite-modal__title" id="favoriteModalTitle"></h2>
+      <p class="favorite-modal__description" id="favoriteModalDescription"></p>
+      <div class="favorite-modal__actions">
+        <button class="favorite-modal__btn favorite-modal__btn--secondary" id="favoriteModalCancel"
+          type="button">Cancelar</button>
+        <button class="favorite-modal__btn favorite-modal__btn--primary" id="favoriteModalConfirm"
+          type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="favorite-modal favorite-modal--list" id="modulesModal" aria-hidden="true">
+    <div class="favorite-modal__backdrop" data-close-modules-modal></div>
+    <div class="favorite-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modulesModalTitle">
+      <button class="favorite-modal__close" id="modulesModalClose" type="button" aria-label="Fechar lista de módulos">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </button>
+      <span class="favorite-modal__status" aria-hidden="true">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 4h6a2 2 0 0 1 2 2v1H7V6a2 2 0 0 1 2-2Z" />
+          <path d="M7 6H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-2" />
+          <path d="M8 12h8M8 16h5" />
+        </svg>
+      </span>
+      <h2 class="favorite-modal__title" id="modulesModalTitle">Todos os módulos de Gestão</h2>
+      <p class="favorite-modal__description">Visão completa da categoria com os cinco módulos disponíveis para acesso.
+      </p>
+      <ul class="modal-module-list" aria-label="Lista completa de módulos de Gestão">
+        <li class="modal-module-item module-item" data-module-id="gestao-administracao" data-module-name="Administração"
+          data-module-description="Gerencie cadastros, acessos e configurações gerais.">
+          <div class="module-item__content"><strong>Administração</strong><small>Gerencie cadastros, acessos e
+              configurações gerais.</small></div>
+          <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Administração" aria-pressed="false"
+            type="button">☆</button>
+        </li>
+        <li class="modal-module-item module-item" data-module-id="gestao-auditoria" data-module-name="Auditoria"
+          data-module-description="Monitore auditorias, registros e conformidade.">
+          <div class="module-item__content"><strong>Auditoria</strong><small>Monitore auditorias, registros e
+              conformidade.</small></div>
+          <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Auditoria" aria-pressed="false"
+            type="button">☆</button>
+        </li>
+        <li class="modal-module-item module-item" data-module-id="gestao-plano-acao" data-module-name="Plano de Ação"
+          data-module-description="Gerencie metas, tarefas e prazos.">
+          <div class="module-item__content"><strong>Plano de Ação</strong><small>Gerencie metas, tarefas e
+              prazos.</small></div>
+          <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Plano de Ação" aria-pressed="false"
+            type="button">☆</button>
+        </li>
+        <li class="modal-module-item module-item" data-module-id="gestao-remuneracao" data-module-name="Remuneração"
+          data-module-description="Consulte políticas, faixas e rotinas ligadas à remuneração.">
+          <div class="module-item__content"><strong>Remuneração</strong><small>Consulte políticas, faixas e rotinas
+              ligadas à remuneração.</small></div>
+          <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Remuneração" aria-pressed="false"
+            type="button">☆</button>
+        </li>
+        <li class="modal-module-item module-item" data-module-id="gestao-cadastros" data-module-name="Cadastros"
+          data-module-description="Centralize a manutenção de dados mestres e registros operacionais.">
+          <div class="module-item__content"><strong>Cadastros</strong><small>Centralize a manutenção de dados mestres e
+              registros operacionais.</small></div>
+          <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Cadastros" aria-pressed="false"
+            type="button">☆</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+
+</html>
