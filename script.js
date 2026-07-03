@@ -103,6 +103,24 @@
       item.dataset.accent = sourceCard?.style.getPropertyValue('--accent').trim() || gestaoAccent;
       item.dataset.soft = sourceCard?.style.getPropertyValue('--soft').trim() || gestaoSoft;
       item.dataset.icon = iconMarkup;
+      item.style.setProperty('--module-accent', item.dataset.accent);
+      item.style.setProperty('--module-soft', item.dataset.soft);
+
+      const content = item.querySelector('.module-item__content');
+      const moduleTitle = content?.querySelector('span:not(.module-category-tag), strong');
+      const moduleDescription = content?.querySelector('small');
+      moduleTitle?.setAttribute('title', item.dataset.moduleName || moduleTitle.textContent.trim());
+      moduleDescription?.setAttribute('title', item.dataset.moduleDescription || moduleDescription.textContent.trim());
+
+      if (card) {
+        if (content && !content.querySelector('.module-category-tag')) {
+          const tag = document.createElement('span');
+          tag.className = 'module-category-tag';
+          tag.textContent = item.dataset.category;
+          tag.title = item.dataset.category;
+          content.prepend(tag);
+        }
+      }
 
       const moduleId = item.dataset.moduleId;
       const existing = moduleFavorites.get(moduleId);

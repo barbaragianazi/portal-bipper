@@ -429,7 +429,6 @@ body.sidebar-collapsed .nav-link.active {
 }
 
 .env-pill {
-    /* margin: auto; */
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -437,7 +436,7 @@ body.sidebar-collapsed .nav-link.active {
     border-radius: 999px;
     background: #e9e9e9;
     color: var(--brand-primary);
-    border: 1px solid var(--brand-primary);;
+    border: 1px solid var(--brand-primary);
     font-size: 13px;
     font-weight: 900;
     letter-spacing: .03em;
@@ -1192,6 +1191,37 @@ body.sidebar-collapsed .nav-link.active {
     gap: 16px;
 }
 
+.cards-layout.compact-mode .area-card {
+    display: contents;
+}
+
+.cards-layout.compact-mode .area-card::before,
+.cards-layout.compact-mode .area-card__top,
+.cards-layout.compact-mode .module-name,
+.cards-layout.compact-mode .area-card>p,
+.cards-layout.compact-mode .module-list li.more {
+    display: none;
+}
+
+.cards-layout.compact-mode .module-list {
+    display: contents;
+}
+
+.cards-layout.compact-mode .module-item {
+    min-height: 112px;
+    padding: 16px 16px 16px 18px;
+    border-radius: 16px;
+    border: 1px solid rgba(226, 232, 240, .9);
+    border-left: 5px solid var(--module-accent, var(--accent));
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+}
+
+.cards-layout.compact-mode .module-item:hover {
+    border-color: rgba(148, 163, 184, .55);
+    border-left-color: var(--module-accent, var(--accent));
+}
+
 .cards-layout.single-filter-mode {
     grid-template-columns: 1fr;
 }
@@ -1317,6 +1347,29 @@ body.sidebar-collapsed .nav-link.active {
     min-width: 0;
     display: grid;
     gap: 2px;
+}
+
+.module-category-tag {
+    display: none;
+    width: fit-content;
+    max-width: 100%;
+    margin-bottom: 8px;
+    color: var(--module-accent, var(--accent));
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cards-layout.compact-mode .module-category-tag {
+    display: inline-block;
+}
+
+.module-list .module-category-tag {
+    color: var(--module-accent, var(--accent));
+    font-size: 11px;
+    font-weight: 700;
 }
 
 .module-favorite-btn {
@@ -1717,7 +1770,7 @@ body.sidebar-collapsed .nav-link.active {
 }
 
 .favorite-modal.is-positive .favorite-modal__btn--primary {
-   background: linear-gradient(180deg, #101923 0%, #07111b 100%);
+    background: linear-gradient(180deg, #101923 0%, #07111b 100%);
 }
 
 .favorite-modal.is-negative .favorite-modal__btn--primary {
