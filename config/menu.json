@@ -1,0 +1,95 @@
+{
+  "app": "bipper",
+  "active": "inicio",
+  "links": {
+    "portal": "/",
+    "loja": "/loja/",
+    "legado": "https://sistema-legado.bipper.com.br/"
+  },
+  "sections": [
+    {
+      "title": null,
+      "ariaLabel": "Menu principal",
+      "items": [
+        {
+          "key": "inicio",
+          "label": "Início",
+          "icon": "home",
+          "linkKey": "portal"
+        },
+        {
+          "key": "loja",
+          "label": "Loja",
+          "icon": "store",
+          "linkKey": "loja"
+        },
+        {
+          "key": "administracao",
+          "label": "Administração",
+          "icon": "admin",
+          "href": "https://sistema-legado.bipper.com.br/administracao"
+        },
+        {
+          "key": "auditoria",
+          "label": "Auditoria",
+          "icon": "audit",
+          "href": "https://sistema-legado.bipper.com.br/auditoria"
+        },
+        {
+          "key": "campanha-marketing",
+          "label": "Campanha Marketing",
+          "icon": "flag",
+          "href": "https://sistema-legado.bipper.com.br/campanha-marketing"
+        },
+        {
+          "key": "dashboards",
+          "label": "Dashboards",
+          "icon": "gauge",
+          "href": "https://sistema-legado.bipper.com.br/dashboards"
+        },
+        {
+          "key": "eventos",
+          "label": "Eventos",
+          "icon": "calendar",
+          "href": "https://sistema-legado.bipper.com.br/eventos"
+        },
+        {
+          "key": "mapeamento",
+          "label": "Mapeamento",
+          "icon": "mapPin",
+          "href": "https://sistema-legado.bipper.com.br/mapeamento"
+        },
+        {
+          "key": "plano-de-acao",
+          "label": "Plano de Ação",
+          "icon": "actionPlan",
+          "href": "https://sistema-legado.bipper.com.br/plano-de-acao"
+        },
+        {
+          "key": "projetos",
+          "label": "Projetos",
+          "icon": "rocket",
+          "href": "https://sistema-legado.bipper.com.br/projetos"
+        },
+        {
+          "key": "remuneracao",
+          "label": "Remuneração",
+          "icon": "calculator",
+          "href": "https://sistema-legado.bipper.com.br/remuneracao"
+        },
+        {
+          "key": "solicitacoes",
+          "label": "Solicitações",
+          "icon": "requests",
+          "href": "https://sistema-legado.bipper.com.br/solicitacoes"
+        },
+        {
+          "key": "treinamentos",
+          "label": "Treinamentos",
+          "icon": "training",
+          "href": "https://sistema-legado.bipper.com.br/treinamentos"
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,6 @@
  window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function (route) { console.log('Navegar para:', route); };
     const sidebar = document.getElementById('sidebar');
+    sidebar.dataset.shellSidebarInitialized = 'true';
     const overlay = document.getElementById('sidebarOverlay');
     const openMenuButton = document.getElementById('openMenu');
     const sidebarToggleButton = document.getElementById('sidebarToggle');
@@ -477,3 +478,5 @@
     syncFavoriteButtons();
     renderQuickAccess();
     syncSidebarState();
+
+

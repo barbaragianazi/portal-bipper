@@ -1,0 +1,190 @@
+<!-- Modelo inicial de página. É uma página pronta com sidebar, topbar, seletor de marcas e área .content para você substituir pelo conteúdo da nova tela. -->
+
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal Bipper - Pagina Mestre</title>
+  <link rel="icon" type="image/png" href="https://portal-bipper.vercel.app/shared/assets/logos/fav-icon.png">
+  <link rel="stylesheet" href="https://portal-bipper.vercel.app/shared/design-tokens.css">
+  <link rel="stylesheet" href="https://portal-bipper.vercel.app/shared/base-components.css">
+  <link rel="stylesheet" href="https://portal-bipper.vercel.app/shared/app-shell.css">
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <div class="brand" data-brands-url="https://portal-bipper.vercel.app/shared/data/brands.json">
+        <div class="brand__area" aria-label="Marca ativa">
+          <button class="brand__logo-btn" type="button" aria-label="Selecionar marca" aria-haspopup="true"
+            aria-expanded="false">
+            <img src="https://portal-bipper.vercel.app/shared/assets/logos/zoetis-dark.svg" alt="Zoetis"
+              class="brand__logo" data-logo="dark">
+          </button>
+          <div class="brand-dropdown" role="menu" aria-label="Selecionar marca"></div>
+        </div>
+        <button class="brand__toggle" id="sidebarToggle" type="button" aria-label="Recolher menu" aria-expanded="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div data-shell-menu data-menu-url="../config/menu.json">
+        <nav class="nav-section" aria-label="Menu principal">
+          <a class="nav-link" href="/"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.8" aria-hidden="true">
+              <path d="M3 11.5 12 4l9 7.5"></path>
+              <path d="M5 10.5V20h14v-9.5"></path>
+            </svg><span>Início</span></a>
+          <a class="nav-link active" href="/loja/" aria-current="page"><svg class="icon" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M4 10h16l-1-5H5l-1 5Z"></path>
+              <path d="M5 10v9h14v-9"></path>
+              <path d="M9 19v-5h6v5"></path>
+            </svg><span>Loja</span></a>
+          <a class="nav-link" href="https://sistema-legado.bipper.com.br/administracao"><svg class="icon"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="4" y="8" width="16" height="11" rx="2"></rect>
+              <path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              <path d="M9 13h6"></path>
+            </svg><span>Administração</span></a>
+          <a class="nav-link" href="https://sistema-legado.bipper.com.br/auditoria"><svg class="icon"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="5" y="4" width="14" height="16" rx="2"></rect>
+              <path d="M9 4v3h6V4"></path>
+              <path d="M9 13l2 2 4-5"></path>
+            </svg><span>Auditoria</span></a>
+          <a class="nav-link" href="https://sistema-legado.bipper.com.br/campanha-marketing"><svg class="icon"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M5 21V5"></path>
+              <path d="M5 5c4-2 6 2 10 0 1.5-.75 2.8-.8 4-.35v10c-1.2-.45-2.5-.4-4 .35-4 2-6-2-10 0"></path>
+            </svg><span>Campanha Marketing</span></a>
+          <a class="nav-link" href="https://sistema-legado.bipper.com.br/dashboards"><svg class="icon"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M4 14a8 8 0 1 1 16 0"></path>
+              <path d="M12 14l3-5"></path>
+              <path d="M4 18h16"></path>
+            </svg><span>Dashboards</span></a>
+          <a class="nav-link" href="https://sistema-legado.bipper.com.br/eventos"><svg class="icon" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="4" y="5" width="16" height="15" rx="2"></rect>
+              <path d="M8 3v4"></path>
+              <path d="M16 3v4"></path>
+              <path d="M4 10h16"></path>
+            </svg><span>Eventos</span></a>
+          <a class="nav-link" href="https://sistema-legado.bipper.com.br/mapeamento"><svg class="icon"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M12 21s6-5.3 6-11a6 6 0 0 0-12 0c0 5.7 6 11 6 11Z"></path>
+              <circle cx="12" cy="10" r="2"></circle>
+            </svg><span>Mapeamento</span></a>
+          <a class="nav-link" href="https://sistema-legado.bipper.com.br/plano-de-acao"><svg class="icon"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M4 18h16"></path>
+              <path d="M7 18V9"></path>
+              <path d="M12 18V5"></path>
+              <path d="M17 18v-6"></path>
+            </svg><span>Plano de Ação</span></a>
+          <a class="nav-link" href="https://sistema-legado.bipper.com.br/projetos"><svg class="icon" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M13 4c3.5.4 5.6 2.5 6 6l-5 5-5-5 4-6Z"></path>
+              <circle cx="14.5" cy="8.5" r="1.5"></circle>
+            </svg><span>Projetos</span></a>
+          <a class="nav-link" href="https://sistema-legado.bipper.com.br/remuneracao"><svg class="icon"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+              <path d="M8 7h8"></path>
+              <path d="M8 11h.01"></path>
+              <path d="M12 11h.01"></path>
+              <path d="M16 11h.01"></path>
+            </svg><span>Remuneração</span></a>
+          <a class="nav-link" href="https://sistema-legado.bipper.com.br/solicitacoes"><svg class="icon"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M4 7h6l-2-2"></path>
+              <path d="M10 7 8 9"></path>
+              <path d="M20 17h-6l2 2"></path>
+              <path d="M14 17l2-2"></path>
+            </svg><span>Solicitações</span></a>
+          <a class="nav-link" href="https://sistema-legado.bipper.com.br/treinamentos"><svg class="icon"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M3 8l9-4 9 4-9 4-9-4Z"></path>
+              <path d="M7 10v5c2.5 2 7.5 2 10 0v-5"></path>
+            </svg><span>Treinamentos</span></a>
+        </nav>
+      </div>
+      <div class="sidebar-card">
+        <strong>Central de ajuda</strong>
+        <p>Encontre materiais, novidades e suporte para continuar sua jornada.</p>
+        <a href="#">Abrir suporte</a>
+      </div>
+    </aside>
+
+    <button class="sidebar-overlay" id="sidebarOverlay" type="button" aria-label="Fechar menu"></button>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="openMenu" type="button" aria-label="Abrir menu" aria-expanded="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+          </svg>
+        </button>
+
+        <span class="env-pill">Portal</span>
+
+        <div class="topbar-actions">
+          <button class="icon-btn" type="button" aria-label="Notificacoes">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              aria-hidden="true">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 7h18s-3 0-3-7"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-dot">3</span>
+          </button>
+          <button class="icon-btn" type="button" aria-label="Configuracoes">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              aria-hidden="true">
+              <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"></path>
+              <path
+                d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6V20a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-.6 1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1H4a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 .6-1 1.7 1.7 0 0 0-.34-1.88l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6V4a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 .6 1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.2.36.4.67.6 1H20a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-.51 1Z">
+              </path>
+            </svg>
+          </button>
+          <div class="profile" aria-label="Perfil do usuario">
+            <span class="avatar">BG</span>
+            <div>
+              <strong>Barbara Gianazi</strong>
+              <small>Administradora</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="content">
+        <div class="section-title">
+          <div>
+            <h2>Página inicial da Loja</h2>
+            <p>Substitua esta area pelo conteudo especifico do projeto.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    window.BipperShellConfig = {
+      app: 'loja',
+      active: 'loja',
+      menuUrl: '../config/menu.json',
+      assetPathPrefix: '../'
+    };
+  </script>
+  <script src="../shared/app-shell.js"></script>
+</body>
+
+</html>
