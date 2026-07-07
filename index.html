@@ -5,21 +5,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BIPPER — Bem-vindo</title>
-  <link rel="icon" type="image/png" href="assets/logos/fav-icon.png">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="shared/assets/logos/fav-icon.png">
+  <link rel="stylesheet" href="css/home-shell.css">
+  <link rel="stylesheet" href="css/home-dashboard.css">
+  <link rel="stylesheet" href="css/home-modals.css">
+  <link rel="stylesheet" href="css/home-responsive.css">
   <script src="script.js" defer></script>
-  <script src="theme-switcher.js" defer></script>
   <meta name="description" content="Redesign moderno da tela de boas-vindas do Portal BIPPER." />
 </head>
 
 <body>
   <div class="app-shell">
     <aside class="sidebar" id="sidebar" aria-label="Menu principal">
-      <div class="brand">
+      <div class="brand" data-brands-url="shared/data/brands.json">
         <div class="brand__area" aria-label="Marca ativa">
           <button class="brand__logo-btn" type="button" aria-label="Selecionar marca" aria-haspopup="true"
             aria-expanded="false">
-            <img src="assets/logos/zoetis-dark.svg" alt="Zoetis" class="brand__logo" data-logo="dark">
+            <img src="shared/assets/logos/zoetis-dark.svg" alt="Zoetis" class="brand__logo" data-logo="dark">
           </button>
           <div class="brand-dropdown" role="menu" aria-label="Selecionar marca"></div>
         </div>
@@ -95,7 +97,7 @@
           </div>
           <div class="profile" aria-label="Perfil do usuário">
             <div class="avatar">HD</div>
-            <div><strong>Humberto Delazane</strong><small>humberto.delazane@upper.net.br</small></div>
+            <div><strong>Bárbara Gianazi</strong><small>barbara.gianazi@upper.net.br</small></div>
           </div>
         </div>
       </header>
@@ -109,7 +111,7 @@
                   <path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2Z" />
                   <path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z" />
                 </svg> Painel de gestão atualizado há 2 min</span>
-              <h1 id="welcome-title">Boa tarde, Humberto! 👋</h1>
+              <h1 id="welcome-title">Boa tarde, Bárbara! 👋</h1>
               <p>Centralize o acesso aos módulos, acompanhe pendências importantes e retome suas atividades com menos
                 cliques. A página agora prioriza ação rápida, contexto e leitura visual.</p>
               <div class="hero-actions">
@@ -224,9 +226,9 @@
         </div>
 
         <div class="filter-panel" id="filters" aria-label="Categorias">
-          <button class="filter-chip is-active" data-filter="all">Todas<span>13</span></button>
+          <button class="filter-chip is-active" data-filter="all">Todas<span>14</span></button>
           <button class="filter-chip" data-filter="Gestão">Gestão<span>5</span></button><button class="filter-chip"
-            data-filter="Comercial">Comercial<span>2</span></button><button class="filter-chip"
+            data-filter="Comercial">Comercial<span>3</span></button><button class="filter-chip"
             data-filter="Marketing">Marketing<span>2</span></button><button class="filter-chip"
             data-filter="Operações">Operações<span>2</span></button><button class="filter-chip"
             data-filter="Financeiro">Financeiro<span>1</span></button><button class="filter-chip"
@@ -301,7 +303,7 @@
             </ul>
           </article>
 
-          <article class="area-card" data-category="Comercial" data-search="comercial crm solicitações"
+          <article class="area-card" data-category="Comercial" data-search="comercial crm solicitações loja catalogo catálogo produtos brindes personalizados"
             style="--accent:#2563eb; --soft:#eaf2ff;">
             <div class="area-card__top">
               <div class="area-card__icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -313,7 +315,7 @@
             </div>
             <div class="module-name">
               <h3>Comercial</h3>
-              <span class="number-modules">2 módulos</span>
+              <span class="number-modules">3 módulos</span>
             </div>
             <p>Clientes, oportunidades, solicitações e relacionamento.</p>
             <ul class="module-list">
@@ -329,6 +331,13 @@
                 <div class="module-item__content"><span>Solicitações</span><small>Gerencie demandas e
                     solicitações.</small></div>
                 <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Solicitações"
+                  aria-pressed="false" type="button">☆</button>
+              </li>
+              <li class="module-item" data-module-id="comercial-loja" data-module-name="Loja"
+                data-module-description="Acesse catálogo, produtos e brindes personalizados." data-module-route="/loja/">
+                <div class="module-item__content"><span>Loja</span><small>Acesse catálogo, produtos e brindes
+                    personalizados.</small></div>
+                <button class="favorite-btn module-favorite-btn" aria-label="Favoritar Loja"
                   aria-pressed="false" type="button">☆</button>
               </li>
             </ul>
@@ -648,7 +657,7 @@
           <span class="customize-item__content"><strong>Boas vindas</strong><small>Módulo de boas-vindas e
               ações principais.</small></span>
           <button class="customize-eye" type="button" data-customize-toggle="welcome" aria-pressed="true"
-            aria-label="Ocultar Boa tarde, Humberto">
+            aria-label="Ocultar Boa tarde, Bárbara">
             <svg class="customize-eye__open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />

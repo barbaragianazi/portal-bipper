@@ -102,7 +102,7 @@ Se houver conflito entre uma preferencia local e este documento, este documento 
 
 ### Temas por marca
 
-As marcas sao configuradas em `data/brands.json` com `primary`, `secondary`, `surface`, `surfaceAlt`, `text`, `textLight`, `border`, gradientes suaves e logos. O `theme-switcher.js` aplica dinamicamente:
+As marcas sao configuradas em `shared/data/brands.json` com `primary`, `secondary`, `surface`, `surfaceAlt`, `text`, `textLight`, `border`, gradientes suaves e logos. O `shared/app-shell.js` aplica dinamicamente:
 
 - `--brand-primary`
 - `--brand-secondary`
@@ -131,10 +131,10 @@ Cada marca deve seguir este modelo minimo:
     "gradient-soft-1": "#F65C0029",
     "gradient-soft-2": "#CE520833",
     "gradient-soft-3": "#F65C004D",
-    "logoLight": "assets/logos/marca-light.svg",
-    "logoDark": "assets/logos/marca-dark.svg",
-    "footerLogoLight": "assets/logos/marca-light.svg",
-    "footerLogoDark": "assets/logos/marca-dark.svg",
+    "logoLight": "shared/assets/logos/marca-light.svg",
+    "logoDark": "shared/assets/logos/marca-dark.svg",
+    "footerLogoLight": "shared/assets/logos/marca-light.svg",
+    "footerLogoDark": "shared/assets/logos/marca-dark.svg",
     "footerLogoName": "Nome alternativo do logo"
   }
 }
@@ -449,12 +449,12 @@ Use como ponto de partida para telas novas. Substitua apenas a area dentro de `.
 
 ### `shared/brand-schema.json`
 
-Use para documentar e validar mentalmente a estrutura de novas marcas. O arquivo nao substitui `data/brands.json`; ele descreve o contrato que novos projetos devem seguir.
+Use para documentar e validar mentalmente a estrutura de novas marcas. O arquivo nao substitui `shared/data/brands.json`; ele descreve o contrato que novos projetos devem seguir.
 
 ## Boas Praticas Ja Usadas
 
 - Centralizar identidade visual em variaveis CSS e trocar marca sem duplicar estilos.
-- Usar `data/brands.json` para separar configuracao visual de logica.
+- Usar `shared/data/brands.json` para separar configuracao visual de logica.
 - Preferir componentes com classes BEM-like (`block__element`, `block--modifier`).
 - Usar estados explicitos: `.is-active`, `.is-visible`, `.is-open`, `.is-hidden`, `.is-positive`, `.is-negative`.
 - Usar atributos ARIA em botoes, modais e controles (`aria-label`, `aria-expanded`, `aria-hidden`, `aria-modal`, `aria-pressed`).

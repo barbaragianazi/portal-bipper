@@ -4,6 +4,7 @@
   const DEFAULT_BRANDS_URL = 'shared/data/brands.json';
   const DEFAULT_MENU_URL = 'config/menu.json';
   const STORAGE_KEY = 'lp_active_brand';
+  const SIDEBAR_STORAGE_KEY = 'bipper_sidebar_collapsed';
 
   const ICONS = {
     home: '<path d="M3 11.5 12 4l9 7.5"></path><path d="M5 10.5V20h14v-9.5"></path>',
@@ -28,6 +29,7 @@
     calculator: '<rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M8 7h8"></path><path d="M8 11h.01"></path><path d="M12 11h.01"></path><path d="M16 11h.01"></path><path d="M8 15h.01"></path><path d="M12 15h.01"></path><path d="M16 15h.01"></path>',
     requests: '<path d="M4 7h6l-2-2"></path><path d="M10 7 8 9"></path><path d="M20 17h-6l2 2"></path><path d="M14 17l2-2"></path><path d="M7 17c3 0 4-10 10-10"></path>',
     training: '<path d="M3 8l9-4 9 4-9 4-9-4Z"></path><path d="M7 10v5c2.5 2 7.5 2 10 0v-5"></path><path d="M21 8v6"></path>',
+    chevronDown: '<path d="m6 9 6 6 6-6"></path>',
     external: '<path d="M14 4h6v6"></path><path d="M10 14 20 4"></path><path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5"></path>'
   };
 
@@ -105,19 +107,36 @@
     return '#';
   }
 
+  function isMenuItemActive(item, activeKey) {
+    if (item.active || (item.key && item.key === activeKey)) return true;
+    return (item.children || []).some((child) => isMenuItemActive(child, activeKey));
+  }
+
   function createMenuItem(item, config) {
-    const link = document.createElement('a');
     const activeKey = config.active || config.app;
-    const isActive = item.active || (item.key && item.key === activeKey);
+    const isActive = isMenuItemActive(item, activeKey);
+    const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+    const link = hasChildren ? document.createElement('button') : document.createElement('a');
 
     link.className = 'nav-link';
-    link.href = resolveMenuHref(item, config.links);
-    if (isActive) link.classList.add('active');
-    if (item.target) link.target = item.target;
-    if (item.rel) link.rel = item.rel;
-    if (item.external) {
-      link.target = item.target || '_blank';
-      link.rel = item.rel || 'noopener noreferrer';
+    link.dataset.tooltip = item.label;
+    link.setAttribute('aria-label', item.label);
+    if (hasChildren) {
+      link.type = 'button';
+      link.setAttribute('aria-expanded', String(isActive));
+      link.dataset.href = resolveMenuHref(item, config.links);
+    } else {
+      link.href = resolveMenuHref(item, config.links);
+    }
+    if (isActive && !hasChildren) link.classList.add('active');
+    if (hasChildren) link.classList.add('nav-link--parent');
+    if (!hasChildren) {
+      if (item.target) link.target = item.target;
+      if (item.rel) link.rel = item.rel;
+      if (item.external) {
+        link.target = item.target || '_blank';
+        link.rel = item.rel || 'noopener noreferrer';
+      }
     }
 
     link.appendChild(createIcon(item.icon));
@@ -133,7 +152,75 @@
       link.appendChild(badge);
     }
 
+    if (hasChildren) {
+      const chevron = createIcon('chevronDown');
+      chevron.classList.add('nav-link__chevron');
+      link.appendChild(chevron);
+    }
+
     return link;
+  }
+
+  function createSubmenuItem(item, config) {
+    const activeKey = config.active || config.app;
+    const link = document.createElement('a');
+    const isActive = item.active || (item.key && item.key === activeKey);
+
+    link.className = 'nav-submenu__link';
+    link.href = resolveMenuHref(item, config.links);
+    if (isActive) link.classList.add('active');
+    if (isActive) link.setAttribute('aria-current', 'page');
+    if (item.target) link.target = item.target;
+    if (item.rel) link.rel = item.rel;
+    if (item.external) {
+      link.target = item.target || '_blank';
+      link.rel = item.rel || 'noopener noreferrer';
+    }
+    link.textContent = item.label;
+
+    return link;
+  }
+
+  function createMenuGroup(item, config) {
+    const group = document.createElement('div');
+    const activeKey = config.active || config.app;
+    const isActive = isMenuItemActive(item, activeKey);
+
+    group.className = 'nav-group';
+    if (isActive) group.classList.add('has-active');
+    if (isActive) group.classList.add('is-open');
+    group.appendChild(createMenuItem(item, config));
+
+    if (Array.isArray(item.children) && item.children.length > 0) {
+      group.classList.add('has-children');
+      const parentButton = group.querySelector('.nav-link--parent');
+      const submenu = document.createElement('div');
+      submenu.className = 'nav-submenu';
+      submenu.setAttribute('aria-label', item.label);
+      submenu.hidden = !isActive;
+
+      item.children.forEach((child) => {
+        submenu.appendChild(createSubmenuItem(child, config));
+      });
+
+      group.appendChild(submenu);
+
+      parentButton?.addEventListener('click', () => {
+        const isMobile = window.matchMedia('(max-width: 980px)').matches;
+        if (!isMobile && document.body.classList.contains('sidebar-collapsed')) {
+          const href = parentButton.dataset.href;
+          if (href && href !== '#') window.location.href = href;
+          return;
+        }
+
+        const willOpen = !group.classList.contains('is-open');
+        group.classList.toggle('is-open', willOpen);
+        parentButton.setAttribute('aria-expanded', String(willOpen));
+        submenu.hidden = !willOpen;
+      });
+    }
+
+    return group;
   }
 
   function renderMenu(menuRoot, menuConfig) {
@@ -161,7 +248,7 @@
       }
 
       (section.items || []).forEach((item) => {
-        nav.appendChild(createMenuItem(item, mergedConfig));
+        nav.appendChild(createMenuGroup(item, mergedConfig));
       });
 
       menuRoot.appendChild(nav);
@@ -287,6 +374,10 @@
     if (!sidebar || sidebar.dataset.shellSidebarInitialized === 'true') return;
     sidebar.dataset.shellSidebarInitialized = 'true';
 
+    if (localStorage.getItem(SIDEBAR_STORAGE_KEY) === 'true') {
+      document.body.classList.add('sidebar-collapsed');
+    }
+
     const syncState = () => {
       const isMobile = window.matchMedia('(max-width: 980px)').matches;
       const isOpen = sidebar.classList.contains('is-open');
@@ -311,6 +402,10 @@
         sidebar.classList.toggle('is-open');
       } else {
         document.body.classList.toggle('sidebar-collapsed');
+        localStorage.setItem(
+          SIDEBAR_STORAGE_KEY,
+          String(document.body.classList.contains('sidebar-collapsed'))
+        );
       }
       syncState();
     });

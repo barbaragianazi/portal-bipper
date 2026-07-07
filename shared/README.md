@@ -12,7 +12,7 @@ Manual de uso da pasta `shared/`. Esta pasta funciona como um kit base do Portal
 - `master-page.html`: pagina mestre copiavel para iniciar uma nova tela com shell completo.
 - `brand-schema.json`: contrato para criar ou validar arquivos de marcas.
 - `data/brands.json`: marcas prontas para uso no novo projeto.
-- `assets/logos/`: logos usados por `data/brands.json`.
+- `assets/logos/`: logos usados por `shared/data/brands.json`.
 
 ## Passo a passo para um novo projeto
 
@@ -64,7 +64,7 @@ No `<head>` da nova pagina, mantenha esta ordem:
 Depois disso, se o novo projeto tiver estilos proprios, coloque por ultimo:
 
 ```html
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="css/app.css">
 ```
 
 ### 4. Importar o JavaScript do shell
@@ -95,10 +95,10 @@ No HTML da sidebar, o caminho padrao fica assim:
 
 Se voce mudar a estrutura de pastas, ajuste esse caminho.
 
-Se optar por manter o JSON fora de `shared/`, por exemplo em `data/brands.json`, use:
+Se optar por manter um JSON customizado fora de `shared/`, por exemplo em `config/custom-brands.json`, use:
 
 ```html
-<div class="brand" data-brands-url="data/brands.json">
+<div class="brand" data-brands-url="config/custom-brands.json">
 ```
 
 Nesse caso, lembre tambem de ajustar os caminhos dos logos dentro desse JSON.
