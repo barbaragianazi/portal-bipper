@@ -116,7 +116,7 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+    background: var(--brand-primary);
     color: #fff;
 }
 
@@ -228,7 +228,6 @@
     width: 100%;
     border: 1px dashed #cbd5e1;
     border-radius: 18px;
-    /* background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); */
     color: #475569;
     display: grid;
     place-items: center;
@@ -665,9 +664,9 @@
 }
 
 .favorite-btn.is-active {
-    color: #f59e0b;
-    background: #fffbeb;
-    border-color: #fde68a;
+    color: #d71920;
+    background: #eec9ca;
+    border-color: #d71920;
 }
 
 .favorite-btn:hover {

@@ -1,0 +1,117 @@
+{
+  "balance": 11250.0,
+  "breadcrumb": [
+    { "label": "Início", "href": "/" },
+    { "label": "Loja", "href": "/loja/" },
+    { "label": "Brindes personalizados", "href": null }
+  ],
+  "heroSlides": [
+    {
+      "id": "novidade",
+      "eyebrow": "Novidade",
+      "title": "Quem não é visto, não é lembrado!",
+      "subtitle": "Canecas, garrafas, mochilas e acessórios personalizados para fortalecer sua marca em todos os momentos.",
+      "cta": "Faça seu pedido",
+      "icon": "gift",
+      "image": "assets/hero/novidade.jpg"
+    },
+    {
+      "id": "kits-corporativos",
+      "eyebrow": "Edição limitada",
+      "title": "Kits corporativos com a sua marca",
+      "subtitle": "Personalize brindes com o logo da sua equipe e fortaleça o relacionamento com clientes.",
+      "cta": "Ver kits",
+      "icon": "box",
+      "image": "assets/hero/kits-corporativos.jpg"
+    },
+    {
+      "id": "resgate-rapido",
+      "eyebrow": "Resgate rápido",
+      "title": "Troque pontos por brindes exclusivos",
+      "subtitle": "Do escritório ao campo, produtos pensados para o dia a dia do time comercial.",
+      "cta": "Explorar catálogo",
+      "icon": "spark",
+      "image": "assets/hero/resgate-rapido.jpg"
+    }
+  ],
+  "categories": [
+    { "id": "todos", "label": "Todos", "icon": "grid", "iconPath": "assets/categorias/todos.svg", "color": "#111111" },
+    { "id": "ofertas", "label": "Ofertas", "icon": "percent", "iconPath": "assets/categorias/ofertas.svg", "color": "#D62B2B" },
+    { "id": "viagens", "label": "Viagens", "icon": "plane", "iconPath": "assets/categorias/viagens.svg", "color": "#0D2278" },
+    { "id": "casa", "label": "Casa", "icon": "home", "iconPath": "assets/categorias/casa.svg", "color": "#FF911C" },
+    { "id": "ferramentas", "label": "Ferramentas", "icon": "wrench", "iconPath": "assets/categorias/ferramentas.svg", "color": "#366146" },
+    { "id": "cozinha", "label": "Cozinha", "icon": "cutlery", "iconPath": "assets/categorias/cozinha.svg", "color": "#364361" },
+    { "id": "eletroportateis", "label": "Eletroportáteis", "icon": "blender", "iconPath": "assets/categorias/eletroportateis.svg", "color": "#6624A5" },
+    { "id": "brinquedos", "label": "Brinquedos", "icon": "toy", "iconPath": "assets/categorias/brinquedos.svg", "color": "#E06100" },
+    { "id": "automotivo", "label": "Automotivo", "icon": "car", "iconPath": "assets/categorias/automotivo.svg", "color": "#3A3939" },
+    { "id": "utilidades-domesticas", "label": "Utilidades domésticas", "icon": "broom", "iconPath": "assets/categorias/utilidades-domesticas.svg", "color": "#E2970B" },
+    { "id": "comunicacao", "label": "Comunicação", "icon": "chat", "iconPath": "assets/categorias/comunicacao.svg", "color": "#CC4A4A" },
+    { "id": "brindes", "label": "Brindes", "icon": "gift", "iconPath": "assets/categorias/brindes.svg", "color": "#598B39" },
+    { "id": "eletronicos", "label": "Eletrônicos", "icon": "chip", "iconPath": "assets/categorias/eletronicos.svg", "color": "#FFAB3E" },
+    { "id": "maquinas", "label": "Máquinas", "icon": "gear", "iconPath": "assets/categorias/maquinas.svg", "color": "#272727" },
+    { "id": "materiais-graficos", "label": "Materiais gráficos", "icon": "notebook", "iconPath": "assets/categorias/materiais-graficos.svg", "color": "#229362" },
+    { "id": "cursos", "label": "Cursos", "icon": "graduation", "iconPath": "assets/categorias/cursos.svg", "color": "#150E92" }
+  ],
+  "filters": [
+    { "id": "reset", "label": "Todos", "icon": "filter" },
+    { "id": "redeem-now", "label": "Resgatáveis agora" },
+    { "id": "most-redeemed", "label": "Mais resgatados" },
+    { "id": "lowest-price", "label": "Menor valor" },
+    { "id": "physical", "label": "Produtos físicos" },
+    { "id": "digital", "label": "Produtos digitais" }
+  ],
+  "sideBanner": {
+    "title": "Brindes personalizados",
+    "subtitle": "Leve a sua marca para o dia a dia do time com uma linha completa de itens personalizáveis.",
+    "cta": "Ver linha completa",
+    "icon": "gift"
+  },
+  "products": [
+    { "id": "p01", "name": "Sachê unitário de café gourmet 500g", "badge": "Personalizado", "category": "cozinha", "type": "fisico", "redeemNow": true, "rating": 4.8, "soldCount": 845, "oldPrice": 12.9, "price": 9.9, "installment": "ou 3x de R$ 3,30 sem juros", "icon": "coffee", "image": "assets/produtos/p01.jpg" },
+    { "id": "p02", "name": "Bolsinha para canivete em couro", "badge": "Personalizado", "category": "ferramentas", "type": "fisico", "redeemNow": false, "rating": 4.7, "soldCount": 312, "oldPrice": 99.9, "price": 69.9, "installment": "ou 3x de R$ 23,30 sem juros", "icon": "pouch", "image": "assets/produtos/p02.jpg" },
+    { "id": "p03", "name": "Chaveiro de metal com couro", "badge": "Novo", "category": "brindes", "type": "fisico", "redeemNow": true, "rating": 4.9, "soldCount": 845, "oldPrice": 39.9, "price": 29.9, "installment": "ou 3x de R$ 9,97 sem juros", "icon": "keychain", "image": "assets/produtos/p03.jpg" },
+    { "id": "p04", "name": "Mochila expansível PU 25L", "badge": "Desenvolvimento", "category": "viagens", "type": "fisico", "redeemNow": false, "rating": 4.6, "soldCount": 845, "oldPrice": 259.9, "price": 199.9, "installment": "ou 3x de R$ 66,63 sem juros", "icon": "backpack", "image": "assets/produtos/p04.jpg" },
+    { "id": "p05", "name": "Kit executivo com 2 peças", "badge": "Desenvolvimento", "category": "materiais-graficos", "type": "fisico", "redeemNow": false, "rating": 4.5, "soldCount": 190, "oldPrice": 129.9, "price": 89.9, "installment": "ou 3x de R$ 29,97 sem juros", "icon": "portfolio", "image": "assets/produtos/p05.jpg" },
+    { "id": "p06", "name": "Caderneta com suporte para celular", "badge": "Personalizado", "category": "materiais-graficos", "type": "fisico", "redeemNow": false, "rating": 4.7, "soldCount": 845, "oldPrice": 89.9, "price": 69.9, "installment": "ou 3x de R$ 23,30 sem juros", "icon": "notebook", "image": "assets/produtos/p06.jpg" },
+    { "id": "p07", "name": "Kit executivo ecológico 3 peças", "badge": "Personalizado", "category": "materiais-graficos", "type": "fisico", "redeemNow": true, "rating": 4.6, "soldCount": 845, "oldPrice": 54.9, "price": 34.9, "installment": "ou 3x de R$ 11,63 sem juros", "icon": "eco-kit", "image": "assets/produtos/p07.jpg" },
+    { "id": "p08", "name": "Caderneta personalizada em linho c/ porta caneta", "badge": "Personalizado", "category": "materiais-graficos", "type": "fisico", "redeemNow": false, "rating": 4.8, "soldCount": 845, "oldPrice": 79.9, "price": 59.9, "installment": "ou 3x de R$ 19,97 sem juros", "icon": "notebook", "image": "assets/produtos/p08.jpg" },
+    { "id": "p09", "name": "Caderneta cortiça sustentável", "badge": "Personalizado", "category": "materiais-graficos", "type": "fisico", "redeemNow": true, "rating": 4.4, "soldCount": 120, "oldPrice": 14.9, "price": 11.9, "installment": "ou 3x de R$ 3,97 sem juros", "icon": "eco-kit", "image": "assets/produtos/p09.jpg" },
+    { "id": "p10", "name": "Caderno A5 capa plástica", "badge": "Novo", "category": "materiais-graficos", "type": "fisico", "redeemNow": false, "rating": 4.5, "soldCount": 845, "oldPrice": 89.9, "price": 69.9, "installment": "ou 3x de R$ 23,30 sem juros", "icon": "notebook", "image": "assets/produtos/p10.jpg" },
+    { "id": "p11", "name": "Kit ecológico caneta e lapiseira bambu", "badge": "Personalizado", "category": "ferramentas", "type": "fisico", "redeemNow": true, "rating": 4.6, "soldCount": 655, "oldPrice": 39.9, "price": 29.9, "installment": "ou 3x de R$ 9,97 sem juros", "icon": "pen", "image": "assets/produtos/p11.jpg" },
+    { "id": "p12", "name": "Garrafa plástica 700ml", "badge": "B.Sig", "category": "casa", "type": "fisico", "redeemNow": true, "rating": 4.7, "soldCount": 845, "oldPrice": 39.9, "price": 29.9, "installment": "ou 3x de R$ 9,97 sem juros", "icon": "bottle", "image": "assets/produtos/p12.jpg" },
+    { "id": "p13", "name": "Tábua de corte com canaleta em bambu", "badge": "Personalizado", "category": "cozinha", "type": "fisico", "redeemNow": false, "rating": 4.8, "soldCount": 210, "oldPrice": 134.9, "price": 99.9, "installment": "ou 3x de R$ 33,30 sem juros", "icon": "cutting-board", "image": "assets/produtos/p13.jpg" },
+    { "id": "p14", "name": "Kit vinho e garrafa 5 peças", "badge": "Personalizado", "category": "casa", "type": "fisico", "redeemNow": false, "rating": 4.5, "soldCount": 98, "oldPrice": 79.9, "price": 59.9, "installment": "ou 3x de R$ 19,97 sem juros", "icon": "wine-kit", "image": "assets/produtos/p14.jpg" },
+    { "id": "p15", "name": "Kit churrasco 5 peças", "badge": "Personalizado", "category": "cozinha", "type": "fisico", "redeemNow": true, "rating": 4.6, "soldCount": 340, "oldPrice": 99.9, "price": 69.9, "installment": "ou 3x de R$ 23,30 sem juros", "icon": "bbq-kit", "image": "assets/produtos/p15jpg.png" },
+    { "id": "p16", "name": "Petisqueira com garrafa whisky inox", "badge": "B.Sig", "category": "cozinha", "type": "fisico", "redeemNow": true, "rating": 4.4, "soldCount": 205, "oldPrice": 39.9, "price": 29.9, "installment": "ou 3x de R$ 9,97 sem juros", "icon": "flask", "image": "assets/produtos/p16.jpg" },
+    { "id": "p17", "name": "Pasta para notebook 15,6 polegadas", "badge": "Desenvolvimento", "category": "viagens", "type": "fisico", "redeemNow": false, "rating": 4.5, "soldCount": 845, "oldPrice": 124.9, "price": 89.9, "installment": "ou 3x de R$ 29,97 sem juros", "icon": "laptop-bag", "image": "assets/produtos/p17.jpg" },
+    { "id": "p18", "name": "Mochila para notebook executiva", "badge": "Desenvolvimento", "category": "viagens", "type": "fisico", "redeemNow": false, "rating": 4.6, "soldCount": 845, "oldPrice": 124.9, "price": 89.9, "installment": "ou 3x de R$ 29,97 sem juros", "icon": "backpack", "image": "assets/produtos/p18.jpg" }
+  ],
+  "promotions": {
+    "title": "Promoções ativas",
+    "linkLabel": "Ver todas",
+    "items": [
+      { "title": "Agro é pop, agro é JBL!", "subtitle": "Descontos em toda a linha JBL", "cta": "Ver produtos", "image": "assets/promocoes/jbl.jpg" },
+      { "title": "Brinde à amizade", "subtitle": "Toda a linha Stanley com até 10% OFF", "cta": "Ver produtos", "image": "assets/promocoes/stanley.jpg" },
+      { "title": "Black Friday antecipada", "subtitle": "Categorias selecionadas com até 85% OFF", "cta": "Ver produtos", "image": "assets/promocoes/black-friday.jpg" },
+      { "title": "Semana do cliente", "subtitle": "Ofertas especiais em produtos selecionados", "cta": "Ver produtos", "image": "assets/promocoes/semana-cliente.jpg" }
+    ]
+  },
+  "giftCards": {
+    "title": "Gift cards",
+    "linkLabel": "Ver todos",
+    "items": [
+      { "name": "Netflix", "icon": "netflix", "image": "assets/gift-cards/netflix.png" },
+      { "name": "Steam", "icon": "steam", "image": "assets/gift-cards/steam.png" },
+      { "name": "Google Play", "icon": "google-play", "image": "assets/gift-cards/google-play.png" },
+      { "name": "Spotify", "icon": "spotify", "image": "assets/gift-cards/spotify.png" },
+      { "name": "Uber", "icon": "uber", "image": "assets/gift-cards/uber.png" },
+      { "name": "PlayStation", "icon": "playstation", "image": "assets/gift-cards/playstation.png" },
+      { "name": "Xbox", "icon": "xbox", "image": "assets/gift-cards/xbox.png" }
+    ]
+  },
+  "finalBanner": {
+    "title": "Confira todos os nossos produtos",
+    "subtitle": "Novos itens personalizados chegam toda semana ao catálogo.",
+    "cta": "Ver catálogo completo"
+  }
+}

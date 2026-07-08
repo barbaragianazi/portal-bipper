@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../shared/design-tokens.css">
   <link rel="stylesheet" href="../shared/base-components.css">
   <link rel="stylesheet" href="../shared/app-shell.css">
+  <link rel="stylesheet" href="brindes-personalizados.css">
 </head>
 
 <body>
@@ -95,15 +96,190 @@
         </div>
       </header>
 
-      <section class="content">
-        <div class="section-title">
-          <div>
-            <h2>Brindes personalizados</h2>
-            <p>Área inicial para o catálogo de brindes personalizados da loja.</p>
+      <section class="content bp-page is-loading" id="bpPage" data-json-url="data/brindes-personalizados.json">
+        <div class="bp-skeleton" id="bpSkeleton" aria-label="Carregando brindes personalizados" aria-live="polite">
+          <div class="bp-skeleton__top">
+            <span class="bp-skeleton__line bp-skeleton__line--short"></span>
+            <span class="bp-skeleton__line"></span>
+            <span class="bp-skeleton__pill"></span>
           </div>
+          <div class="bp-skeleton__hero"></div>
+          <div class="bp-skeleton__categories">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="bp-skeleton__filters">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="bp-skeleton__grid">
+            <article></article><article></article><article></article><article></article>
+          </div>
+        </div>
+
+        <div class="bp-content-ready" aria-hidden="true">
+        <nav class="bp-breadcrumb" aria-label="Caminho de navegação">
+          <ol class="bp-breadcrumb__path" id="bpBreadcrumb"></ol>
+
+          <label class="search-box">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+            <input id="bpSearch" type="search" placeholder="Procurar no catálogo..." autocomplete="off">
+          </label>
+
+          <div class="bp-account" aria-label="Saldo e resgates">
+            <button class="bp-balance" id="bpBalance" type="button" aria-label="Ver detalhes do saldo">
+              <img class="bp-balance__icon" src="assets/hero/porquinho.svg" alt="" aria-hidden="true">
+              <span class="bp-balance__label">Saldo:</span>
+              <strong class="bp-balance__value">R$ 0,00</strong>
+            </button>
+            <button class="bp-account__btn bp-account__btn--wishlist" type="button" id="bpWishlistBtn" aria-label="Ver favoritos">
+              <img class="bp-account__icon" src="assets/hero/coracao.svg" alt="" aria-hidden="true">
+              <span class="bp-count" id="bpWishlistCount">0</span>
+            </button>
+            <button class="bp-account__btn bp-account__btn--cart" type="button" id="bpCartBtn" aria-label="Ver carrinho">
+              <img class="bp-account__icon" src="assets/hero/carrinho.svg" alt="" aria-hidden="true">
+              <span class="bp-count" id="bpCartCount">0</span>
+            </button>
+          </div>
+        </nav>
+
+        <section class="bp-hero" id="bpHero" aria-roledescription="carrossel" aria-label="Destaques de brindes personalizados">
+          <div class="bp-hero__track" id="bpHeroTrack"></div>
+          <button class="bp-hero__nav bp-hero__nav--prev" id="bpHeroPrev" type="button" aria-label="Slide anterior">
+            <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+          </button>
+          <button class="bp-hero__nav bp-hero__nav--next" id="bpHeroNext" type="button" aria-label="Próximo slide">
+            <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+          <div class="bp-hero__dots" id="bpHeroDots" role="tablist" aria-label="Selecionar slide"></div>
+        </section>
+
+        <nav class="bp-categories" id="bpCategories" aria-label="Categorias de produtos"></nav>
+
+        <div class="filter-panel" id="bpFilters" aria-label="Filtros de produtos"></div>
+        
+        <section class="bp-grid" id="bpGridPrimary" aria-live="polite">
+          <div class="bp-products" id="bpProductsPrimary"></div>
+          <aside class="bp-side-banner" id="bpSideBanner"></aside>
+        </section>
+
+        <p class="bp-empty" id="bpEmptyState" hidden>Nenhum produto encontrado para os filtros selecionados.</p>
+
+        <section class="bp-dark-section bp-promotions" id="bpPromotions" aria-label="Promoções ativas"></section>
+
+        <div class="bp-products bp-products--full" id="bpProductsSecondary"></div>
+
+        <section class="bp-dark-section bp-giftcards" id="bpGiftCards" aria-label="Gift cards"></section>
+
+        <div class="bp-products bp-products--full" id="bpProductsTertiary"></div>
+
+        <section class="bp-final-banner" id="bpFinalBanner"></section>
+
+        <div class="bp-toast" id="bpToast" role="status" aria-live="polite"></div>
+        <div class="bp-balance-modal" id="bpBalanceModal" hidden>
+          <button class="bp-balance-modal__overlay" type="button" id="bpBalanceOverlay" aria-label="Fechar detalhes do saldo"></button>
+          <section class="bp-balance-card" id="bpBalanceCard" role="dialog" aria-modal="true" aria-labelledby="bpBalanceTitle">
+            <button class="bp-balance-card__close" type="button" id="bpBalanceClose" aria-label="Fechar detalhes do saldo">
+              <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+            </button>
+            <div class="bp-balance-card__top">
+              <div class="bp-balance-card__summary">
+                <div class="bp-balance-card__caption">Saldo disponivel</div>
+                <div class="bp-balance-card__headline">
+                  <img class="bp-balance-card__pig" src="assets/hero/porquinho.svg" alt="" aria-hidden="true">
+                  <strong id="bpBalanceTitle">R$ 0,00</strong>
+                </div>
+                <p class="bp-balance-card__hint">Você pode resgatar <strong id="bpBalanceEligibleProducts">0 produtos</strong></p>
+              </div>
+              <div class="bp-balance-card__meter">
+                <svg viewBox="0 0 120 120" aria-hidden="true">
+                  <circle class="bp-balance-card__ring-track" cx="60" cy="60" r="44"></circle>
+                  <circle class="bp-balance-card__ring-value" id="bpBalanceRing" cx="60" cy="60" r="44"></circle>
+                </svg>
+                <div class="bp-balance-card__meter-copy">
+                  <strong id="bpBalanceUsagePercent">0,00%</strong>
+                  <span>do saldo ja utilizado</span>
+                </div>
+              </div>
+            </div>
+            <div class="bp-balance-card__stats">
+              <article class="bp-balance-card__stat">
+                <span class="bp-balance-card__stat-label">Utilizado no carrinho</span>
+                <strong class="bp-balance-card__stat-value" id="bpBalanceCartValue">R$ 0,00</strong>
+              </article>
+              <article class="bp-balance-card__stat">
+                <span class="bp-balance-card__stat-label">Voce ainda pode resgatar</span>
+                <strong class="bp-balance-card__stat-value" id="bpBalanceRemainingValue">R$ 0,00</strong>
+              </article>
+            </div>
+          </section>
+        </div>
+        <div class="bp-cart-modal" id="bpCartModal" hidden>
+          <button class="bp-cart-modal__overlay" type="button" id="bpCartOverlay" aria-label="Fechar carrinho"></button>
+          <section class="bp-cart-card" id="bpCartCard" role="dialog" aria-modal="true" aria-labelledby="bpCartTitle">
+            <button class="bp-cart-card__close" type="button" id="bpCartClose" aria-label="Fechar carrinho">
+              <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+            </button>
+            <div class="bp-cart-card__header">
+              <div>
+                <span class="bp-cart-card__caption">Carrinho</span>
+                <h2 class="bp-cart-card__title" id="bpCartTitle">Seus resgates</h2>
+              </div>
+              <div class="bp-cart-card__summary">
+                <span class="bp-cart-card__summary-label">Total</span>
+                <strong class="bp-cart-card__summary-value" id="bpCartTotal">R$ 0,00</strong>
+              </div>
+            </div>
+            <p class="bp-cart-card__hint" id="bpCartHint">Revise os itens antes de finalizar o resgate.</p>
+            <div class="bp-cart-card__items" id="bpCartItems"></div>
+            <div class="bp-cart-card__footer">
+              <button class="btn btn-primary bp-cart-card__cta" type="button" id="bpCartCheckout">Finalizar resgate</button>
+            </div>
+          </section>
+        </div>
+        <div class="bp-favorites-modal" id="bpFavoritesModal" hidden>
+          <button class="bp-favorites-modal__overlay" type="button" id="bpFavoritesOverlay" aria-label="Fechar favoritos"></button>
+          <section class="bp-favorites-card" id="bpFavoritesCard" role="dialog" aria-modal="true" aria-labelledby="bpFavoritesTitle">
+            <button class="bp-favorites-card__close" type="button" id="bpFavoritesClose" aria-label="Fechar favoritos">
+              <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+            </button>
+            <div class="bp-favorites-card__header">
+              <div>
+                <span class="bp-favorites-card__caption">Favoritos</span>
+                <h2 class="bp-favorites-card__title" id="bpFavoritesTitle">Produtos salvos</h2>
+              </div>
+            </div>
+            <p class="bp-favorites-card__hint" id="bpFavoritesHint">Acesse seus produtos favoritos e mova-os para o carrinho.</p>
+            <div class="bp-favorites-card__items" id="bpFavoritesItems"></div>
+          </section>
+        </div>
         </div>
       </section>
     </main>
+  </div>
+
+  <div class="favorite-modal is-negative" id="bpCartRemoveModal" aria-hidden="true">
+    <div class="favorite-modal__backdrop" data-close-cart-remove-modal></div>
+    <div class="favorite-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="bpCartRemoveTitle">
+      <button class="favorite-modal__close" id="bpCartRemoveClose" type="button" aria-label="Fechar confirmação">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </button>
+      <span class="favorite-modal__status" id="bpCartRemoveStatus" aria-hidden="true">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="8"></circle>
+          <path d="M9.5 9.5 14.5 14.5M14.5 9.5 9.5 14.5"></path>
+        </svg>
+      </span>
+      <h2 class="favorite-modal__title" id="bpCartRemoveTitle">Remover produto do carrinho?</h2>
+      <p class="favorite-modal__description" id="bpCartRemoveDescription"></p>
+      <div class="favorite-modal__actions">
+        <button class="favorite-modal__btn favorite-modal__btn--secondary" id="bpCartRemoveCancel" type="button">Cancelar</button>
+        <button class="favorite-modal__btn favorite-modal__btn--primary" id="bpCartRemoveConfirm" type="button">Remover</button>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -115,6 +291,7 @@
     };
   </script>
   <script src="../shared/app-shell.js"></script>
+  <script src="brindes-personalizados.js" defer></script>
 </body>
 
 </html>

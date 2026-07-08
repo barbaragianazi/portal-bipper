@@ -76,7 +76,7 @@ input {
 .content {
     width: min(100% - 64px, var(--max));
     margin: 0 auto;
-    padding: 32px 0 28px;
+    padding: 16px 0 28px;
 }
 
 .section-title {
