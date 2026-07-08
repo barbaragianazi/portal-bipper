@@ -664,8 +664,8 @@
 }
 
 .favorite-btn.is-active {
+    background: #eec9ca; 
     color: #d71920;
-    background: #eec9ca;
     border-color: #d71920;
 }
 

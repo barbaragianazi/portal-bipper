@@ -6,11 +6,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portal Bipper - Pagina Mestre</title>
+  <title>Portal Bipper - Loja</title>
   <link rel="icon" type="image/png" href="../shared/assets/logos/fav-icon.png">
   <link rel="stylesheet" href="../shared/design-tokens.css">
   <link rel="stylesheet" href="../shared/base-components.css">
   <link rel="stylesheet" href="../shared/app-shell.css">
+  <link rel="stylesheet" href="brindes-personalizados.css">
+  <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
@@ -20,8 +22,7 @@
         <div class="brand__area" aria-label="Marca ativa">
           <button class="brand__logo-btn" type="button" aria-label="Selecionar marca" aria-haspopup="true"
             aria-expanded="false">
-            <img src="../shared/assets/logos/zoetis-dark.svg" alt="Zoetis"
-              class="brand__logo" data-logo="dark">
+            <img src="../shared/assets/logos/zoetis-dark.svg" alt="Zoetis" class="brand__logo" data-logo="dark">
           </button>
           <div class="brand-dropdown" role="menu" aria-label="Selecionar marca"></div>
         </div>
@@ -36,84 +37,15 @@
 
       <div data-shell-menu data-menu-url="../config/menu.json">
         <nav class="nav-section" aria-label="Menu principal">
-          <a class="nav-link" href="/"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="1.8" aria-hidden="true">
-              <path d="M3 11.5 12 4l9 7.5"></path>
-              <path d="M5 10.5V20h14v-9.5"></path>
-            </svg><span>Início</span></a>
-          <a class="nav-link active" href="/loja/" aria-current="page"><svg class="icon" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <a class="nav-link active" href="/loja/" aria-current="page">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              aria-hidden="true">
               <path d="M4 10h16l-1-5H5l-1 5Z"></path>
               <path d="M5 10v9h14v-9"></path>
               <path d="M9 19v-5h6v5"></path>
-            </svg><span>Loja</span></a>
-          <a class="nav-link" href="https://sistema-legado.bipper.com.br/administracao"><svg class="icon"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <rect x="4" y="8" width="16" height="11" rx="2"></rect>
-              <path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-              <path d="M9 13h6"></path>
-            </svg><span>Administração</span></a>
-          <a class="nav-link" href="https://sistema-legado.bipper.com.br/auditoria"><svg class="icon"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <rect x="5" y="4" width="14" height="16" rx="2"></rect>
-              <path d="M9 4v3h6V4"></path>
-              <path d="M9 13l2 2 4-5"></path>
-            </svg><span>Auditoria</span></a>
-          <a class="nav-link" href="https://sistema-legado.bipper.com.br/campanha-marketing"><svg class="icon"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path d="M5 21V5"></path>
-              <path d="M5 5c4-2 6 2 10 0 1.5-.75 2.8-.8 4-.35v10c-1.2-.45-2.5-.4-4 .35-4 2-6-2-10 0"></path>
-            </svg><span>Campanha Marketing</span></a>
-          <a class="nav-link" href="https://sistema-legado.bipper.com.br/dashboards"><svg class="icon"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path d="M4 14a8 8 0 1 1 16 0"></path>
-              <path d="M12 14l3-5"></path>
-              <path d="M4 18h16"></path>
-            </svg><span>Dashboards</span></a>
-          <a class="nav-link" href="https://sistema-legado.bipper.com.br/eventos"><svg class="icon" viewBox="0 0 24 24"
-              fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <rect x="4" y="5" width="16" height="15" rx="2"></rect>
-              <path d="M8 3v4"></path>
-              <path d="M16 3v4"></path>
-              <path d="M4 10h16"></path>
-            </svg><span>Eventos</span></a>
-          <a class="nav-link" href="https://sistema-legado.bipper.com.br/mapeamento"><svg class="icon"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path d="M12 21s6-5.3 6-11a6 6 0 0 0-12 0c0 5.7 6 11 6 11Z"></path>
-              <circle cx="12" cy="10" r="2"></circle>
-            </svg><span>Mapeamento</span></a>
-          <a class="nav-link" href="https://sistema-legado.bipper.com.br/plano-de-acao"><svg class="icon"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path d="M4 18h16"></path>
-              <path d="M7 18V9"></path>
-              <path d="M12 18V5"></path>
-              <path d="M17 18v-6"></path>
-            </svg><span>Plano de Ação</span></a>
-          <a class="nav-link" href="https://sistema-legado.bipper.com.br/projetos"><svg class="icon" viewBox="0 0 24 24"
-              fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path d="M13 4c3.5.4 5.6 2.5 6 6l-5 5-5-5 4-6Z"></path>
-              <circle cx="14.5" cy="8.5" r="1.5"></circle>
-            </svg><span>Projetos</span></a>
-          <a class="nav-link" href="https://sistema-legado.bipper.com.br/remuneracao"><svg class="icon"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <rect x="5" y="3" width="14" height="18" rx="2"></rect>
-              <path d="M8 7h8"></path>
-              <path d="M8 11h.01"></path>
-              <path d="M12 11h.01"></path>
-              <path d="M16 11h.01"></path>
-            </svg><span>Remuneração</span></a>
-          <a class="nav-link" href="https://sistema-legado.bipper.com.br/solicitacoes"><svg class="icon"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path d="M4 7h6l-2-2"></path>
-              <path d="M10 7 8 9"></path>
-              <path d="M20 17h-6l2 2"></path>
-              <path d="M14 17l2-2"></path>
-            </svg><span>Solicitações</span></a>
-          <a class="nav-link" href="https://sistema-legado.bipper.com.br/treinamentos"><svg class="icon"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path d="M3 8l9-4 9 4-9 4-9-4Z"></path>
-              <path d="M7 10v5c2.5 2 7.5 2 10 0v-5"></path>
-            </svg><span>Treinamentos</span></a>
+            </svg>
+            <span>Loja</span>
+          </a>
         </nav>
       </div>
       <div class="sidebar-card">
@@ -165,15 +97,258 @@
         </div>
       </header>
 
-      <section class="content">
-        <div class="section-title">
-          <div>
-            <h2>Página inicial da Loja</h2>
-            <p>Substitua esta area pelo conteudo especifico do projeto.</p>
+      <section class="content bp-page shop-home is-loading" id="shopHomePage" data-json-url="data/home-loja.json">
+        <div class="bp-skeleton shop-home__skeleton" id="shopHomeSkeleton" aria-label="Carregando loja" aria-live="polite">
+          <div class="bp-skeleton__top">
+            <span class="bp-skeleton__line bp-skeleton__line--short"></span>
+            <span class="bp-skeleton__line"></span>
+            <span class="bp-skeleton__pill"></span>
+          </div>
+          <div class="bp-skeleton__hero"></div>
+          <div class="bp-skeleton__grid">
+            <article></article><article></article><article></article><article></article>
+          </div>
+        </div>
+
+        <div class="bp-content-ready" aria-hidden="true">
+          <nav class="bp-breadcrumb" aria-label="Caminho de navegação">
+            <ol class="bp-breadcrumb__path" id="bpBreadcrumb"></ol>
+            <label class="search-box">
+              <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="m20 20-3.5-3.5"></path>
+              </svg>
+              <input id="bpSearch" type="search" placeholder="Procurar no catálogo..." autocomplete="off">
+            </label>
+            <div class="bp-account" aria-label="Saldo e resgates">
+              <button class="bp-balance" id="bpBalance" type="button" aria-label="Ver detalhes do saldo">
+                <img class="bp-balance__icon" src="assets/hero/porquinho.svg" alt="" aria-hidden="true">
+                <span class="bp-balance__label">Saldo:</span>
+                <strong class="bp-balance__value">R$ 0,00</strong>
+              </button>
+              <button class="bp-account__btn bp-account__btn--wishlist" type="button" id="bpWishlistBtn" aria-label="Ver favoritos">
+                <img class="bp-account__icon" src="assets/hero/coracao.svg" alt="" aria-hidden="true">
+                <span class="bp-count" id="bpWishlistCount">0</span>
+              </button>
+              <button class="bp-account__btn bp-account__btn--cart" type="button" id="bpCartBtn" aria-label="Ver carrinho">
+                <img class="bp-account__icon" src="assets/hero/carrinho.svg" alt="" aria-hidden="true">
+                <span class="bp-count" id="bpCartCount">0</span>
+              </button>
+            </div>
+          </nav>
+
+          <section class="bp-hero shop-home__hero" id="bpHero" aria-roledescription="carrossel" aria-label="Destaques da loja">
+            <div class="bp-hero__track" id="bpHeroTrack"></div>
+            <button class="bp-hero__nav bp-hero__nav--prev" id="bpHeroPrev" type="button" aria-label="Slide anterior">
+              <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+            </button>
+            <button class="bp-hero__nav bp-hero__nav--next" id="bpHeroNext" type="button" aria-label="Próximo slide">
+              <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+            </button>
+            <div class="bp-hero__dots" id="bpHeroDots" role="tablist" aria-label="Selecionar slide"></div>
+          </section>
+
+          <section class="shop-home__promotions" aria-label="Promoções especiais">
+            <div class="section-title shop-home__section-title">
+              <div>
+                <h2 id="shopPromoTitle">Promoções especiais</h2>
+                <p id="shopPromoSubtitle">Campanhas e vitrines em destaque para impulsionar seus resgates.</p>
+              </div>
+            </div>
+            <div class="shop-home__promo-grid" id="shopPromoGrid"></div>
+          </section>
+
+          <section class="bp-dark-section bp-giftcards shop-home__giftcards" id="bpGiftCards" aria-label="Gift cards"></section>
+
+          <nav class="bp-categories shop-home__categories" id="bpCategories" aria-label="Categorias da loja"></nav>
+
+          <section class="shop-home__toolbar" aria-label="Filtros e navegação da vitrine">
+            <button class="shop-home__filter-trigger" type="button" id="shopFilterTrigger">
+              <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 5h16"></path>
+                <path d="M7 12h10"></path>
+                <path d="M10 19h4"></path>
+              </svg>
+              <span>Filtrar e ordenar</span>
+            </button>
+            <div class="filter-panel shop-home__filters" id="bpFilters" aria-label="Filtros da vitrine"></div>
+            <div class="shop-home__toolbar-side">
+              <div class="shop-home__page-indicator" id="shopPageIndicator">Página 1 de 1</div>
+            </div>
+          </section>
+
+          <section class="shop-home__catalog" aria-live="polite">
+            <div class="shop-home__catalog-head">
+              <div class="section-title shop-home__section-title">
+                <div>
+                  <h2 id="shopProductsTitle">Catálogo da loja</h2>
+                  <p id="shopProductsSubtitle">Escolha entre produtos físicos, kits, utilidades e campanhas especiais.</p>
+                </div>
+              </div>
+            </div>
+            <div class="bp-products shop-home__products" id="bpProductsPrimary"></div>
+            <p class="bp-empty shop-home__empty" id="bpEmptyState" hidden>Nenhum produto encontrado para os filtros selecionados.</p>
+          </section>
+
+          <section class="shop-home__pagination" id="shopPagination" aria-label="Paginação de produtos"></section>
+
+          <section class="shop-home__secondary-banner" id="shopSecondaryBanner" aria-label="Campanha complementar"></section>
+
+          <section class="shop-home__partners" aria-label="Parceiros da loja">
+            <div class="section-title shop-home__section-title">
+              <div>
+                <h2 id="shopPartnersTitle">Parceiros</h2>
+                <p id="shopPartnersSubtitle">Marcas e iniciativas presentes nas campanhas da loja.</p>
+              </div>
+            </div>
+            <div class="shop-home__partners-grid" id="shopPartnersGrid"></div>
+          </section>
+
+          <div class="bp-toast" id="bpToast" role="status" aria-live="polite"></div>
+          <div class="bp-balance-modal" id="bpBalanceModal" hidden>
+            <button class="bp-balance-modal__overlay" type="button" id="bpBalanceOverlay" aria-label="Fechar detalhes do saldo"></button>
+            <section class="bp-balance-card" id="bpBalanceCard" role="dialog" aria-modal="true" aria-labelledby="bpBalanceTitle">
+              <button class="bp-balance-card__close" type="button" id="bpBalanceClose" aria-label="Fechar detalhes do saldo">
+                <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+              <div class="bp-balance-card__top">
+                <div class="bp-balance-card__summary">
+                  <div class="bp-balance-card__caption">Saldo disponivel</div>
+                  <div class="bp-balance-card__headline">
+                    <img class="bp-balance-card__pig" src="assets/hero/porquinho.svg" alt="" aria-hidden="true">
+                    <strong id="bpBalanceTitle">R$ 0,00</strong>
+                  </div>
+                  <p class="bp-balance-card__hint">Você pode resgatar <strong id="bpBalanceEligibleProducts">0 produtos</strong></p>
+                </div>
+                <div class="bp-balance-card__meter">
+                  <svg viewBox="0 0 120 120" aria-hidden="true">
+                    <circle class="bp-balance-card__ring-track" cx="60" cy="60" r="44"></circle>
+                    <circle class="bp-balance-card__ring-value" id="bpBalanceRing" cx="60" cy="60" r="44"></circle>
+                  </svg>
+                  <div class="bp-balance-card__meter-copy">
+                    <strong id="bpBalanceUsagePercent">0,00%</strong>
+                    <span>do saldo ja utilizado</span>
+                  </div>
+                </div>
+              </div>
+              <div class="bp-balance-card__stats">
+                <article class="bp-balance-card__stat">
+                  <span class="bp-balance-card__stat-label">Utilizado no carrinho</span>
+                  <strong class="bp-balance-card__stat-value" id="bpBalanceCartValue">R$ 0,00</strong>
+                </article>
+                <article class="bp-balance-card__stat">
+                  <span class="bp-balance-card__stat-label">Voce ainda pode resgatar</span>
+                  <strong class="bp-balance-card__stat-value" id="bpBalanceRemainingValue">R$ 0,00</strong>
+                </article>
+              </div>
+            </section>
+          </div>
+
+          <div class="bp-cart-modal" id="bpCartModal" hidden>
+            <button class="bp-cart-modal__overlay" type="button" id="bpCartOverlay" aria-label="Fechar carrinho"></button>
+            <section class="bp-cart-card" id="bpCartCard" role="dialog" aria-modal="true" aria-labelledby="bpCartTitle">
+              <button class="bp-cart-card__close" type="button" id="bpCartClose" aria-label="Fechar carrinho">
+                <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+              <div class="bp-cart-card__header">
+                <div>
+                  <!-- <span class="bp-cart-card__caption">Carrinho</span> -->
+                  <h2 class="bp-cart-card__title" id="bpCartTitle">Meu carrinho</h2>
+                </div>
+                <div class="bp-cart-card__summary" id="bpCartSummary">
+                  <span class="bp-cart-card__summary-label">Total</span>
+                  <strong class="bp-cart-card__summary-value" id="bpCartTotal">R$ 0,00</strong>
+                </div>
+              </div>
+              <!-- <p class="bp-cart-card__hint" id="bpCartHint">Revise os itens antes de finalizar o resgate.</p> -->
+              <div class="bp-cart-card__items" id="bpCartItems"></div>
+              <div class="bp-cart-card__footer">
+                <button class="btn btn-primary bp-cart-card__cta" type="button" id="bpCartCheckout">Finalizar resgate</button>
+              </div>
+            </section>
+          </div>
+
+          <div class="bp-favorites-modal" id="bpFavoritesModal" hidden>
+            <button class="bp-favorites-modal__overlay" type="button" id="bpFavoritesOverlay" aria-label="Fechar favoritos"></button>
+            <section class="bp-favorites-card" id="bpFavoritesCard" role="dialog" aria-modal="true" aria-labelledby="bpFavoritesTitle">
+              <button class="bp-favorites-card__close" type="button" id="bpFavoritesClose" aria-label="Fechar favoritos">
+                <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+              <div class="bp-favorites-card__header">
+                <div>
+                  <!-- <span class="bp-favorites-card__caption">Favoritos</span> -->
+                  <h2 class="bp-favorites-card__title" id="bpFavoritesTitle">Meus favoritos</h2>
+                </div>
+              </div>
+              <p class="bp-favorites-card__hint" id="bpFavoritesHint">Acesse seus produtos favoritos e mova-os para o carrinho.</p>
+              <div class="bp-favorites-card__items" id="bpFavoritesItems"></div>
+            </section>
+          </div>
+
+          <div class="bp-gift-modal" id="bpGiftModal" hidden>
+            <button class="bp-gift-modal__overlay" type="button" id="bpGiftOverlay" aria-label="Fechar opções de gift card"></button>
+            <section class="bp-gift-card" id="bpGiftCard" role="dialog" aria-modal="true" aria-labelledby="bpGiftTitle">
+              <button class="bp-gift-card__close" type="button" id="bpGiftClose" aria-label="Fechar opções de gift card">
+                <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+              <div class="bp-gift-card__header">
+                <div class="bp-gift-card__brand" id="bpGiftBrand"></div>
+                <div>
+                  <span class="bp-gift-card__caption">Gift card</span>
+                  <h2 class="bp-gift-card__title" id="bpGiftTitle">Selecione o valor do resgate</h2>
+                  <p class="bp-gift-card__hint" id="bpGiftHint">Escolha um valor e adicione ao carrinho ou favoritos.</p>
+                </div>
+              </div>
+              <div class="bp-gift-card__options" id="bpGiftOptions"></div>
+            </section>
+          </div>
+
+          <div class="bp-detail-modal" id="bpDetailModal" hidden>
+            <button class="bp-detail-modal__overlay" type="button" id="bpDetailOverlay" aria-label="Fechar detalhes do produto"></button>
+            <section class="bp-detail-card" id="bpDetailCard" role="dialog" aria-modal="true" aria-labelledby="bpDetailTitle">
+              <button class="bp-detail-card__close" type="button" id="bpDetailClose" aria-label="Fechar detalhes do produto">
+                <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+              <div class="bp-detail-card__media-wrap">
+                <div class="bp-product-card__media bp-detail-card__media" id="bpDetailMedia"></div>
+                <button class="favorite-btn bp-detail-card__fav" type="button" id="bpDetailFavToggle" data-detail-fav-toggle aria-pressed="false" aria-label="Favoritar produto">♥</button>
+              </div>
+              <div class="bp-detail-card__body">
+                <div class="bp-detail-card__tags" id="bpDetailTags"></div>
+                <h2 class="bp-detail-card__title" id="bpDetailTitle"></h2>
+                <div class="bp-product-card__meta bp-detail-card__meta" id="bpDetailMeta"></div>
+                <div class="bp-detail-card__price" id="bpDetailPrice"></div>
+                <p class="bp-detail-card__insufficient" id="bpDetailInsufficient" hidden>Saldo insuficiente para resgatar este produto.</p>
+                <button class="btn btn-primary bp-detail-card__cta" type="button" id="bpDetailAddCart" data-detail-add-cart>Resgatar</button>
+              </div>
+            </section>
           </div>
         </div>
       </section>
     </main>
+  </div>
+
+  <div class="favorite-modal is-negative" id="bpCartRemoveModal" aria-hidden="true">
+    <div class="favorite-modal__backdrop" data-close-cart-remove-modal></div>
+    <div class="favorite-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="bpCartRemoveTitle">
+      <button class="favorite-modal__close" id="bpCartRemoveClose" type="button" aria-label="Fechar confirmação">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18"></path>
+        </svg>
+      </button>
+      <span class="favorite-modal__status" id="bpCartRemoveStatus" aria-hidden="true">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="8"></circle>
+          <path d="M9.5 9.5 14.5 14.5M14.5 9.5 9.5 14.5"></path>
+        </svg>
+      </span>
+      <h2 class="favorite-modal__title" id="bpCartRemoveTitle">Remover produto do carrinho?</h2>
+      <p class="favorite-modal__description" id="bpCartRemoveDescription"></p>
+      <div class="favorite-modal__actions">
+        <button class="favorite-modal__btn favorite-modal__btn--secondary" id="bpCartRemoveCancel" type="button">Cancelar</button>
+        <button class="favorite-modal__btn favorite-modal__btn--primary" id="bpCartRemoveConfirm" type="button">Remover</button>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -185,6 +360,7 @@
     };
   </script>
   <script src="../shared/app-shell.js"></script>
+  <script src="index.js" defer></script>
 </body>
 
 </html>

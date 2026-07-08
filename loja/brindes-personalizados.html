@@ -223,15 +223,13 @@
             </button>
             <div class="bp-cart-card__header">
               <div>
-                <span class="bp-cart-card__caption">Carrinho</span>
-                <h2 class="bp-cart-card__title" id="bpCartTitle">Seus resgates</h2>
+                <h2 class="bp-cart-card__title" id="bpCartTitle">Meu carrinho</h2>
               </div>
-              <div class="bp-cart-card__summary">
+              <div class="bp-cart-card__summary" id="bpCartSummary">
                 <span class="bp-cart-card__summary-label">Total</span>
                 <strong class="bp-cart-card__summary-value" id="bpCartTotal">R$ 0,00</strong>
               </div>
             </div>
-            <p class="bp-cart-card__hint" id="bpCartHint">Revise os itens antes de finalizar o resgate.</p>
             <div class="bp-cart-card__items" id="bpCartItems"></div>
             <div class="bp-cart-card__footer">
               <button class="btn btn-primary bp-cart-card__cta" type="button" id="bpCartCheckout">Finalizar resgate</button>
@@ -246,12 +244,31 @@
             </button>
             <div class="bp-favorites-card__header">
               <div>
-                <span class="bp-favorites-card__caption">Favoritos</span>
-                <h2 class="bp-favorites-card__title" id="bpFavoritesTitle">Produtos salvos</h2>
+                <h2 class="bp-favorites-card__title" id="bpFavoritesTitle">Meus favoritos</h2>
               </div>
             </div>
             <p class="bp-favorites-card__hint" id="bpFavoritesHint">Acesse seus produtos favoritos e mova-os para o carrinho.</p>
             <div class="bp-favorites-card__items" id="bpFavoritesItems"></div>
+          </section>
+        </div>
+        <div class="bp-detail-modal" id="bpDetailModal" hidden>
+          <button class="bp-detail-modal__overlay" type="button" id="bpDetailOverlay" aria-label="Fechar detalhes do produto"></button>
+          <section class="bp-detail-card" id="bpDetailCard" role="dialog" aria-modal="true" aria-labelledby="bpDetailTitle">
+            <button class="bp-detail-card__close" type="button" id="bpDetailClose" aria-label="Fechar detalhes do produto">
+              <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+            </button>
+            <div class="bp-detail-card__media-wrap">
+              <div class="bp-product-card__media bp-detail-card__media" id="bpDetailMedia"></div>
+              <button class="favorite-btn bp-detail-card__fav" type="button" id="bpDetailFavToggle" data-detail-fav-toggle aria-pressed="false" aria-label="Favoritar produto">♥</button>
+            </div>
+            <div class="bp-detail-card__body">
+              <div class="bp-detail-card__tags" id="bpDetailTags"></div>
+              <h2 class="bp-detail-card__title" id="bpDetailTitle"></h2>
+              <div class="bp-product-card__meta bp-detail-card__meta" id="bpDetailMeta"></div>
+              <div class="bp-detail-card__price" id="bpDetailPrice"></div>
+              <p class="bp-detail-card__insufficient" id="bpDetailInsufficient" hidden>Saldo insuficiente para resgatar este produto.</p>
+              <button class="btn btn-primary bp-detail-card__cta" type="button" id="bpDetailAddCart" data-detail-add-cart>Resgatar</button>
+            </div>
           </section>
         </div>
         </div>

@@ -1,0 +1,153 @@
+{
+  "balance": 11250.0,
+  "breadcrumb": [
+    { "label": "Início", "href": "/" },
+    { "label": "Loja", "href": null }
+  ],
+  "heroSlides": [
+    {
+      "id": "campanha-principal",
+      "eyebrow": "Campanha da semana",
+      "title": "Uma loja completa para campanhas, premiações e resgates do time",
+      "subtitle": "Explore vitrines prontas com produtos físicos, gift cards, kits e brindes personalizados sem sair do portal.",
+      "cta": "Explorar catálogo",
+      "icon": "spark",
+      "image": "assets/promocoes/black-friday.jpg"
+    },
+    {
+      "id": "giftcards",
+      "eyebrow": "Resgate rápido",
+      "title": "Gift cards e experiências para recompensar com agilidade",
+      "subtitle": "Combine campanhas digitais com produtos de alto giro para manter a vitrine sempre ativa e relevante.",
+      "cta": "Ver gift cards",
+      "icon": "chip",
+      "image": "assets/promocoes/jbl.jpg"
+    },
+    {
+      "id": "brindes",
+      "eyebrow": "Destaque da loja",
+      "title": "Brindes personalizados para fortalecer sua marca no dia a dia",
+      "subtitle": "Canecas, mochilas, kits executivos e materiais gráficos que aproximam sua campanha da rotina do time.",
+      "cta": "Abrir categoria",
+      "icon": "gift",
+      "image": "assets/promocoes/stanley.jpg"
+    }
+  ],
+  "promotionsSection": {
+    "title": "Promoções especiais",
+    "subtitle": "Seleções rápidas para começar a navegar pela loja.",
+    "items": [
+      {
+        "id": "promo-brindes",
+        "badge": "Promoção",
+        "title": "Brindes personalizados em destaque",
+        "subtitle": "Seleção com itens prontos para personalização e ótima aceitação em campanhas internas.",
+        "cta": "Ver produtos",
+        "image": "assets/promocoes/stanley.jpg",
+        "targetCategory": "brindes"
+      },
+      {
+        "id": "promo-tecnologia",
+        "badge": "Curadoria",
+        "title": "Tecnologia para campanhas de incentivo",
+        "subtitle": "Uma vitrine com itens de maior valor percebido para premiações de performance.",
+        "cta": "Explorar",
+        "image": "assets/promocoes/jbl.jpg",
+        "targetCategory": "eletronicos"
+      },
+      {
+        "id": "promo-jornada",
+        "badge": "Viagem",
+        "title": "Kits de viagem e rotina de campo",
+        "subtitle": "Mochilas, bolsas e acessórios pensados para o deslocamento do time.",
+        "cta": "Ver categoria",
+        "image": "assets/promocoes/semana-cliente.jpg",
+        "targetCategory": "viagens"
+      },
+      {
+        "id": "promo-campanha",
+        "badge": "Campanha",
+        "title": "Ações de resgate com giro rápido",
+        "subtitle": "Monte uma campanha mista com produtos acessíveis, presentes úteis e comunicação clara.",
+        "cta": "Começar agora",
+        "image": "assets/promocoes/black-friday.jpg",
+        "targetCategory": "todos"
+      }
+    ]
+  },
+  "giftCards": {
+    "title": "Gift cards",
+    "linkLabel": "Ver todos",
+    "items": [
+      { "name": "Netflix", "image": "assets/gift-cards/netflix.png" },
+      { "name": "Steam", "image": "assets/gift-cards/steam.png" },
+      { "name": "Google Play", "image": "assets/gift-cards/google-play.png" },
+      { "name": "Spotify", "image": "assets/gift-cards/spotify.png" },
+      { "name": "Uber", "image": "assets/gift-cards/uber.png" },
+      { "name": "PlayStation", "image": "assets/gift-cards/playstation.png" },
+      { "name": "Xbox", "image": "assets/gift-cards/xbox.png" }
+    ]
+  },
+  "categories": [
+    { "id": "todos", "label": "Todos", "icon": "grid", "iconPath": "assets/categorias/todos.svg", "color": "#111111" },
+    { "id": "brindes", "label": "Brindes personalizados", "icon": "gift", "iconPath": "assets/categorias/brindes.svg", "color": "#598B39" },
+    { "id": "eletronicos", "label": "Eletrônicos", "icon": "chip", "iconPath": "assets/categorias/eletronicos.svg", "color": "#FFAB3E" },
+    { "id": "viagens", "label": "Viagens", "icon": "plane", "iconPath": "assets/categorias/viagens.svg", "color": "#0D2278" },
+    { "id": "casa", "label": "Casa", "icon": "home", "iconPath": "assets/categorias/casa.svg", "color": "#FF911C" },
+    { "id": "cozinha", "label": "Cozinha", "icon": "cutlery", "iconPath": "assets/categorias/cozinha.svg", "color": "#364361" },
+    { "id": "materiais-graficos", "label": "Materiais gráficos", "icon": "notebook", "iconPath": "assets/categorias/materiais-graficos.svg", "color": "#229362" },
+    { "id": "ferramentas", "label": "Ferramentas", "icon": "wrench", "iconPath": "assets/categorias/ferramentas.svg", "color": "#366146" },
+    { "id": "cursos", "label": "Cursos", "icon": "graduation", "iconPath": "assets/categorias/cursos.svg", "color": "#150E92" }
+  ],
+  "filters": [
+    { "id": "reset", "label": "Todos" },
+    { "id": "personalizados", "label": "Personalizados" },
+    { "id": "redeem-now", "label": "Resgatáveis agora" },
+    { "id": "most-redeemed", "label": "Mais resgatados" },
+    { "id": "lowest-price", "label": "Menor valor" }
+  ],
+  "productsSection": {
+    "title": "Catálogo da loja",
+    "subtitle": "Uma vitrine geral com itens de giro rápido, kits e brindes para diferentes campanhas."
+  },
+  "products": [
+    { "id": "p01", "name": "Sachê unitário de café gourmet 500g", "badge": "Personalizado", "category": "cozinha", "type": "fisico", "redeemNow": true, "rating": 4.8, "soldCount": 845, "oldPrice": 12.9, "price": 9.9, "icon": "coffee", "image": "assets/produtos/p01.jpg", "isPersonalized": false },
+    { "id": "p02", "name": "Bolsinha para canivete em couro", "badge": "Personalizado", "category": "ferramentas", "type": "fisico", "redeemNow": false, "rating": 4.7, "soldCount": 312, "oldPrice": 99.9, "price": 69.9, "icon": "pouch", "image": "assets/produtos/p02.jpg", "isPersonalized": true },
+    { "id": "p03", "name": "Chaveiro de metal com couro", "badge": "Novo", "category": "brindes", "type": "fisico", "redeemNow": true, "rating": 4.9, "soldCount": 845, "oldPrice": 39.9, "price": 29.9, "icon": "keychain", "image": "assets/produtos/p03.jpg", "isPersonalized": true },
+    { "id": "p04", "name": "Mochila expansível PU 25L", "badge": "Desenvolvimento", "category": "viagens", "type": "fisico", "redeemNow": false, "rating": 4.6, "soldCount": 845, "oldPrice": 259.9, "price": 199.9, "icon": "backpack", "image": "assets/produtos/p04.jpg", "isPersonalized": false },
+    { "id": "p05", "name": "Kit executivo com 2 peças", "badge": "Kit", "category": "materiais-graficos", "type": "fisico", "redeemNow": false, "rating": 4.5, "soldCount": 190, "oldPrice": 129.9, "price": 89.9, "icon": "portfolio", "image": "assets/produtos/p05.jpg", "isPersonalized": true },
+    { "id": "p06", "name": "Caderneta com suporte para celular", "badge": "Personalizado", "category": "materiais-graficos", "type": "fisico", "redeemNow": false, "rating": 4.7, "soldCount": 845, "oldPrice": 89.9, "price": 69.9, "icon": "notebook", "image": "assets/produtos/p06.jpg", "isPersonalized": true },
+    { "id": "p07", "name": "Kit executivo ecológico 3 peças", "badge": "Destaque", "category": "materiais-graficos", "type": "fisico", "redeemNow": true, "rating": 4.6, "soldCount": 845, "oldPrice": 54.9, "price": 34.9, "icon": "eco-kit", "image": "assets/produtos/p07.jpg", "isPersonalized": true },
+    { "id": "p08", "name": "Caderneta personalizada em linho", "badge": "Personalizado", "category": "materiais-graficos", "type": "fisico", "redeemNow": false, "rating": 4.8, "soldCount": 845, "oldPrice": 79.9, "price": 59.9, "icon": "notebook", "image": "assets/produtos/p08.jpg", "isPersonalized": true },
+    { "id": "p09", "name": "Caderneta cortiça sustentável", "badge": "Eco", "category": "materiais-graficos", "type": "fisico", "redeemNow": true, "rating": 4.4, "soldCount": 120, "oldPrice": 14.9, "price": 11.9, "icon": "eco-kit", "image": "assets/produtos/p09.jpg", "isPersonalized": false },
+    { "id": "p10", "name": "Caderno A5 capa plástica", "badge": "Novo", "category": "materiais-graficos", "type": "fisico", "redeemNow": false, "rating": 4.5, "soldCount": 845, "oldPrice": 89.9, "price": 69.9, "icon": "notebook", "image": "assets/produtos/p10.jpg", "isPersonalized": false },
+    { "id": "p11", "name": "Kit ecológico caneta e lapiseira bambu", "badge": "Personalizado", "category": "ferramentas", "type": "fisico", "redeemNow": true, "rating": 4.6, "soldCount": 655, "oldPrice": 39.9, "price": 29.9, "icon": "pen", "image": "assets/produtos/p11.jpg", "isPersonalized": true },
+    { "id": "p12", "name": "Garrafa plástica 700ml", "badge": "Alta saída", "category": "casa", "type": "fisico", "redeemNow": true, "rating": 4.7, "soldCount": 845, "oldPrice": 39.9, "price": 29.9, "icon": "bottle", "image": "assets/produtos/p12.jpg", "isPersonalized": true },
+    { "id": "p13", "name": "Tábua de corte com canaleta em bambu", "badge": "Casa", "category": "cozinha", "type": "fisico", "redeemNow": false, "rating": 4.8, "soldCount": 210, "oldPrice": 134.9, "price": 99.9, "icon": "cutting-board", "image": "assets/produtos/p13.jpg", "isPersonalized": true },
+    { "id": "p14", "name": "Kit vinho e garrafa 5 peças", "badge": "Kit", "category": "casa", "type": "fisico", "redeemNow": false, "rating": 4.5, "soldCount": 98, "oldPrice": 79.9, "price": 59.9, "icon": "wine-kit", "image": "assets/produtos/p14.jpg", "isPersonalized": true },
+    { "id": "p15", "name": "Kit churrasco 5 peças", "badge": "Favorito", "category": "cozinha", "type": "fisico", "redeemNow": true, "rating": 4.6, "soldCount": 340, "oldPrice": 99.9, "price": 69.9, "icon": "bbq-kit", "image": "assets/produtos/p15jpg.png", "isPersonalized": true },
+    { "id": "p16", "name": "Petisqueira com garrafa whisky inox", "badge": "B.Sig", "category": "cozinha", "type": "fisico", "redeemNow": true, "rating": 4.4, "soldCount": 205, "oldPrice": 39.9, "price": 29.9, "icon": "flask", "image": "assets/produtos/p16.jpg", "isPersonalized": true },
+    { "id": "p17", "name": "Pasta para notebook 15,6 polegadas", "badge": "Executivo", "category": "eletronicos", "type": "fisico", "redeemNow": false, "rating": 4.5, "soldCount": 845, "oldPrice": 124.9, "price": 89.9, "icon": "laptop-bag", "image": "assets/produtos/p17.jpg", "isPersonalized": true },
+    { "id": "p18", "name": "Mochila para notebook executiva", "badge": "Viagem", "category": "viagens", "type": "fisico", "redeemNow": false, "rating": 4.6, "soldCount": 845, "oldPrice": 124.9, "price": 89.9, "icon": "backpack", "image": "assets/produtos/p18.jpg", "isPersonalized": false }
+  ],
+  "secondaryBanner": {
+    "eyebrow": "Campanha complementar",
+    "title": "Monte jornadas completas com produtos, gift cards e ações de personalização",
+    "subtitle": "Uma mesma campanha pode combinar reconhecimento imediato, brindes utilitários e itens de maior valor percebido.",
+    "cta": "Ver catálogo completo"
+  },
+  "partnersSection": {
+    "title": "Parceiros",
+    "subtitle": "Marcas e operações que ajudam a compor a vitrine da loja."
+  },
+  "partners": [
+    { "name": "MOVA" },
+    { "name": "Upper Prêmios" },
+    { "name": "Mirage Strategy" },
+    { "name": "Magalu" },
+    { "name": "Zoetis" },
+    { "name": "Tillo" },
+    { "name": "Bipper Store" },
+    { "name": "Campanhas+" }
+  ]
+}

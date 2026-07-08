@@ -1,0 +1,615 @@
+.shop-home {
+    gap: 20px;
+}
+
+.shop-home__skeleton .bp-skeleton__hero {
+    min-height: 320px;
+}
+
+.shop-home .bp-breadcrumb {
+    margin-bottom: 4px;
+}
+
+.shop-home .bp-breadcrumb {
+    align-items: center;
+}
+
+.shop-home .search-box {
+    margin-left: auto;
+}
+
+.shop-home .bp-breadcrumb__path {
+    flex: 0 0 auto;
+}
+
+.shop-home .search-box {
+    flex: 1 1 420px;
+    max-width: none;
+}
+
+.shop-home .bp-account {
+    flex: 0 0 auto;
+}
+
+.shop-home.is-searching #bpHero,
+.shop-home.is-searching .shop-home__promotions,
+.shop-home.is-searching #bpGiftCards,
+.shop-home.is-searching #shopPagination,
+.shop-home.is-searching #shopSecondaryBanner,
+.shop-home.is-searching .shop-home__partners,
+.shop-home.is-searching .shop-home__toolbar-side {
+    display: none;
+}
+
+.shop-home.is-searching .shop-home__catalog {
+    gap: 20px;
+}
+
+.shop-home__catalog-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.shop-home__hero {
+    min-height: 320px;
+}
+
+.shop-home__hero .bp-hero__slide {
+    min-height: 320px;
+    padding: 40px 44px;
+}
+
+.shop-home__hero .bp-hero__content {
+    max-width: 640px;
+}
+
+.shop-home__hero .bp-hero__slide h2 {
+    font-size: clamp(28px, 3vw, 42px);
+}
+
+.shop-home__hero .bp-hero__slide p {
+    max-width: 560px;
+}
+
+.shop-home__hero .bp-hero__icon {
+    width: 200px;
+    height: 200px;
+    border-radius: 38px;
+}
+
+.shop-home__section-title {
+    margin: 0 0 14px;
+}
+
+.shop-home__section-title p {
+    max-width: 720px;
+}
+
+.shop-home__promotions {
+    display: grid;
+    gap: 8px;
+}
+
+.shop-home__promo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.shop-home__promo-card {
+    position: relative;
+    border: 1px solid rgba(226, 232, 240, .95);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, .92);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.shop-home__promo-media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #f4f7fb, #e7edf5);
+    overflow: hidden;
+}
+
+.shop-home__promo-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.shop-home__promo-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 1;
+    height: 28px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ff6b00, #ff8f3d);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+
+.shop-home__promo-body {
+    display: grid;
+    gap: 10px;
+    padding: 18px 18px 20px;
+    flex: 1;
+}
+
+.shop-home__promo-body h3 {
+    margin: 0;
+    color: var(--ink);
+    font-size: 22px;
+    line-height: 1.05;
+    letter-spacing: -.03em;
+}
+
+.shop-home__promo-body p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.shop-home__promo-cta {
+    margin-top: auto;
+    min-height: 42px;
+}
+
+.shop-home__giftcards {
+    margin-top: 6px;
+}
+
+.shop-home__categories {
+    margin-top: 4px;
+}
+
+.shop-home__toolbar {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 16px;
+    align-items: center;
+}
+
+.shop-home__filter-trigger {
+    height: 46px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: #111827;
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+}
+
+.shop-home__filters {
+    margin: 0;
+}
+
+.shop-home__toolbar-side {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.shop-home__page-indicator {
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .88);
+    border: 1px solid var(--line);
+    display: inline-flex;
+    align-items: center;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.shop-home__catalog {
+    display: grid;
+    gap: 14px;
+}
+
+.shop-home__products {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.shop-home__empty {
+    padding-top: 4px;
+}
+
+.shop-home__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.shop-home__page-btn {
+    min-width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, .9);
+    color: #334155;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: .18s ease;
+}
+
+.shop-home__page-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.shop-home__page-btn.is-active {
+    border-color: transparent;
+    background: var(--brand-primary);
+    color: #fff;
+}
+
+.shop-home__secondary-banner {
+    border-radius: 28px;
+    background:
+        radial-gradient(circle at 18% 24%, rgba(255, 255, 255, .18), transparent 20rem),
+        radial-gradient(circle at 82% 18%, rgba(255, 255, 255, .1), transparent 16rem),
+        linear-gradient(125deg, #175dd6 0%, #1ca3ef 48%, #6ed3ff 100%);
+    color: #fff;
+    padding: 30px 32px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+    box-shadow: var(--shadow-md);
+}
+
+.shop-home__secondary-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    height: 30px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .16);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+.shop-home__secondary-banner h2 {
+    margin: 14px 0 10px;
+    font-size: clamp(24px, 2.6vw, 36px);
+    line-height: 1.05;
+    letter-spacing: -.03em;
+}
+
+.shop-home__secondary-banner p {
+    margin: 0;
+    max-width: 720px;
+    color: rgba(255, 255, 255, .9);
+    line-height: 1.6;
+}
+
+.shop-home__secondary-banner .btn-primary {
+    background: #fff;
+    color: #0f172a;
+    min-width: 200px;
+}
+
+.shop-home__partners {
+    display: grid;
+    gap: 8px;
+}
+
+.shop-home__partners-grid {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.shop-home__partner-card {
+    min-height: 116px;
+    border: 1px solid rgba(226, 232, 240, .95);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .92);
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    place-items: center;
+    padding: 14px;
+    text-align: center;
+}
+
+.shop-home__partner-mark {
+    width: 100%;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ffffff, #f6f8fb);
+    min-height: 86px;
+    display: grid;
+    place-items: center;
+    color: #0f172a;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -.03em;
+}
+
+.shop-home__partner-mark span {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bp-gift-modal[hidden] {
+    display: none;
+}
+
+.bp-gift-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 250;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+.bp-gift-modal__overlay {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background: rgba(17, 17, 17, .42);
+    animation: bpOverlayIn .22s ease;
+}
+
+.bp-gift-card {
+    position: relative;
+    z-index: 1;
+    width: min(860px, calc(100vw - 48px));
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    border-radius: 28px;
+    background: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+    box-shadow: 0 24px 80px rgba(15, 23, 42, .18);
+    padding: 28px;
+    display: grid;
+    gap: 22px;
+    animation: bpBalanceCardIn .28s cubic-bezier(.2, .8, .2, 1);
+}
+
+.bp-gift-card__close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: 1px solid rgba(17, 17, 17, .12);
+    background: rgba(255, 255, 255, .82);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+.bp-gift-card__header {
+    display: grid;
+    grid-template-columns: 132px minmax(0, 1fr);
+    gap: 18px;
+    align-items: center;
+    padding-right: 42px;
+}
+
+.bp-gift-card__brand {
+    width: 132px;
+    height: 132px;
+    border-radius: 26px;
+    background: #0f172a;
+    overflow: hidden;
+    position: relative;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-weight: 900;
+    font-size: 26px;
+    letter-spacing: -.03em;
+}
+
+.bp-gift-card__brand img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bp-gift-card__caption {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 0 10px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, .06);
+    color: #475569;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.bp-gift-card__title {
+    margin: 10px 0 8px;
+    color: #111827;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1;
+    letter-spacing: -.04em;
+}
+
+.bp-gift-card__hint {
+    margin: 0;
+    color: #4b5563;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.bp-gift-card__options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.bp-gift-option {
+    border: 1px solid rgba(148, 163, 184, .22);
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 14px 36px rgba(15, 23, 42, .06);
+    padding: 18px;
+    display: grid;
+    gap: 14px;
+}
+
+.bp-gift-option__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: start;
+}
+
+.bp-gift-option__fav {
+    position: static;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 auto;
+}
+
+.bp-gift-option__name {
+    margin: 0;
+    color: #111827;
+    font-size: 18px;
+    line-height: 1.15;
+}
+
+.bp-gift-option__price {
+    display: flex;
+    align-items: end;
+    gap: 4px;
+    color: #111827;
+}
+
+.bp-gift-option__currency {
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.bp-gift-option__amount {
+    font-size: 34px;
+    font-weight: 950;
+    line-height: .9;
+    letter-spacing: -.06em;
+}
+
+.bp-gift-option__actions {
+    display: grid;
+    gap: 10px;
+}
+
+.bp-gift-option__actions .btn {
+    min-height: 42px;
+}
+
+@media (max-width: 1320px) {
+    .shop-home__promo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .shop-home__products {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .shop-home__partners-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 980px) {
+    .shop-home__toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .shop-home__toolbar-side {
+        justify-content: flex-start;
+    }
+
+    .shop-home__hero .bp-hero__slide {
+        padding: 28px;
+    }
+
+    .shop-home__hero .bp-hero__icon {
+        width: 144px;
+        height: 144px;
+    }
+
+    .shop-home__products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .shop-home__secondary-banner {
+        grid-template-columns: 1fr;
+    }
+
+    .bp-gift-card__options {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .shop-home__promo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .shop-home__products {
+        grid-template-columns: 1fr;
+    }
+
+    .shop-home__partners-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .shop-home__secondary-banner {
+        padding: 24px 20px;
+    }
+
+    .bp-gift-modal {
+        padding: 12px;
+    }
+
+    .bp-gift-card {
+        width: min(860px, calc(100vw - 24px));
+        max-height: calc(100vh - 24px);
+        padding: 20px 16px 16px;
+        border-radius: 24px;
+    }
+
+    .bp-gift-card__header {
+        grid-template-columns: 1fr;
+        padding-right: 40px;
+    }
+
+    .bp-gift-card__brand {
+        width: 100%;
+        height: 160px;
+    }
+}
