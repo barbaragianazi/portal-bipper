@@ -46,6 +46,10 @@
         return '<svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"></path><path d="M10 3h4"></path><path d="M9 3h6l1 2H8l1-2Z"></path><path d="M7 7l1 12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2l1-12"></path><path d="M10 11v6"></path><path d="M14 11v6"></path></svg>';
     }
 
+    function ratingIconHtml() {
+        return '<img class="icon-xs" src="assets/hero/star.svg" alt="" aria-hidden="true">';
+    }
+
     var currency = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 
     function loadSet(key) {
@@ -88,6 +92,18 @@
         data: null,
         activeCategory: 'todos',
         activeFilter: 'reset',
+        advancedFilters: {
+            classification: 'all',
+            supplier: 'all',
+            category: 'all',
+            shop: 'all',
+            priceMin: 0,
+            priceMax: 0
+        },
+        draftAdvancedFilters: null,
+        draftRangeInputs: null,
+        filterMeta: null,
+        openFilterSection: 'range',
         search: '',
         currentPage: 1,
         perPage: 8,
@@ -133,6 +149,14 @@
         search: document.getElementById('bpSearch'),
         filters: document.getElementById('bpFilters'),
         filterTrigger: document.getElementById('shopFilterTrigger'),
+        clearFilters: document.getElementById('shopClearFilters'),
+        filterModal: document.getElementById('shopFilterModal'),
+        filterOverlay: document.getElementById('shopFilterOverlay'),
+        filterClose: document.getElementById('shopFilterClose'),
+        filterPanel: document.getElementById('shopFilterPanel'),
+        filterBody: document.getElementById('shopFilterBody'),
+        filterClear: document.getElementById('shopFilterClear'),
+        filterApply: document.getElementById('shopFilterApply'),
         pageIndicator: document.getElementById('shopPageIndicator'),
         productsTitle: document.getElementById('shopProductsTitle'),
         productsSubtitle: document.getElementById('shopProductsSubtitle'),
@@ -157,6 +181,7 @@
         balanceCard: document.getElementById('bpBalanceCard'),
         cartModal: document.getElementById('bpCartModal'),
         cartOverlay: document.getElementById('bpCartOverlay'),
+        cartCard: document.getElementById('bpCartCard'),
         cartClose: document.getElementById('bpCartClose'),
         cartItems: document.getElementById('bpCartItems'),
         cartTotal: document.getElementById('bpCartTotal'),
@@ -165,6 +190,7 @@
         cartCheckout: document.getElementById('bpCartCheckout'),
         favoritesModal: document.getElementById('bpFavoritesModal'),
         favoritesOverlay: document.getElementById('bpFavoritesOverlay'),
+        favoritesCard: document.getElementById('bpFavoritesCard'),
         favoritesClose: document.getElementById('bpFavoritesClose'),
         favoritesItems: document.getElementById('bpFavoritesItems'),
         favoritesHint: document.getElementById('bpFavoritesHint'),
@@ -198,6 +224,7 @@
         });
 
     function init() {
+        buildFilterMeta();
         renderBreadcrumb();
         renderHero();
         renderPromotions();
@@ -440,15 +467,57 @@
     }
 
     function renderCategories() {
+        updateCategoryMode();
         els.categories.innerHTML = state.data.categories.map(function (category) {
             var isActive = category.id === state.activeCategory;
-            return '<button class="bp-category' + (isActive ? ' is-active' : '') + '" type="button" data-category="' + category.id + '">' +
-                '<span class="bp-category__icon" style="--category-color:' + category.color + '">' +
+            return '<button class="bp-category' + (isActive ? ' is-active' : '') + '" type="button" data-category="' + category.id + '" aria-pressed="' + isActive + '">' +
+                '<span class="bp-category__icon" style="--category-color:' + (category.color || '#111111') + '">' +
                 (category.iconPath ? '<img src="' + category.iconPath + '" alt="" loading="lazy">' : icon(category.icon)) +
                 '</span>' +
                 '<span class="bp-category__label">' + category.label + '</span>' +
                 '</button>';
         }).join('');
+    }
+
+    function updateCategoryMode() {
+        els.categories.classList.toggle('is-showing-all', state.activeCategory === 'todos');
+    }
+
+    function buildFilterMeta() {
+        var products = state.data.products || [];
+        var prices = products.map(function (product) { return product.price; });
+        var priceMin = prices.length ? Math.floor(Math.min.apply(Math, prices)) : 0;
+        var priceMax = prices.length ? Math.ceil(Math.max.apply(Math, prices)) : 0;
+        state.filterMeta = {
+            priceMin: priceMin,
+            priceMax: priceMax,
+            classifications: [
+                { id: 'all', label: 'Todas' },
+                { id: 'most-redeemed', label: 'Mais resgatados' },
+                { id: 'lowest-price', label: 'Menor valor' },
+                { id: 'personalizados', label: 'Personalizados' },
+                { id: 'redeem-now', label: 'Resgatáveis agora' }
+            ],
+            suppliers: [
+                { id: 'all', label: 'Todos' },
+                { id: 'bipper-store', label: 'Bipper Store' },
+                { id: 'upper-premios', label: 'Upper Prêmios' },
+                { id: 'magalu', label: 'Magalu' },
+                { id: 'campanhas-plus', label: 'Campanhas+' }
+            ],
+            categories: [{ id: 'all', label: 'Todas' }].concat((state.data.categories || [])
+                .filter(function (category) { return category.id !== 'todos'; })
+                .map(function (category) { return { id: category.id, label: category.label }; })),
+            shops: [
+                { id: 'all', label: 'Todas' },
+                { id: 'catalogo-geral', label: 'Catálogo geral' },
+                { id: 'resgate-imediato', label: 'Resgate imediato' },
+                { id: 'sob-encomenda', label: 'Sob encomenda' },
+                { id: 'campanha-premium', label: 'Campanha premium' }
+            ]
+        };
+        state.advancedFilters.priceMin = priceMin;
+        state.advancedFilters.priceMax = priceMax;
     }
 
     function getFilterCount(filterId) {
@@ -463,6 +532,238 @@
             var count = getFilterCount(filter.id);
             return '<button class="filter-chip' + (filter.id === state.activeFilter ? ' is-active' : '') + '" type="button" data-filter="' + filter.id + '">' + filter.label + '<span>' + count + '</span></button>';
         }).join('');
+        updateFilterTriggerState();
+    }
+
+    function getDefaultAdvancedFilters() {
+        return {
+            classification: 'all',
+            supplier: 'all',
+            category: 'all',
+            shop: 'all',
+            priceMin: state.filterMeta.priceMin,
+            priceMax: state.filterMeta.priceMax
+        };
+    }
+
+    function cloneAdvancedFilters(filters) {
+        return {
+            classification: filters.classification,
+            supplier: filters.supplier,
+            category: filters.category,
+            shop: filters.shop,
+            priceMin: filters.priceMin,
+            priceMax: filters.priceMax
+        };
+    }
+
+    function syncDraftRangeInputsFromFilters(filters) {
+        state.draftRangeInputs = [
+            String(filters.priceMin),
+            String(filters.priceMax)
+        ];
+    }
+
+    function hasAdvancedFiltersApplied() {
+        var defaults = getDefaultAdvancedFilters();
+        return Object.keys(defaults).some(function (key) { return defaults[key] !== state.advancedFilters[key]; });
+    }
+
+    function hasDraftFilterChanges() {
+        if (!state.draftAdvancedFilters) return false;
+        return Object.keys(state.draftAdvancedFilters).some(function (key) {
+            return state.draftAdvancedFilters[key] !== state.advancedFilters[key];
+        });
+    }
+
+    function updateFilterTriggerState() {
+        var hasFilters = hasAdvancedFiltersApplied();
+        els.filterTrigger.classList.toggle('has-active-filters', hasFilters);
+        els.clearFilters.hidden = !hasFilters;
+    }
+
+    function formatCompactCurrency(value) {
+        return currency.format(value).replace(/\u00a0/g, ' ');
+    }
+
+    function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+    }
+
+    function getAdvancedFilterLabel(groupKey, optionId) {
+        var listKey = groupKey === 'category' ? 'categories' : groupKey + 's';
+        var options = state.filterMeta[listKey] || [];
+        var match = options.find(function (item) { return item.id === optionId; });
+        return match ? match.label : '';
+    }
+
+    function renderFilterModal() {
+        if (!els.filterBody) return;
+        var draft = state.draftAdvancedFilters || cloneAdvancedFilters(state.advancedFilters);
+        if (!state.draftRangeInputs) {
+            syncDraftRangeInputsFromFilters(draft);
+        }
+        var sections = [
+            {
+                id: 'classification',
+                title: 'Classificação',
+                body: renderFilterOptions('classification', state.filterMeta.classifications, draft.classification)
+            },
+            {
+                id: 'supplier',
+                title: 'Fornecedor',
+                body: renderFilterOptions('supplier', state.filterMeta.suppliers, draft.supplier)
+            },
+            {
+                id: 'category',
+                title: 'Categoria',
+                body: renderFilterOptions('category', state.filterMeta.categories, draft.category)
+            },
+            {
+                id: 'shop',
+                title: 'Loja',
+                body: renderFilterOptions('shop', state.filterMeta.shops, draft.shop)
+            }
+        ];
+
+        els.filterBody.innerHTML = '<section class="shop-filter-group shop-filter-group--range is-open">' +
+            '<div class="shop-filter-group__trigger" aria-hidden="true">' +
+            '<span class="shop-filter-group__title">Faixa de valores</span>' +
+            '</div>' +
+            '<div class="shop-filter-group__body" style="display:block;">' + renderPriceRangeSection(draft) + '</div>' +
+            '</section>' +
+            sections.map(function (section) {
+            var isOpen = state.openFilterSection === section.id;
+            return '<section class="shop-filter-group' + (isOpen ? ' is-open' : '') + '" data-filter-section="' + section.id + '">' +
+                '<button class="shop-filter-group__trigger" type="button" data-filter-section-trigger="' + section.id + '" aria-expanded="' + isOpen + '">' +
+                '<span class="shop-filter-group__title">' + section.title + '</span>' +
+                '<svg class="shop-filter-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>' +
+                '</button>' +
+                '<div class="shop-filter-group__body">' + section.body + '</div>' +
+                '</section>';
+        }).join('');
+
+        updateFilterApplyState();
+        updateFilterClearState();
+    }
+
+    function renderPriceRangeSection(filters) {
+        var min = state.filterMeta.priceMin;
+        var max = state.filterMeta.priceMax;
+        var startPercent = max === min ? 0 : ((filters.priceMin - min) / (max - min)) * 100;
+        var endPercent = max === min ? 100 : ((filters.priceMax - min) / (max - min)) * 100;
+        var inputValues = state.draftRangeInputs || [String(filters.priceMin), String(filters.priceMax)];
+        return '<div class="shop-filter-range">' +
+            '<div class="shop-filter-range__values">' +
+            '<label class="shop-filter-range__field">' +
+            '<input class="shop-filter-range__number" type="text" inputmode="numeric" value="' + inputValues[0] + '" data-range-number="min" aria-label="Valor mínimo">' +
+            '</label>' +
+            '<label class="shop-filter-range__field">' +
+            '<input class="shop-filter-range__number" type="text" inputmode="numeric" value="' + inputValues[1] + '" data-range-number="max" aria-label="Valor máximo">' +
+            '</label>' +
+            '</div>' +
+            '<div class="shop-filter-range__track">' +
+            '<span class="shop-filter-range__line"></span>' +
+            '<span class="shop-filter-range__active" style="left:' + startPercent + '%;right:' + (100 - endPercent) + '%;"></span>' +
+            '<input class="shop-filter-range__input" type="range" min="' + min + '" max="' + max + '" value="' + filters.priceMin + '" step="1" data-range-input="min">' +
+            '<input class="shop-filter-range__input" type="range" min="' + min + '" max="' + max + '" value="' + filters.priceMax + '" step="1" data-range-input="max">' +
+            '</div>' +
+            '</div>';
+    }
+
+    function renderFilterOptions(groupKey, options, selected) {
+        return '<div class="shop-filter-options">' + options.map(function (option) {
+            var checked = option.id === selected;
+            return '<label class="shop-filter-option">' +
+                '<input type="radio" name="shop-filter-' + groupKey + '" value="' + option.id + '" ' + (checked ? 'checked' : '') + ' data-filter-option="' + groupKey + '">' +
+                '<span class="shop-filter-option__dot"></span>' +
+                '<span>' + option.label + '</span>' +
+                '</label>';
+        }).join('') + '</div>';
+    }
+
+    function updateFilterApplyState() {
+        var disabled = !hasDraftFilterChanges();
+        els.filterApply.disabled = disabled;
+        els.filterApply.setAttribute('aria-disabled', String(disabled));
+    }
+
+    function updateFilterClearState() {
+        var defaults = getDefaultAdvancedFilters();
+        var source = state.draftAdvancedFilters || state.advancedFilters;
+        var disabled = !Object.keys(defaults).some(function (key) { return defaults[key] !== source[key]; });
+        els.filterClear.disabled = disabled;
+        els.filterClear.setAttribute('aria-disabled', String(disabled));
+    }
+
+    function positionFilterModal() {
+        if (els.filterModal.hidden || !els.filterPanel) return;
+        if (window.innerWidth <= 640) {
+            els.filterPanel.style.top = '';
+            els.filterPanel.style.left = '';
+            els.filterPanel.style.right = '';
+            return;
+        }
+        var triggerRect = els.filterTrigger.getBoundingClientRect();
+        var panelWidth = Math.min(320, window.innerWidth - 24);
+        var top = triggerRect.bottom + 12;
+        var left = triggerRect.left;
+        var maxLeft = window.innerWidth - panelWidth - 12;
+        left = Math.max(12, Math.min(left, maxLeft));
+        els.filterPanel.style.top = top + 'px';
+        els.filterPanel.style.left = left + 'px';
+        els.filterPanel.style.right = 'auto';
+    }
+
+    function openFilterModal() {
+        state.draftAdvancedFilters = cloneAdvancedFilters(state.advancedFilters);
+        syncDraftRangeInputsFromFilters(state.draftAdvancedFilters);
+        renderFilterModal();
+        els.filterModal.hidden = false;
+        document.body.classList.add('bp-modal-open');
+        positionFilterModal();
+    }
+
+    function closeFilterModal() {
+        state.draftAdvancedFilters = null;
+        state.draftRangeInputs = null;
+        els.filterModal.hidden = true;
+        document.body.classList.remove('bp-modal-open');
+    }
+
+    function applyAdvancedFilters() {
+        if (!state.draftAdvancedFilters || !hasDraftFilterChanges()) return;
+        state.advancedFilters = cloneAdvancedFilters(state.draftAdvancedFilters);
+        var classification = state.advancedFilters.classification;
+        state.activeFilter = (classification === 'all') ? 'reset' : classification;
+        state.activeCategory = state.advancedFilters.category === 'all' ? 'todos' : state.advancedFilters.category;
+        state.currentPage = 1;
+        renderCategories();
+        renderFilters();
+        renderProducts();
+        closeFilterModal();
+    }
+
+    function clearAdvancedFilters(target) {
+        var defaults = getDefaultAdvancedFilters();
+        if (target === 'draft') {
+            state.draftAdvancedFilters = cloneAdvancedFilters(defaults);
+            syncDraftRangeInputsFromFilters(state.draftAdvancedFilters);
+            renderFilterModal();
+            return;
+        }
+        state.advancedFilters = cloneAdvancedFilters(defaults);
+        state.activeFilter = 'reset';
+        state.activeCategory = 'todos';
+        state.search = '';
+        state.currentPage = 1;
+        if (els.search) {
+            els.search.value = '';
+        }
+        updateSearchMode();
+        renderCategories();
+        renderFilters();
+        renderProducts();
     }
 
     function bindSearch() {
@@ -483,6 +784,19 @@
         page.classList.toggle('is-searching', isSearchMode());
     }
 
+    function getSupplierForProduct(product) {
+        if (product.category === 'eletronicos') return 'magalu';
+        if (product.category === 'brindes' || product.category === 'materiais-graficos') return 'bipper-store';
+        if (product.category === 'viagens') return 'upper-premios';
+        return 'campanhas-plus';
+    }
+
+    function getShopGroupForProduct(product) {
+        if (product.redeemNow) return 'resgate-imediato';
+        if (product.price >= 80) return 'campanha-premium';
+        return 'sob-encomenda';
+    }
+
     function renderPartners() {
         els.partnersGrid.innerHTML = state.data.partners.map(function (partner) {
             return '<article class="shop-home__partner-card"><div class="shop-home__partner-mark"><span>' + partner.name + '</span></div></article>';
@@ -498,10 +812,13 @@
         var query = state.search.trim().toLowerCase();
         var list = state.data.products.filter(function (product) {
             if (query && product.name.toLowerCase().indexOf(query) === -1) return false;
-            if (query) return true;
+            if (product.price < state.advancedFilters.priceMin || product.price > state.advancedFilters.priceMax) return false;
+            if (state.advancedFilters.supplier !== 'all' && getSupplierForProduct(product) !== state.advancedFilters.supplier) return false;
+            if (state.advancedFilters.shop !== 'all' && getShopGroupForProduct(product) !== state.advancedFilters.shop) return false;
             if (state.activeCategory !== 'todos' && product.category !== state.activeCategory) return false;
             if (state.activeFilter === 'personalizados' && !product.isPersonalized) return false;
             if (state.activeFilter === 'redeem-now' && !product.redeemNow) return false;
+            if (query) return true;
             return true;
         });
 
@@ -556,7 +873,7 @@
         return '<article class="bp-product-card' + (insufficient ? ' is-insufficient' : '') + '" data-product-id="' + product.id + '">' +
             '<div class="bp-product-card__media"><span class="bp-product-card__badge">' + product.badge + '</span>' + (cartQty ? '<span class="bp-product-card__cart-indicator">No carrinho: ' + cartQty + '</span>' : '') + productMediaHtml(product) + '</div>' +
             '<button class="favorite-btn bp-product-card__fav' + (isFav ? ' is-active' : '') + '" type="button" data-fav-toggle aria-pressed="' + isFav + '" aria-label="Favoritar ' + product.name + '">♥</button>' +
-            '<div class="bp-product-card__meta">' + icon('spark', 'icon-xs') + '<span>' + product.rating.toFixed(1) + ' · ' + product.soldCount + ' resgatados</span></div>' +
+            '<div class="bp-product-card__meta">' + ratingIconHtml() + '<span>' + product.rating.toFixed(1) + ' · ' + product.soldCount + ' resgatados</span></div>' +
             '<h3 class="bp-product-card__name">' + product.name + '</h3>' +
             productPriceHtml(product) +
             '<button class="btn btn-primary bp-product-card__cta" type="button" data-add-cart ' + (insufficient ? 'disabled aria-disabled="true"' : '') + '>' + (insufficient ? 'Saldo insuficiente' : 'Resgatar') + '</button>' +
@@ -786,6 +1103,7 @@
         renderCartModal();
         els.cartModal.hidden = false;
         document.body.classList.add('bp-modal-open');
+        positionFloatingPanel(els.cartBtn, els.cartCard);
     }
 
     function closeCartModal() {
@@ -801,6 +1119,7 @@
         renderFavoritesModal();
         els.favoritesModal.hidden = false;
         document.body.classList.add('bp-modal-open');
+        positionFloatingPanel(els.wishlistBtn, els.favoritesCard);
     }
 
     function closeFavoritesModal() {
@@ -839,7 +1158,7 @@
         els.detailTags.innerHTML = tags.join('');
 
         els.detailTitle.textContent = product.name;
-        els.detailMeta.innerHTML = icon('spark', 'icon-xs') + '<span>' + product.rating.toFixed(1) + ' · ' + product.soldCount + ' resgatados</span>';
+        els.detailMeta.innerHTML = ratingIconHtml() + '<span>' + product.rating.toFixed(1) + ' · ' + product.soldCount + ' resgatados</span>';
         els.detailPrice.innerHTML = productPriceHtml(product);
 
         els.detailInsufficient.hidden = !insufficient;
@@ -882,6 +1201,35 @@
         }
     }
 
+    function positionFloatingPanel(anchor, panel) {
+        if (!anchor || !panel) return;
+        if (window.innerWidth <= 640) {
+            panel.style.top = '';
+            panel.style.left = '';
+            panel.style.right = '';
+            return;
+        }
+        var rect = anchor.getBoundingClientRect();
+        var panelWidth = Math.min(panel.offsetWidth || 760, window.innerWidth - 48);
+        var top = rect.bottom + 14;
+        var left = rect.right - panelWidth;
+        var minLeft = 24;
+        var maxLeft = window.innerWidth - panelWidth - 24;
+        left = Math.max(minLeft, Math.min(left, maxLeft));
+        panel.style.top = top + 'px';
+        panel.style.left = left + 'px';
+        panel.style.right = 'auto';
+    }
+
+    function refreshAnchoredPanels() {
+        if (state.cartModalOpen) {
+            positionFloatingPanel(els.cartBtn, els.cartCard);
+        }
+        if (state.favoritesModalOpen) {
+            positionFloatingPanel(els.wishlistBtn, els.favoritesCard);
+        }
+    }
+
     function bindModals() {
         els.balance.addEventListener('click', openBalanceModal);
         els.balanceOverlay.addEventListener('click', closeBalanceModal);
@@ -894,6 +1242,8 @@
         els.favoritesClose.addEventListener('click', closeFavoritesModal);
         els.giftOverlay.addEventListener('click', closeGiftModal);
         els.giftClose.addEventListener('click', closeGiftModal);
+        els.filterOverlay.addEventListener('click', closeFilterModal);
+        els.filterClose.addEventListener('click', closeFilterModal);
         els.detailOverlay.addEventListener('click', closeDetailModal);
         els.detailClose.addEventListener('click', closeDetailModal);
         els.cartRemoveClose.addEventListener('click', closeCartRemovalModal);
@@ -920,16 +1270,88 @@
                 closeFavoritesModal();
                 return;
             }
+            if (event.key === 'Escape' && !els.filterModal.hidden) {
+                closeFilterModal();
+                return;
+            }
             if (event.key === 'Escape' && state.detailModalOpen) {
                 closeDetailModal();
             }
         });
+        window.addEventListener('resize', positionFilterModal);
+        window.addEventListener('scroll', positionFilterModal, { passive: true });
+        window.addEventListener('resize', refreshAnchoredPanels);
+        window.addEventListener('scroll', refreshAnchoredPanels, { passive: true });
     }
 
     function bindStaticActions() {
         els.filterTrigger.addEventListener('click', function () {
-            var firstFilter = els.filters.querySelector('[data-filter]');
-            if (firstFilter) firstFilter.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            openFilterModal();
+        });
+
+        els.filterBody.addEventListener('click', function (event) {
+            var sectionTrigger = event.target.closest('[data-filter-section-trigger]');
+            if (sectionTrigger) {
+                var sectionId = sectionTrigger.dataset.filterSectionTrigger;
+                state.openFilterSection = state.openFilterSection === sectionId ? '' : sectionId;
+                renderFilterModal();
+            }
+        });
+
+        els.filterBody.addEventListener('change', function (event) {
+            var option = event.target.closest('[data-filter-option]');
+            if (!option || !state.draftAdvancedFilters) return;
+            state.draftAdvancedFilters[option.dataset.filterOption] = option.value;
+            updateFilterApplyState();
+        });
+
+        els.filterBody.addEventListener('input', function (event) {
+            var input = event.target.closest('[data-range-input]');
+            if (input && state.draftAdvancedFilters) {
+                var sliderValue = parseInt(input.value, 10) || 0;
+                if (input.dataset.rangeInput === 'min') {
+                    state.draftAdvancedFilters.priceMin = Math.min(sliderValue, state.draftAdvancedFilters.priceMax);
+                } else {
+                    state.draftAdvancedFilters.priceMax = Math.max(sliderValue, state.draftAdvancedFilters.priceMin);
+                }
+                syncDraftRangeInputsFromFilters(state.draftAdvancedFilters);
+                renderFilterModal();
+                return;
+            }
+            var numberInput = event.target.closest('[data-range-number]');
+            if (!numberInput || !state.draftAdvancedFilters) return;
+            var rawValue = numberInput.value;
+            if (rawValue === '' || /^\d*$/.test(rawValue)) {
+                var index = numberInput.dataset.rangeNumber === 'min' ? 0 : 1;
+                state.draftRangeInputs[index] = rawValue;
+            }
+        });
+
+        els.filterBody.addEventListener('change', function (event) {
+            var numberInput = event.target.closest('[data-range-number]');
+            if (!numberInput || !state.draftAdvancedFilters) return;
+            validateAndApplyRangeInput(numberInput.dataset.rangeNumber);
+            renderFilterModal();
+        });
+
+        els.filterBody.addEventListener('keydown', function (event) {
+            var numberInput = event.target.closest('[data-range-number]');
+            if (!numberInput || event.key !== 'Enter' || !state.draftAdvancedFilters) return;
+            event.preventDefault();
+            validateAndApplyRangeInput(numberInput.dataset.rangeNumber);
+            renderFilterModal();
+        });
+
+        els.filterApply.addEventListener('click', function () {
+            applyAdvancedFilters();
+        });
+
+        els.filterClear.addEventListener('click', function () {
+            clearAdvancedFilters('draft');
+        });
+
+        els.clearFilters.addEventListener('click', function () {
+            clearAdvancedFilters('live');
         });
 
         els.pagination.addEventListener('click', function (event) {
@@ -943,9 +1365,17 @@
         els.categories.addEventListener('click', function (event) {
             var btn = event.target.closest('[data-category]');
             if (!btn) return;
-            state.activeCategory = btn.dataset.category;
+            state.activeCategory = state.activeCategory === btn.dataset.category && btn.dataset.category !== 'todos'
+                ? 'todos'
+                : btn.dataset.category;
+            state.advancedFilters.category = state.activeCategory === 'todos' ? 'all' : state.activeCategory;
             state.currentPage = 1;
-            renderCategories();
+            updateCategoryMode();
+            Array.prototype.forEach.call(els.categories.children, function (el) {
+                var active = el.dataset.category === state.activeCategory;
+                el.classList.toggle('is-active', active);
+                el.setAttribute('aria-pressed', String(active));
+            });
             renderProducts();
         });
 
@@ -954,6 +1384,7 @@
             if (!btn) return;
             var filter = btn.dataset.filter;
             state.activeFilter = (filter === state.activeFilter || filter === 'reset') ? 'reset' : filter;
+            state.advancedFilters.classification = state.activeFilter === 'reset' ? 'all' : state.activeFilter;
             state.currentPage = 1;
             renderFilters();
             renderProducts();
@@ -967,6 +1398,7 @@
                     els.giftCards.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } else if (slideId === 'brindes') {
                     state.activeCategory = 'brindes';
+                    state.advancedFilters.category = 'brindes';
                     state.currentPage = 1;
                     renderCategories();
                     renderProducts();
@@ -980,6 +1412,7 @@
             var promo = event.target.closest('[data-promo-target]');
             if (promo) {
                 state.activeCategory = promo.dataset.promoTarget || 'todos';
+                state.advancedFilters.category = state.activeCategory === 'todos' ? 'all' : state.activeCategory;
                 state.currentPage = 1;
                 renderCategories();
                 renderProducts();
@@ -1030,6 +1463,7 @@
             if (secondary) {
                 state.activeCategory = 'todos';
                 state.activeFilter = 'reset';
+                state.advancedFilters = getDefaultAdvancedFilters();
                 state.currentPage = 1;
                 renderCategories();
                 renderFilters();
@@ -1143,6 +1577,24 @@
             }
             showToast('Fluxo de checkout em definição. Itens salvos no carrinho.');
         });
+    }
+
+    function validateAndApplyRangeInput(kind) {
+        if (!state.draftAdvancedFilters || !state.draftRangeInputs) return;
+        var min = state.filterMeta.priceMin;
+        var max = state.filterMeta.priceMax;
+        var index = kind === 'min' ? 0 : 1;
+        var rawValue = state.draftRangeInputs[index];
+        if (rawValue === '') {
+            rawValue = kind === 'min' ? String(min) : String(max);
+        }
+        var numericValue = clamp(parseInt(rawValue, 10) || 0, min, max);
+        if (kind === 'min') {
+            state.draftAdvancedFilters.priceMin = Math.min(numericValue, state.draftAdvancedFilters.priceMax);
+        } else {
+            state.draftAdvancedFilters.priceMax = Math.max(numericValue, state.draftAdvancedFilters.priceMin);
+        }
+        syncDraftRangeInputsFromFilters(state.draftAdvancedFilters);
     }
 
     function showToast(message) {

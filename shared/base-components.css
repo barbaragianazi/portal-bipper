@@ -535,7 +535,6 @@
     border-radius: 999px;
     display: grid;
     place-items: center;
-    margin-bottom: 20px;
 }
 
 .favorite-modal.is-positive .favorite-modal__status {
