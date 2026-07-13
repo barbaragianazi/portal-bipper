@@ -454,9 +454,9 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
         },
         delete: {
           positive: false,
-          title: 'Excluir este evento?',
-          description: 'O evento será removido da Agenda do dia. Esta ação vale apenas para a visualização atual.',
-          confirmLabel: 'Excluir',
+          title: 'Cancelar este evento?',
+          description: 'O evento será marcado como cancelado na Agenda do dia. Esta ação vale apenas para a visualização atual.',
+          confirmLabel: 'Cancelar',
           icon: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M9.5 9.5 14.5 14.5M14.5 9.5 9.5 14.5"></path></svg>'
         }
       };
@@ -853,7 +853,7 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
       return `
         <article class="calendar-event-summary calendar-event-summary--modal${deletedClass}" style="--event-accent:${getEventAccent(eventRecord)}">
           <p class="calendar-summary__eyebrow">Resumo do evento</p>
-          <span class="calendar-event-summary__badge">${isEventDeleted(eventRecord) ? 'Excluído' : eventRecord.status}</span>
+          <span class="calendar-event-summary__badge">${isEventDeleted(eventRecord) ? 'Cancelado' : eventRecord.status}</span>
           <h3 id="calendarDetailTitle">${getEventTitleMarkup(eventRecord)}</h3>
           <p>${eventRecord.content || 'Sem descrição cadastrada para este compromisso.'}</p>
           <dl class="calendar-event-summary__meta">
@@ -863,7 +863,7 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
             <div><dt>Participantes</dt><dd>${participants.length ? participants.join(', ') : 'Não informado'}</dd></div>
           </dl>
           <div class="calendar-event-summary__actions">
-            <button class="favorite-modal__btn favorite-modal__btn--danger" type="button" data-calendar-detail-edit="${eventRecord.id}" ${isEventDeleted(eventRecord) ? 'disabled' : ''}>Excluir</button>
+            <button class="favorite-modal__btn favorite-modal__btn--danger" type="button" data-calendar-detail-delete="${eventRecord.id}" ${isEventDeleted(eventRecord) ? 'disabled' : ''}>Cancelar evento</button>
           </div>
         </article>
       `;
@@ -874,9 +874,10 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
       if (!record || !calendarDetailModal || !calendarDetailContent) return;
       calendarDetailEventId = eventId;
       calendarDetailContent.innerHTML = getCalendarDetailMarkup(record);
-      calendarDetailContent.querySelector('[data-calendar-detail-edit]')?.addEventListener('click', () => {
+      calendarDetailContent.querySelector('[data-calendar-detail-delete]')?.addEventListener('click', () => {
         closeCalendarDetailModal();
-        openEventModal(eventId);
+        agendaEditingId = eventId;
+        openAgendaConfirmation('delete');
       });
       calendarDetailModal.classList.add('is-visible', 'is-positive');
       calendarDetailModal.setAttribute('aria-hidden', 'false');
@@ -905,7 +906,7 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
       const participants = getParticipantList(eventRecord.participants);
       calendarEventSummary.innerHTML = `
         <article class="calendar-event-summary${deletedClass}" style="--event-accent:${getEventAccent(eventRecord)}">
-          <span class="calendar-event-summary__badge">${isEventDeleted(eventRecord) ? 'Excluído' : eventRecord.status}</span>
+          <span class="calendar-event-summary__badge">${isEventDeleted(eventRecord) ? 'Cancelado' : eventRecord.status}</span>
           <h3>${getEventTitleMarkup(eventRecord)}</h3>
           <p>${eventRecord.content || 'Sem descrição cadastrada para este compromisso.'}</p>
           <dl class="calendar-event-summary__meta">
@@ -915,12 +916,13 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
             <div><dt>Participantes</dt><dd>${participants.length ? participants.join(', ') : 'Não informado'}</dd></div>
           </dl>
           <div class="calendar-event-summary__actions">
-            <button class="favorite-modal__btn favorite-modal__btn--danger" type="button" data-calendar-delete-event="${eventRecord.id}" ${isEventDeleted(eventRecord) ? 'disabled' : ''}>Excluir</button>
+            <button class="favorite-modal__btn favorite-modal__btn--danger" type="button" data-calendar-delete-event="${eventRecord.id}" ${isEventDeleted(eventRecord) ? 'disabled' : ''}>Cancelar evento</button>
           </div>
         </article>
       `;
       calendarEventSummary.querySelector('[data-calendar-delete-event]')?.addEventListener('click', () => {
-        openEventModal(eventRecord.id);
+        agendaEditingId = eventRecord.id;
+        openAgendaConfirmation('delete');
       });
     }
 
@@ -1027,7 +1029,7 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
             card.innerHTML = `
               <span class="calendar-event-card__time">${eventRecord.allDay ? 'Dia inteiro' : `${String(start.getHours()).padStart(2, '0')}:${String(start.getMinutes()).padStart(2, '0')} - ${String(end.getHours()).padStart(2, '0')}:${String(end.getMinutes()).padStart(2, '0')}`}</span>
               <strong title="${eventRecord.title}">${isWeekView ? compactTitle : getEventTitleMarkup(eventRecord)}</strong>
-              <small>${isEventDeleted(eventRecord) ? 'Excluído' : `${eventRecord.status} • ${eventRecord.contentType}`}</small>
+              <small>${isEventDeleted(eventRecord) ? 'Cancelado' : `${eventRecord.status} • ${eventRecord.contentType}`}</small>
             `;
             card.addEventListener('click', () => {
               event.stopPropagation();
@@ -1114,7 +1116,7 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
             <time>${eventRecord.allDay ? 'Dia inteiro' : `${String(start.getHours()).padStart(2, '0')}:${String(start.getMinutes()).padStart(2, '0')}`}</time>
             <div>
               <strong>${getEventTitleMarkup(eventRecord)}</strong>
-              <small>${isEventDeleted(eventRecord) ? 'Excluído' : eventRecord.status} • ${eventRecord.contentType} • ${formatDuration(start, end, eventRecord.allDay)}</small>
+              <small>${isEventDeleted(eventRecord) ? 'Cancelado' : eventRecord.status} • ${eventRecord.contentType} • ${formatDuration(start, end, eventRecord.allDay)}</small>
             </div>
           `;
           item.addEventListener('click', () => openEventModal(eventRecord.id));
