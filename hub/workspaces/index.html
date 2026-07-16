@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal Bipper - Workspaces</title>
+  <link rel="icon" type="image/png" href="../../shared/assets/logos/fav-icon.png">
+  <link rel="stylesheet" href="../../css/home-dashboard.css">
+  <link rel="stylesheet" href="../../shared/design-tokens.css">
+  <link rel="stylesheet" href="../../shared/base-components.css">
+  <link rel="stylesheet" href="../../shared/app-shell.css">
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <div class="brand" data-brands-url="../../shared/data/brands.json">
+        <div class="brand__area" aria-label="Marca ativa">
+          <button class="brand__logo-btn" type="button" aria-label="Selecionar marca" aria-haspopup="true"
+            aria-expanded="false">
+            <img src="../../shared/assets/logos/zoetis-dark.svg" alt="Zoetis" class="brand__logo" data-logo="dark">
+          </button>
+          <div class="brand-dropdown" role="menu" aria-label="Selecionar marca"></div>
+        </div>
+        <button class="brand__toggle" id="sidebarToggle" type="button" aria-label="Recolher menu" aria-expanded="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div data-shell-menu data-menu-url="../../config/menu.json"></div>
+
+      <div class="sidebar-card">
+        <strong>Acervo digital</strong>
+        <p>Organize ativos, acompanhe status e encontre os arquivos certos com mais agilidade.</p>
+        <a href="/hub/workspaces/">Abrir workspaces</a>
+      </div>
+    </aside>
+
+    <button class="sidebar-overlay" id="sidebarOverlay" type="button" aria-label="Fechar menu"></button>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="openMenu" type="button" aria-label="Abrir menu" aria-expanded="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+          </svg>
+        </button>
+
+        <div class="topbar-actions">
+          <button class="icon-btn" type="button" aria-label="Notificacoes">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              aria-hidden="true">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 7h18s-3 0-3-7"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-dot">3</span>
+          </button>
+          <button class="icon-btn" type="button" aria-label="Configuracoes">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              aria-hidden="true">
+              <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"></path>
+              <path
+                d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6V20a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-.6 1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1H4a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 .6-1 1.7 1.7 0 0 0-.34-1.88l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6V4a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 .6 1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.2.36.4.67.6 1H20a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-.51 1Z">
+              </path>
+            </svg>
+          </button>
+          <div class="profile" aria-label="Perfil do usuario">
+            <span class="avatar">BG</span>
+            <div>
+              <strong>Barbara Gianazi</strong>
+              <small>Administradora</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="content workspaces-page" id="hubWorkspacesPage">
+        <section class="summary-card workspaces-hero" aria-labelledby="workspacesHeroTitle">
+          <div>
+            <span class="workspace-eyebrow">Hub</span>
+            <h1 id="workspacesHeroTitle">Workspaces</h1>
+            <p>Organize pastas e arquivos por campanha, cliente, grupo ou usuario, com acessos separados para cada publico.</p>
+          </div>
+          <div class="workspaces-hero__actions">
+            <button class="btn btn-primary" type="button">Novo workspace</button>
+            <a class="btn btn-secondary" href="/hub/">Painel administrativo</a>
+          </div>
+        </section>
+
+        <section class="workspace-grid" aria-label="Lista de workspaces">
+          <article class="area-card workspace-card" style="--accent:#2563eb;--soft:#eaf2ff;" data-workspace="campanhas-de-divulgacao">
+            <div class="area-card__top">
+              <div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 13v-2l12-5v12L4 13Z"></path><path d="M8 14l2 5"></path></svg></div>
+              <div class="workspace-menu">
+                <button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg></button>
+                <div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div>
+              </div>
+            </div>
+            <div class="module-name"><h3>Campanhas de divulgação</h3><span class="hub-status-badge">campanha</span></div>
+            <p>Materiais sazonais, banners, textos e pecas de midia para comunicacoes ativas.</p>
+            <ul class="module-list"><li class="module-item"><span>18 pastas</span><small>236 arquivos</small></li><li class="module-item"><span>Acesso</span><small>Marketing e parceiros externos</small></li></ul>
+            <button class="open-link workspace-open" type="button">Abrir workspace <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></button>
+          </article>
+
+          <article class="area-card workspace-card" style="--accent:#00a7b5;--soft:#e8fbfd;" data-workspace="lancamento">
+            <div class="area-card__top">
+              <div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 4c3.5.4 5.6 2.5 6 6l-5 5-5-5 4-6Z"></path><circle cx="14.5" cy="8.5" r="1.5"></circle></svg></div>
+              <div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg></button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>
+            </div>
+            <div class="module-name"><h3>Lançamento</h3><span class="hub-status-badge hub-status-badge--positive">produtos</span></div>
+            <p>Arquivos de go-to-market, kits de produto, apresentacoes comerciais e assets finais.</p>
+            <ul class="module-list"><li class="module-item"><span>12 pastas</span><small>148 arquivos</small></li><li class="module-item"><span>Acesso</span><small>Produto, vendas e diretoria</small></li></ul>
+            <button class="open-link workspace-open" type="button">Abrir workspace <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></button>
+          </article>
+
+          <article class="area-card workspace-card" style="--accent:#10b981;--soft:#ecfdf5;" data-workspace="divulgacao-de-produtos">
+            <div class="area-card__top">
+              <div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10h16l-1-5H5l-1 5Z"></path><path d="M5 10v9h14v-9"></path></svg></div>
+              <div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg></button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>
+            </div>
+            <div class="module-name"><h3>Divulgação de produtos</h3><span class="hub-status-badge hub-status-badge--positive">cliente</span></div>
+            <p>Conteudos prontos para clientes, campanhas cooperadas e comunicados comerciais.</p>
+            <ul class="module-list"><li class="module-item"><span>9 pastas</span><small>96 arquivos</small></li><li class="module-item"><span>Acesso</span><small>Clientes selecionados</small></li></ul>
+            <button class="open-link workspace-open" type="button">Abrir workspace <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></button>
+          </article>
+
+          <article class="area-card workspace-card" style="--accent:#7c3aed;--soft:#ede9fe;" data-workspace="grupo-vu">
+            <div class="area-card__top">
+              <div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 18a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4"></path><circle cx="12" cy="8" r="3"></circle></svg></div>
+              <div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg></button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>
+            </div>
+            <div class="module-name"><h3>Grupo VU</h3><span class="hub-status-badge">grupo VU</span></div>
+            <p>Arquivos compartilhados para um grupo especifico de usuarios e equipes internas.</p>
+            <ul class="module-list"><li class="module-item"><span>7 pastas</span><small>84 arquivos</small></li><li class="module-item"><span>Acesso</span><small>Grupo VU</small></li></ul>
+            <button class="open-link workspace-open" type="button">Abrir workspace <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></button>
+          </article>
+
+          <article class="area-card workspace-card" style="--accent:#f59e0b;--soft:#fff7ed;" data-workspace="materiais-publicos">
+            <div class="area-card__top">
+              <div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"></circle><path d="M4 12h16"></path><path d="M12 4c2 2.4 3 5.1 3 8s-1 5.6-3 8"></path><path d="M12 4c-2 2.4-3 5.1-3 8s1 5.6 3 8"></path></svg></div>
+              <div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg></button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>
+            </div>
+            <div class="module-name"><h3>Materiais públicos</h3><span class="hub-status-badge hub-status-badge--warning">pública</span></div>
+            <p>Documentos liberados para distribuicao ampla, links externos e consultas sem restricao.</p>
+            <ul class="module-list"><li class="module-item"><span>6 pastas</span><small>61 arquivos</small></li><li class="module-item"><span>Acesso</span><small>Publico com link</small></li></ul>
+            <button class="open-link workspace-open" type="button">Abrir workspace <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></button>
+          </article>
+
+          <article class="area-card workspace-card workspace-card--vault" style="--accent:#0f172a;--soft:#f1f5f9;" data-workspace="cofre" data-protected="true">
+            <div class="area-card__top">
+              <div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path><path d="M12 14v2"></path></svg></div>
+              <span class="hub-status-badge">cofre</span>
+            </div>
+            <h3>Cofre</h3>
+            <button class="btn btn-primary workspace-open" type="button">Acessar com senha</button>
+          </article>
+        </section>
+      </section>
+
+      <section class="content workspace-files-page" id="workspaceFilesPage" hidden>
+        <section class="summary-card workspaces-hero" aria-labelledby="workspaceFilesTitle">
+          <div>
+            <span class="workspace-eyebrow">Arquivos</span>
+            <h1 id="workspaceFilesTitle">Workspace</h1>
+            <p>Area reservada para a futura exibicao de pastas e arquivos deste workspace.</p>
+          </div>
+          <div class="workspaces-hero__actions">
+            <button class="btn btn-secondary" id="backToWorkspaces" type="button">Voltar aos workspaces</button>
+            <button class="btn btn-primary" type="button">Nova pasta</button>
+          </div>
+        </section>
+
+        <section class="summary-card workspace-empty-files">
+          <div class="workspace-empty-files__icon">ARQ</div>
+          <h2>Arquivos e pastas entram aqui</h2>
+          <p>Esta tela ja esta separada do painel administrativo e pronta para evoluir o gerenciador de arquivos.</p>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    window.BipperShellConfig = {
+      app: 'hub',
+      active: 'hub-workspaces',
+      menuUrl: '../../config/menu.json',
+      assetPathPrefix: '../../'
+    };
+  </script>
+  <script src="../../shared/app-shell.js"></script>
+  <script src="index.js" defer></script>
+</body>
+
+</html>

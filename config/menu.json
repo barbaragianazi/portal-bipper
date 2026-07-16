@@ -4,7 +4,7 @@
   "links": {
     "portal": "/",
     "loja": "/loja/",
-    "legado": "https://sistema-legado.bipper.com.br/"
+    "hub": "/hub/"
   },
   "sections": [
     {
@@ -36,70 +36,88 @@
           ]
         },
         {
+          "key": "hub",
+          "label": "Hub",
+          "icon": "files",
+          "linkKey": "hub",
+          "children": [
+            {
+              "key": "hub-painel-administrativo",
+              "label": "Painel administrativo",
+              "linkKey": "hub"
+            },
+            {
+              "key": "hub-workspaces",
+              "label": "Workspaces",
+              "href": "/hub/workspaces/"
+            }
+          ]
+        },
+        {
           "key": "administracao",
           "label": "Administração",
           "icon": "admin",
-          "href": "https://sistema-legado.bipper.com.br/administracao"
+          "href": "#"
         },
         {
           "key": "auditoria",
           "label": "Auditoria",
           "icon": "audit",
-          "href": "https://sistema-legado.bipper.com.br/auditoria"
+          "href": "#"
         },
         {
           "key": "campanha-marketing",
           "label": "Campanha Marketing",
           "icon": "flag",
-          "href": "https://sistema-legado.bipper.com.br/campanha-marketing"
+          "href": "#"
         },
         {
           "key": "dashboards",
           "label": "Dashboards",
           "icon": "gauge",
-          "href": "https://sistema-legado.bipper.com.br/dashboards"
+          "href": "#"
         },
         {
           "key": "eventos",
           "label": "Eventos",
           "icon": "calendar",
-          "href": "https://sistema-legado.bipper.com.br/eventos"
+          "href": "#"
         },
         {
           "key": "mapeamento",
           "label": "Mapeamento",
           "icon": "mapPin",
-          "href": "https://sistema-legado.bipper.com.br/mapeamento"
+          "href": "#"
         },
         {
           "key": "plano-de-acao",
           "label": "Plano de Ação",
           "icon": "actionPlan",
-          "href": "https://sistema-legado.bipper.com.br/plano-de-acao"
+          "href": "#"
         },
         {
           "key": "projetos",
           "label": "Projetos",
           "icon": "rocket",
-          "href": "https://sistema-legado.bipper.com.br/projetos"
+          "href": "#"
         },
         {
           "key": "remuneracao",
           "label": "Remuneração",
           "icon": "calculator",
-          "href": "https://sistema-legado.bipper.com.br/remuneracao"
+          "href": "#"
         },
         {
           "key": "solicitacoes",
           "label": "Solicitações",
           "icon": "requests",
-          "href": "https://sistema-legado.bipper.com.br/solicitacoes"
+          "href": "#"
         },
         {
           "key": "treinamentos",
           "label": "Treinamentos",
           "icon": "training",
-          "href": "https://sistema-legado.bipper.com.br/treinamentos"
+          "href": "#"
         }
       ]
     }

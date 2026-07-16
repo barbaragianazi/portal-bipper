@@ -15,6 +15,8 @@ Portal front-end estatico com pagina inicial, shell compartilhado e app interno 
 ├── script.js
 ├── config/
 │   └── menu.json
+├── hub/
+│   └── index.html
 ├── loja/
 │   └── index.html
 └── shared/
@@ -56,6 +58,7 @@ Depois valide:
 - `css/home-*.css`: estilos especificos da pagina inicial, separados por shell, dashboard, modais e responsividade.
 - `script.js`: interacoes especificas da pagina inicial, como filtros, favoritos, modais e personalizacao.
 - `loja/index.html`: app da loja usando o shell compartilhado.
+- `hub/index.html`: visão geral do módulo Hub usando o shell compartilhado.
 - `shared/app-shell.js`: sidebar, menu mobile, menu dinamico e troca de marca.
 - `shared/data/brands.json`: configuracao das marcas.
 

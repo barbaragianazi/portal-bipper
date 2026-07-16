@@ -623,12 +623,6 @@
     opacity: .9;
 }
 
-/* .area-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-    border-color: rgba(148, 163, 184, .55);
-} */
-
 .area-card__top {
     display: flex;
     align-items: center;
@@ -664,7 +658,7 @@
 }
 
 .favorite-btn.is-active {
-    background: #eec9ca; 
+    background: #eec9ca;
     color: #d71920;
     border-color: #d71920;
 }
@@ -802,7 +796,7 @@
     justify-content: space-between;
 }
 
-.number-modules {
+.number-modules { 
     color: var(--muted);
     font-weight: 500;
     font-size: 14px;
@@ -817,8 +811,8 @@
 }
 
 .icon-xs {
-    width: 17px;
-    height: 17px;
+    width: 27px;
+    height: 27px;
 }
 
 .insights-grid {
@@ -1014,4 +1008,3 @@
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
 }
-
