@@ -55,7 +55,7 @@
         </button>
 
         <div class="topbar-actions">
-          <button class="icon-btn" type="button" aria-label="Notificacoes">
+          <button class="icon-btn" type="button" aria-label="Notificações">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
               aria-hidden="true">
               <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 7h18s-3 0-3-7"></path>
@@ -63,7 +63,7 @@
             </svg>
             <span class="notification-dot">3</span>
           </button>
-          <button class="icon-btn" type="button" aria-label="Configuracoes">
+          <button class="icon-btn" type="button" aria-label="Configurações">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
               aria-hidden="true">
               <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"></path>
@@ -72,10 +72,10 @@
               </path>
             </svg>
           </button>
-          <div class="profile" aria-label="Perfil do usuario">
+          <div class="profile" aria-label="Perfil do usuário">
             <span class="avatar">BG</span>
             <div>
-              <strong>Barbara Gianazi</strong>
+              <strong>Bárbara Gianazi</strong>
               <small>Administradora</small>
             </div>
           </div>
@@ -85,13 +85,11 @@
       <section class="content workspaces-page" id="hubWorkspacesPage">
         <section class="summary-card workspaces-hero" aria-labelledby="workspacesHeroTitle">
           <div>
-            <span class="workspace-eyebrow">Hub</span>
             <h1 id="workspacesHeroTitle">Workspaces</h1>
-            <p>Organize pastas e arquivos por campanha, cliente, grupo ou usuario, com acessos separados para cada publico.</p>
+            <p>Organize pastas e arquivos por campanha, cliente, grupo ou usuário, com acessos separados para cada público.</p>
           </div>
           <div class="workspaces-hero__actions">
-            <button class="btn btn-primary" type="button">Novo workspace</button>
-            <a class="btn btn-secondary" href="/hub/">Painel administrativo</a>
+            <button class="btn btn-primary" id="openCreateWorkspace" type="button">Novo workspace</button>
           </div>
         </section>
 
@@ -100,58 +98,53 @@
             <div class="area-card__top">
               <div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 13v-2l12-5v12L4 13Z"></path><path d="M8 14l2 5"></path></svg></div>
               <div class="workspace-menu">
-                <button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg></button>
+                <button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" class="icon-xs lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
                 <div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div>
               </div>
             </div>
             <div class="module-name"><h3>Campanhas de divulgação</h3><span class="hub-status-badge">campanha</span></div>
-            <p>Materiais sazonais, banners, textos e pecas de midia para comunicacoes ativas.</p>
-            <ul class="module-list"><li class="module-item"><span>18 pastas</span><small>236 arquivos</small></li><li class="module-item"><span>Acesso</span><small>Marketing e parceiros externos</small></li></ul>
-            <button class="open-link workspace-open" type="button">Abrir workspace <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></button>
+            <p>Materiais sazonais, banners, textos e peças de mídia para comunicações ativas.</p>
+            <ul class="module-list"><li class="module-item"><span>18 pastas</span><small>236 arquivos</small></li><li class="module-item"><span>Permissões</span><small>Marketing e parceiros externos</small></li></ul>
           </article>
 
           <article class="area-card workspace-card" style="--accent:#00a7b5;--soft:#e8fbfd;" data-workspace="lancamento">
             <div class="area-card__top">
-              <div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 4c3.5.4 5.6 2.5 6 6l-5 5-5-5 4-6Z"></path><circle cx="14.5" cy="8.5" r="1.5"></circle></svg></div>
-              <div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg></button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>
+              <div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"></path><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"></path></svg></div>
+              <div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" class="icon-xs lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>
             </div>
             <div class="module-name"><h3>Lançamento</h3><span class="hub-status-badge hub-status-badge--positive">produtos</span></div>
-            <p>Arquivos de go-to-market, kits de produto, apresentacoes comerciais e assets finais.</p>
-            <ul class="module-list"><li class="module-item"><span>12 pastas</span><small>148 arquivos</small></li><li class="module-item"><span>Acesso</span><small>Produto, vendas e diretoria</small></li></ul>
-            <button class="open-link workspace-open" type="button">Abrir workspace <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></button>
+            <p>Arquivos de go-to-market, kits de produto, apresentações comerciais e assets finais.</p>
+            <ul class="module-list"><li class="module-item"><span>12 pastas</span><small>148 arquivos</small></li><li class="module-item"><span>Permissões</span><small>Produto, vendas e diretoria</small></li></ul>
           </article>
 
           <article class="area-card workspace-card" style="--accent:#10b981;--soft:#ecfdf5;" data-workspace="divulgacao-de-produtos">
             <div class="area-card__top">
               <div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10h16l-1-5H5l-1 5Z"></path><path d="M5 10v9h14v-9"></path></svg></div>
-              <div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg></button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>
+              <div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" class="icon-xs lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>
             </div>
             <div class="module-name"><h3>Divulgação de produtos</h3><span class="hub-status-badge hub-status-badge--positive">cliente</span></div>
-            <p>Conteudos prontos para clientes, campanhas cooperadas e comunicados comerciais.</p>
-            <ul class="module-list"><li class="module-item"><span>9 pastas</span><small>96 arquivos</small></li><li class="module-item"><span>Acesso</span><small>Clientes selecionados</small></li></ul>
-            <button class="open-link workspace-open" type="button">Abrir workspace <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></button>
+            <p>Conteúdos prontos para clientes, campanhas cooperadas e comunicados comerciais.</p>
+            <ul class="module-list"><li class="module-item"><span>9 pastas</span><small>96 arquivos</small></li><li class="module-item"><span>Permissões</span><small>Clientes selecionados</small></li></ul>
           </article>
 
           <article class="area-card workspace-card" style="--accent:#7c3aed;--soft:#ede9fe;" data-workspace="grupo-vu">
             <div class="area-card__top">
               <div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 18a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4"></path><circle cx="12" cy="8" r="3"></circle></svg></div>
-              <div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg></button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>
+              <div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" class="icon-xs lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>
             </div>
             <div class="module-name"><h3>Grupo VU</h3><span class="hub-status-badge">grupo VU</span></div>
-            <p>Arquivos compartilhados para um grupo especifico de usuarios e equipes internas.</p>
-            <ul class="module-list"><li class="module-item"><span>7 pastas</span><small>84 arquivos</small></li><li class="module-item"><span>Acesso</span><small>Grupo VU</small></li></ul>
-            <button class="open-link workspace-open" type="button">Abrir workspace <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></button>
+            <p>Arquivos compartilhados para um grupo específico de usuários e equipes internas.</p>
+            <ul class="module-list"><li class="module-item"><span>7 pastas</span><small>84 arquivos</small></li><li class="module-item"><span>Permissões</span><small>Grupo VU</small></li></ul>
           </article>
 
           <article class="area-card workspace-card" style="--accent:#f59e0b;--soft:#fff7ed;" data-workspace="materiais-publicos">
             <div class="area-card__top">
               <div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"></circle><path d="M4 12h16"></path><path d="M12 4c2 2.4 3 5.1 3 8s-1 5.6-3 8"></path><path d="M12 4c-2 2.4-3 5.1-3 8s1 5.6 3 8"></path></svg></div>
-              <div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg></button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>
+              <div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" class="icon-xs lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>
             </div>
             <div class="module-name"><h3>Materiais públicos</h3><span class="hub-status-badge hub-status-badge--warning">pública</span></div>
-            <p>Documentos liberados para distribuicao ampla, links externos e consultas sem restricao.</p>
-            <ul class="module-list"><li class="module-item"><span>6 pastas</span><small>61 arquivos</small></li><li class="module-item"><span>Acesso</span><small>Publico com link</small></li></ul>
-            <button class="open-link workspace-open" type="button">Abrir workspace <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></button>
+            <p>Documentos liberados para distribuição ampla, links externos e consultas sem restrição.</p>
+            <ul class="module-list"><li class="module-item"><span>6 pastas</span><small>61 arquivos</small></li><li class="module-item"><span>Permissões</span><small>Público com link</small></li></ul>
           </article>
 
           <article class="area-card workspace-card workspace-card--vault" style="--accent:#0f172a;--soft:#f1f5f9;" data-workspace="cofre" data-protected="true">
@@ -160,7 +153,7 @@
               <span class="hub-status-badge">cofre</span>
             </div>
             <h3>Cofre</h3>
-            <button class="btn btn-primary workspace-open" type="button">Acessar com senha</button>
+            <button class="btn btn-primary workspace-vault-access" type="button">Acessar com senha</button>
           </article>
         </section>
       </section>
@@ -168,9 +161,8 @@
       <section class="content workspace-files-page" id="workspaceFilesPage" hidden>
         <section class="summary-card workspaces-hero" aria-labelledby="workspaceFilesTitle">
           <div>
-            <span class="workspace-eyebrow">Arquivos</span>
             <h1 id="workspaceFilesTitle">Workspace</h1>
-            <p>Area reservada para a futura exibicao de pastas e arquivos deste workspace.</p>
+            <p id="workspaceFilesDescription">Pastas e arquivos relacionados a este workspace.</p>
           </div>
           <div class="workspaces-hero__actions">
             <button class="btn btn-secondary" id="backToWorkspaces" type="button">Voltar aos workspaces</button>
@@ -178,13 +170,176 @@
           </div>
         </section>
 
-        <section class="summary-card workspace-empty-files">
-          <div class="workspace-empty-files__icon">ARQ</div>
-          <h2>Arquivos e pastas entram aqui</h2>
-          <p>Esta tela ja esta separada do painel administrativo e pronta para evoluir o gerenciador de arquivos.</p>
+        <section class="workspace-browser" aria-label="Pastas e arquivos do workspace">
+          <section class="area-card workspace-browser__panel" aria-labelledby="workspaceFoldersTitle">
+            <div class="area-card__top">
+              <div>
+                <h3 class="workspace-breadcrumb" id="workspaceFoldersTitle" aria-label="Caminho dos arquivos"></h3>
+              </div>
+              <span class="hub-status-badge" id="workspaceItemCount">0 itens</span>
+            </div>
+            <div class="workspace-folder-grid" id="workspaceFolderList"></div>
+          </section>
         </section>
       </section>
     </main>
+
+    <div class="workspace-preview" id="workspacePreview" hidden>
+      <button class="workspace-preview__overlay" id="workspacePreviewOverlay" type="button"
+        aria-label="Fechar previa"></button>
+      <section class="workspace-preview__dialog" role="dialog" aria-modal="true" aria-labelledby="workspacePreviewTitle">
+        <header class="workspace-preview__header">
+          <div>
+            <span class="workspace-eyebrow" id="workspacePreviewType">Arquivo</span>
+            <h2 id="workspacePreviewTitle">Previa do arquivo</h2>
+            <p id="workspacePreviewMeta">Detalhes do arquivo</p>
+          </div>
+          <div class="workspace-preview__tools">
+            <div id="workspacePreviewMenu"></div>
+            <button class="icon-btn" id="workspacePreviewClose" type="button" aria-label="Fechar previa">
+              <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                aria-hidden="true">
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </header>
+        <div class="workspace-preview__body" id="workspacePreviewBody"></div>
+        <footer class="workspace-preview__actions">
+          <button class="btn btn-secondary" type="button">Compartilhar</button>
+          <button class="btn btn-primary" type="button">Baixar arquivo</button>
+        </footer>
+      </section>
+    </div>
+
+    <div class="workspace-modal" id="workspaceVaultModal" hidden>
+      <button class="workspace-modal__overlay" id="workspaceVaultOverlay" type="button" aria-label="Fechar acesso ao cofre"></button>
+      <section class="workspace-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="workspaceVaultTitle">
+        <header class="workspace-modal__header">
+          <div>
+            <!-- <span class="workspace-eyebrow">Cofre</span> -->
+            <h2 id="workspaceVaultTitle">Acessar com senha</h2>
+            <p>Digite a senha para abrir o workspace protegido.</p>
+          </div>
+          <button class="icon-btn" id="workspaceVaultClose" type="button" aria-label="Fechar acesso ao cofre">
+            <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </header>
+        <form class="workspace-form" id="workspaceVaultForm">
+          <label class="workspace-field">
+            <span>Senha</span>
+            <input id="workspaceVaultPassword" name="password" type="password" placeholder="Digite a senha" required>
+          </label>
+          <p class="workspace-form__error" id="workspaceVaultError" hidden>Senha incorreta. Tente novamente.</p>
+          <div class="workspace-form__actions">
+            <button class="btn btn-secondary" id="workspaceVaultCancel" type="button">Cancelar</button>
+            <button class="btn btn-primary" type="submit">Entrar no cofre</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div class="workspace-modal" id="createWorkspaceModal" hidden>
+      <button class="workspace-modal__overlay" id="createWorkspaceOverlay" type="button" aria-label="Fechar novo workspace"></button>
+      <section class="workspace-modal__dialog workspace-modal__dialog--wide" role="dialog" aria-modal="true" aria-labelledby="createWorkspaceTitle">
+        <header class="workspace-modal__header">
+          <div>
+            <h2 id="createWorkspaceTitle">Criar workspace</h2>
+            <p>Monte um workspace de demonstração com permissões, descrição e estrutura inicial.</p>
+          </div>
+          <button class="icon-btn" id="createWorkspaceClose" type="button" aria-label="Fechar novo workspace">
+            <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </header>
+        <form class="workspace-form" id="createWorkspaceForm">
+          <div class="workspace-form__grid">
+            <label class="workspace-field">
+              <span>Nome do workspace</span>
+              <input name="title" type="text" placeholder="Ex: Campanha Primavera 2026" required>
+            </label>
+            <label class="workspace-field">
+              <span>Tipo</span>
+              <select name="type" id="workspaceTypeSelect" required>
+                <option value="">Selecione um tipo</option>
+                <option value="campanha">Campanha</option>
+                <option value="grupo VU">Grupo VU</option>
+                <option value="cliente (revenda)">Cliente (revenda)</option>
+                <option value="usuário(s)">Usuário(s)</option>
+                <option value="produtos">Produtos</option>
+                <option value="pública">Workspace público</option>
+                <option value="cofre">Cofre - protegido por senha</option>
+              </select>
+            </label>
+            <label class="workspace-field workspace-field--full" id="workspaceReferenceField" hidden>
+              <span id="workspaceReferenceLabel">Selecionar referência</span>
+              <select name="reference" id="workspaceReferenceSelect">
+                <option value="">Selecione uma opção</option>
+              </select>
+            </label>
+            <label class="workspace-field workspace-field--full">
+              <span>Descrição</span>
+              <textarea name="description" rows="3" placeholder="Descreva o objetivo e o conteúdo principal deste workspace." required></textarea>
+            </label>
+            <label class="workspace-field workspace-field--full">
+              <span>Permissões</span>
+              <div class="workspace-multi-select" id="workspacePermissionsMultiSelect" data-placeholder="Selecione uma ou mais permissões.">
+                <button class="workspace-multi-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="workspacePermissionsLabel">
+                  <span class="workspace-multi-select__value" id="workspacePermissionsLabel"></span>
+                  <span class="workspace-multi-select__actions" aria-hidden="true">
+                    <span class="workspace-multi-select__clear">×</span>
+                    <svg class="workspace-multi-select__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                  </span>
+                </button>
+                <div class="workspace-multi-select__dropdown" hidden>
+                  <ul class="workspace-multi-select__options" role="listbox" aria-multiselectable="true"></ul>
+                </div>
+              </div>
+              <select name="permissions" id="workspacePermissionsSelect" multiple required hidden>
+                <option value="Clientes piloto">Clientes piloto</option>
+                <option value="Comercial">Comercial</option>
+                <option value="Coordenadores regionais">Coordenadores regionais</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Diretoria">Diretoria</option>
+                <option value="Parceiros externos">Parceiros externos</option>
+              </select>
+            </label>
+          </div>
+          <div class="workspace-form__actions">
+            <button class="btn btn-secondary" id="createWorkspaceCancel" type="button">Cancelar</button>
+            <button class="btn btn-primary" type="submit">Criar</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div class="favorite-modal" id="workspaceConfirmModal" aria-hidden="true">
+      <div class="favorite-modal__backdrop" data-close-workspace-confirm></div>
+      <div class="favorite-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="workspaceConfirmTitle">
+        <button class="favorite-modal__close" id="workspaceConfirmClose" type="button" aria-label="Fechar confirmação">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6 6 18"></path>
+          </svg>
+        </button>
+        <span class="favorite-modal__status" id="workspaceConfirmStatus" aria-hidden="true"></span>
+        <h2 class="favorite-modal__title" id="workspaceConfirmTitle"></h2>
+        <p class="favorite-modal__description" id="workspaceConfirmDescription"></p>
+        <div class="favorite-modal__actions">
+          <button class="favorite-modal__btn favorite-modal__btn--secondary" id="workspaceConfirmCancel" type="button">Cancelar</button>
+          <button class="favorite-modal__btn favorite-modal__btn--primary" id="workspaceConfirmAction" type="button"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bp-toast" id="workspaceToast" role="status" aria-live="polite"></div>
   </div>
 
   <script>

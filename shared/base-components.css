@@ -44,7 +44,7 @@
     border: 1px solid var(--line);
     background: #fff;
     color: #334155;
-    display: grid;
+    display: flex;
     place-items: center;
     cursor: pointer;
     position: relative;
