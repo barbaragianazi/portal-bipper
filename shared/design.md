@@ -221,7 +221,7 @@ Regras:
 ### Base `.btn`
 
 - Sem borda nativa.
-- `border-radius: 14px`.
+- `border-radius: 12px`.
 - `padding: 12px 16px`.
 - `font-weight: 500`.
 - Layout `inline-flex`, centralizado, gap `9px`.
@@ -242,7 +242,7 @@ Regras:
 ### Busca `.search-box`
 
 - Container relativo com icone absoluto a esquerda.
-- Input com `height: 52px`, `border: 1px solid var(--line)`, `border-radius: 17px`.
+- Input com `height: 40px`, `border: 1px solid var(--line)`, `border-radius: 12px`.
 - Fundo branco, texto `#0f172a`, padding `0 18px 0 48px`.
 - Sombra `var(--shadow-sm)`.
 - Foco: borda teal `rgba(0, 167, 181, .5)` e ring `0 0 0 4px rgba(0, 167, 181, .12)`.

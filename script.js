@@ -23,7 +23,8 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
     const dashboardAreas = {
       welcome: document.querySelector('[data-dashboard-area="welcome"]'),
       quick: document.querySelector('[data-dashboard-area="quick"]'),
-      metrics: document.querySelector('[data-dashboard-area="metrics"]')
+      metrics: document.querySelector('[data-dashboard-area="metrics"]'),
+      approvals: document.querySelector('[data-dashboard-area="approvals"]')
     };
     const favoriteModal = document.getElementById('favoriteModal');
     const favoriteModalTitle = document.getElementById('favoriteModalTitle');
@@ -60,6 +61,19 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
     const eventAttachmentsList = document.getElementById('eventAttachmentsList');
     const agendaList = document.getElementById('agendaList');
     const agendaDayLabel = document.getElementById('agendaDayLabel');
+    const workflowApprovalSearchInput = document.getElementById('workflowApprovalSearch');
+    const workflowApprovalSort = document.getElementById('workflowApprovalSort');
+    const workflowApprovalCampaign = document.getElementById('workflowApprovalCampaign');
+    const workflowApprovalClearFilters = document.getElementById('workflowApprovalClearFilters');
+    const workflowApprovalSearchToggle = document.getElementById('workflowApprovalSearchToggle');
+    const workflowApprovalSearchPanel = document.getElementById('workflowApprovalSearchPanel');
+    const workflowApprovalMenuToggle = document.getElementById('workflowApprovalMenuToggle');
+    const workflowApprovalMenu = document.getElementById('workflowApprovalMenu');
+    const workflowApprovalFiltersEl = document.getElementById('workflowApprovalFilters');
+    const workflowApprovalChips = workflowApprovalFiltersEl
+      ? [...workflowApprovalFiltersEl.querySelectorAll('.filter-chip[data-workflow-filter]')]
+      : [];
+    const workflowApprovalList = document.getElementById('workflowApprovalList');
     const selectChipDropdowns = [...document.querySelectorAll('[data-select-dropdown]')];
     const eventDateTimeModal = document.getElementById('eventDateTimeModal');
     const eventDateTimeModalClose = document.getElementById('eventDateTimeModalClose');
@@ -115,10 +129,14 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
     let calendarDetailEventId = null;
     let calendarSelectedDate = '2026-07-10';
     let eventAttachmentFiles = [];
+    let workflowApprovalFilter = 'all';
+    let workflowApprovalExpandedIds = new Set();
+    let workflowApprovalOpenAllMatches = false;
     const dashboardVisibility = {
       welcome: true,
       quick: true,
-      metrics: true
+      metrics: true,
+      approvals: true
     };
 
     const gestaoCard = document.querySelector('.area-card[data-category="Gestão"]');
@@ -132,6 +150,38 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
       'Concluído': '#7c3aed',
       'Cancelado': '#ef4444'
     };
+    const workflowApprovalItems = [
+      {
+        id: 'wf-1', titulo: 'Solicitação de acesso administrativo', dias: 23,
+        estado: 'Validação de segurança', etapa: 'Aguardando aprovação',
+        inicio: '23/06/2026, 16:20', workflow: '1102',
+        codigoAcao: 'SG-16820', categoria: 'Segurança', campanha: 'Operacional'
+      },
+      {
+        id: 'wf-2', titulo: 'Aprovação de contrato de serviços', dias: 18,
+        estado: 'Análise da diretoria', etapa: 'Aguardando aprovação',
+        inicio: '29/06/2026, 11:00', workflow: '1089',
+        codigoAcao: 'CT-48213', categoria: 'Consultoria', campanha: 'Eficiência'
+      },
+      {
+        id: 'wf-3', titulo: 'Cadastro de novo fornecedor', dias: 12,
+        estado: 'Validação financeira', etapa: 'Aguardando aprovação',
+        inicio: '05/07/2026, 08:45', workflow: '1067',
+        codigoAcao: 'FN-90144', categoria: 'Financeiro', campanha: 'Operacional'
+      },
+      {
+        id: 'wf-4', titulo: 'Solicitação de compra de equipamento', dias: 2,
+        estado: 'Em aprovação gerencial', etapa: 'Aguardando aprovação',
+        inicio: '15/07/2026, 10:30', workflow: '1042',
+        codigoAcao: 'OP-77035', categoria: 'Operações', campanha: 'Eficiência'
+      },
+      {
+        id: 'wf-5', titulo: 'Renovação de licença de software', dias: 4,
+        estado: 'Revisão jurídica', etapa: 'Aguardando aprovação',
+        inicio: '13/07/2026, 14:00', workflow: '1123',
+        codigoAcao: 'JR-30410', categoria: 'Jurídico', campanha: 'Eficiência'
+      }
+    ];
     const agendaEvents = [
       {
         id: 'seed-1',
@@ -1127,6 +1177,212 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
       }
     }
 
+    const WORKFLOW_ALERT_ICON = '<svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>';
+
+    function getWorkflowSeverity(dias) {
+      if (dias > 15) return 'danger';
+      if (dias > 5) return 'warning';
+      return 'ontime';
+    }
+
+    function parseWorkflowStartDate(value = '') {
+      const [datePart = '', timePart = '00:00'] = value.split(',').map((part) => part.trim());
+      const [day, month, year] = datePart.split('/').map(Number);
+      const [hour = 0, minute = 0] = timePart.split(':').map(Number);
+      return new Date(year, month - 1, day, hour, minute).getTime();
+    }
+
+    function getFilteredSortedWorkflowItems() {
+      const term = (workflowApprovalSearchInput?.value || '').trim().toLowerCase();
+      const campaignFilter = workflowApprovalCampaign?.value || 'all';
+      const filtered = workflowApprovalItems.filter((item) => {
+        const haystack = `${item.titulo} ${item.estado} ${item.etapa} ${item.workflow}`.toLowerCase();
+        const matchesSearch = !term || haystack.includes(term);
+        const severity = getWorkflowSeverity(item.dias);
+        const matchesFilter =
+          workflowApprovalFilter === 'all' ||
+          (workflowApprovalFilter === 'onTime' && severity === 'ontime') ||
+          (workflowApprovalFilter === 'attention' && severity === 'warning') ||
+          (workflowApprovalFilter === 'critical' && severity === 'danger');
+        const matchesCampaign = campaignFilter === 'all' || item.campanha === campaignFilter;
+        return matchesSearch && matchesFilter && matchesCampaign;
+      });
+      const sortMode = workflowApprovalSort?.value || 'all';
+      return filtered.sort((a, b) => {
+        if (sortMode === 'all') return 0;
+        if (sortMode === 'az') return a.titulo.localeCompare(b.titulo, 'pt-BR');
+        if (sortMode === 'waiting') return b.dias - a.dias;
+        const dateA = parseWorkflowStartDate(a.inicio);
+        const dateB = parseWorkflowStartDate(b.inicio);
+        return sortMode === 'oldest' ? dateA - dateB : dateB - dateA;
+      });
+    }
+
+    function buildWorkflowItemMarkup(item) {
+      const severity = getWorkflowSeverity(item.dias);
+      const isExpanded = workflowApprovalExpandedIds.has(item.id);
+      const alertHtml = severity === 'ontime' ? '' : `
+          <p class="workflow-approval-item__alert workflow-approval-item__alert--${severity}">
+            ${WORKFLOW_ALERT_ICON}
+            <strong>${severity === 'danger' ? 'Crítico' : 'Atenção'}:</strong>&nbsp;${severity === 'danger' ? 'aberto há mais de 15 dias' : 'aguardando há mais de 5 dias'}
+          </p>`;
+      const actionButtonHtml = `
+          <button class="btn btn-secondary btn-sm workflow-approval-item__action-btn" type="button" data-action-toggle
+            aria-expanded="${isExpanded}" aria-controls="workflowDetail-${item.id}">Detalhes da ação</button>`;
+      const footerHtml = `
+        <div class="workflow-approval-item__footer">${alertHtml}${actionButtonHtml}</div>`;
+      const detailHtml = `
+        <div class="workflow-approval-item__detail" id="workflowDetail-${item.id}" ${isExpanded ? '' : 'hidden'}>
+          <div class="workflow-approval-item__detail-field">
+            <span class="workflow-approval-item__meta-label">Código da ação</span>
+            <span class="workflow-approval-item__meta-value">${item.codigoAcao}</span>
+          </div>
+          <div class="workflow-approval-item__detail-field">
+            <span class="workflow-approval-item__meta-label">Nome da ação</span>
+            <span class="workflow-approval-item__meta-value">${item.titulo}</span>
+          </div>
+          <div class="workflow-approval-item__detail-field">
+            <span class="workflow-approval-item__meta-label">Categoria</span>
+            <span class="workflow-approval-item__meta-value">${item.categoria}</span>
+          </div>
+          <div class="workflow-approval-item__detail-field">
+            <span class="workflow-approval-item__meta-label">Campanha</span>
+            <span class="workflow-approval-item__meta-value">${item.campanha}</span>
+          </div>
+        </div>`;
+      return `
+        <li class="workflow-approval-item workflow-approval-item--${severity}${isExpanded ? ' is-expanded' : ''}" data-id="${item.id}">
+          <div class="workflow-approval-item__header">
+            <h3 class="workflow-approval-item__title">${item.titulo}</h3>
+            <span class="workflow-approval-item__days-badge workflow-approval-item__days-badge--${severity}">${item.dias} dias</span>
+          </div>
+          <div class="workflow-approval-item__meta">
+            <div class="workflow-approval-item__meta-field">
+              <span class="workflow-approval-item__meta-label">Estado</span>
+              <span class="workflow-approval-item__meta-value">${item.estado}</span>
+            </div>
+            <div class="workflow-approval-item__meta-field">
+              <span class="workflow-approval-item__meta-label">Etapa</span>
+              <span class="workflow-approval-item__meta-value">${item.etapa}</span>
+            </div>
+            <div class="workflow-approval-item__meta-field">
+              <span class="workflow-approval-item__meta-label">Início</span>
+              <span class="workflow-approval-item__meta-value">${item.inicio}</span>
+            </div>
+            <div class="workflow-approval-item__meta-field">
+              <span class="workflow-approval-item__meta-label">Workflow</span>
+              <span class="workflow-approval-item__meta-value">${item.workflow}</span>
+            </div>
+          </div>
+          ${footerHtml}
+          ${detailHtml}
+        </li>`;
+    }
+
+    function wireWorkflowApprovalActionButtons() {
+      if (!workflowApprovalList) return;
+      workflowApprovalList.querySelectorAll('[data-action-toggle]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.closest('.workflow-approval-item')?.dataset.id;
+          if (!id) return;
+          workflowApprovalOpenAllMatches = false;
+          if (workflowApprovalExpandedIds.has(id)) {
+            workflowApprovalExpandedIds.delete(id);
+          } else {
+            workflowApprovalExpandedIds.add(id);
+          }
+          renderWorkflowApprovalList();
+        });
+      });
+    }
+
+    function populateWorkflowCampaignFilter() {
+      if (!workflowApprovalCampaign) return;
+      const campaigns = [...new Set(workflowApprovalItems.map((item) => item.campanha))].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+      workflowApprovalCampaign.innerHTML = '<option value="all">Todas</option>';
+      campaigns.forEach((campaign) => {
+        const option = document.createElement('option');
+        option.value = campaign;
+        option.textContent = campaign;
+        workflowApprovalCampaign.appendChild(option);
+      });
+    }
+
+    const WORKFLOW_FILTER_LABELS = { all: 'Todos', onTime: 'No prazo', attention: 'Atenção', critical: 'Críticos' };
+
+    function updateWorkflowApprovalChipCounts() {
+      const counts = { all: workflowApprovalItems.length, onTime: 0, attention: 0, critical: 0 };
+      workflowApprovalItems.forEach((item) => {
+        const severity = getWorkflowSeverity(item.dias);
+        if (severity === 'ontime') counts.onTime += 1;
+        else if (severity === 'warning') counts.attention += 1;
+        else counts.critical += 1;
+      });
+      workflowApprovalChips.forEach((chip) => {
+        const key = chip.dataset.workflowFilter;
+        chip.textContent = `${WORKFLOW_FILTER_LABELS[key]} (${counts[key]})`;
+      });
+    }
+
+    function renderWorkflowApprovalList() {
+      if (!workflowApprovalList) return;
+      updateWorkflowApprovalChipCounts();
+      updateWorkflowApprovalClearState();
+      const items = getFilteredSortedWorkflowItems();
+      if (workflowApprovalOpenAllMatches) {
+        workflowApprovalExpandedIds = new Set(items.map((item) => item.id));
+      }
+      workflowApprovalList.innerHTML = items.length
+        ? items.map(buildWorkflowItemMarkup).join('')
+        : '<li class="workflow-approval__empty">Nenhuma solicitação encontrada.</li>';
+      wireWorkflowApprovalActionButtons();
+    }
+
+    function hasActiveWorkflowApprovalFilters() {
+      const hasSearch = Boolean((workflowApprovalSearchInput?.value || '').trim());
+      const hasStatusFilter = workflowApprovalFilter !== 'all';
+      const hasSortFilter = (workflowApprovalSort?.value || 'all') !== 'all';
+      const hasCampaignFilter = (workflowApprovalCampaign?.value || 'all') !== 'all';
+      return hasSearch || hasStatusFilter || hasSortFilter || hasCampaignFilter;
+    }
+
+    function updateWorkflowApprovalClearState() {
+      if (!workflowApprovalClearFilters) return;
+      const hasActiveFilters = hasActiveWorkflowApprovalFilters();
+      workflowApprovalClearFilters.hidden = !hasActiveFilters;
+      workflowApprovalClearFilters.classList.toggle('is-active', hasActiveFilters);
+    }
+
+    function resetWorkflowApprovalFilters() {
+      if (workflowApprovalSearchInput) workflowApprovalSearchInput.value = '';
+      workflowApprovalFilter = 'all';
+      workflowApprovalChips.forEach((chip) => {
+        chip.classList.toggle('is-active', chip.dataset.workflowFilter === 'all');
+      });
+      if (workflowApprovalSort) workflowApprovalSort.value = 'all';
+      if (workflowApprovalCampaign) workflowApprovalCampaign.value = 'all';
+      workflowApprovalOpenAllMatches = false;
+      workflowApprovalExpandedIds = new Set();
+      setWorkflowApprovalSearchOpen(false);
+      setWorkflowApprovalMenuOpen(false);
+      renderWorkflowApprovalList();
+    }
+
+    function setWorkflowApprovalSearchOpen(isOpen) {
+      if (!workflowApprovalSearchPanel || !workflowApprovalSearchToggle) return;
+      workflowApprovalSearchPanel.hidden = !isOpen;
+      workflowApprovalSearchToggle.setAttribute('aria-expanded', String(isOpen));
+      workflowApprovalSearchToggle.setAttribute('aria-label', isOpen ? 'Fechar busca' : 'Abrir busca');
+      if (isOpen) workflowApprovalSearchInput?.focus();
+    }
+
+    function setWorkflowApprovalMenuOpen(isOpen) {
+      if (!workflowApprovalMenu || !workflowApprovalMenuToggle) return;
+      workflowApprovalMenu.hidden = !isOpen;
+      workflowApprovalMenuToggle.setAttribute('aria-expanded', String(isOpen));
+      workflowApprovalMenuToggle.setAttribute('aria-label', isOpen ? 'Fechar filtros avançados' : 'Abrir filtros avançados');
+    }
+
     function upsertAgendaEvent() {
       const start = eventAllDay.checked
         ? new Date(`${eventStartDate.value}T00:00:00`)
@@ -1725,11 +1981,64 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
       activeFilter = chip.dataset.filter;
       applyFilters();
     }));
+    workflowApprovalSearchInput?.addEventListener('input', () => {
+      workflowApprovalOpenAllMatches = false;
+      renderWorkflowApprovalList();
+    });
+    workflowApprovalSearchToggle?.addEventListener('click', () => {
+      setWorkflowApprovalSearchOpen(Boolean(workflowApprovalSearchPanel?.hidden));
+    });
+    workflowApprovalMenuToggle?.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setWorkflowApprovalMenuOpen(Boolean(workflowApprovalMenu?.hidden));
+    });
+    workflowApprovalMenu?.addEventListener('click', (event) => {
+      event.stopPropagation();
+    });
+    workflowApprovalChips.forEach(chip => chip.addEventListener('click', () => {
+      workflowApprovalChips.forEach(c => c.classList.remove('is-active'));
+      chip.classList.add('is-active');
+      workflowApprovalFilter = chip.dataset.workflowFilter;
+      workflowApprovalOpenAllMatches = false;
+      renderWorkflowApprovalList();
+    }));
+    function openVisibleWorkflowApprovalDetails() {
+      workflowApprovalOpenAllMatches = true;
+      renderWorkflowApprovalList();
+    }
+
+    workflowApprovalSort?.addEventListener('change', () => {
+      if ((workflowApprovalSort.value || 'all') === 'all') {
+        workflowApprovalOpenAllMatches = false;
+        workflowApprovalExpandedIds = new Set();
+        renderWorkflowApprovalList();
+        return;
+      }
+      openVisibleWorkflowApprovalDetails();
+    });
+    workflowApprovalCampaign?.addEventListener('change', () => {
+      if ((workflowApprovalCampaign.value || 'all') === 'all') {
+        workflowApprovalOpenAllMatches = false;
+        workflowApprovalExpandedIds = new Set();
+        renderWorkflowApprovalList();
+        return;
+      }
+      openVisibleWorkflowApprovalDetails();
+    });
+    workflowApprovalClearFilters?.addEventListener('click', resetWorkflowApprovalFilters);
     toggle.addEventListener('change', () => {
       grid.classList.toggle('category-mode', !toggle.checked);
       grid.classList.toggle('compact-mode', toggle.checked);
     });
     document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && workflowApprovalMenu && !workflowApprovalMenu.hidden) {
+        setWorkflowApprovalMenuOpen(false);
+        return;
+      }
+      if (event.key === 'Escape' && workflowApprovalSearchPanel && !workflowApprovalSearchPanel.hidden && !(workflowApprovalSearchInput?.value || '').trim()) {
+        setWorkflowApprovalSearchOpen(false);
+        return;
+      }
       if (event.key === 'Escape' && customizeGuidedTip && !customizeGuidedTip.hidden) {
         dismissCustomizeGuidedTip();
         return;
@@ -1764,6 +2073,9 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
       }
     });
     document.addEventListener('click', (event) => {
+      if (workflowApprovalMenu && !workflowApprovalMenu.hidden && !event.target.closest('.workflow-approval__menu-wrap')) {
+        setWorkflowApprovalMenuOpen(false);
+      }
       if (event.target.closest('[data-select-dropdown]')) return;
       closeAllSelectChipDropdowns();
     });
@@ -1773,3 +2085,7 @@ window.redirecionarPaginaSistema = window.redirecionarPaginaSistema || function 
     renderQuickAccess();
     resetEventForm();
     renderAgenda();
+    populateWorkflowCampaignFilter();
+    setWorkflowApprovalSearchOpen(false);
+    setWorkflowApprovalMenuOpen(false);
+    renderWorkflowApprovalList();

@@ -592,42 +592,96 @@
             <ol class="agenda-list" id="agendaList"></ol>
           </aside>
 
-          <aside class="summary-card">
+          <aside class="summary-card workflow-approval" id="workflowApprovalCard" data-dashboard-area="approvals">
             <div class="section-title" style="margin:0 0 14px">
               <div>
-                <h2>Tarefas importantes</h2>
-                <p>Priorizadas por prazo e impacto.</p>
-              </div><a class="open-link" href="#">Ver todas <svg class="icon-xs" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-                  aria-hidden="true">
-                  <path d="M5 12h14" />
-                  <path d="m13 6 6 6-6 6" />
-                </svg></a>
+                <h2>Aprovações pendentes</h2>
+              <p>Visualize quais solicitações estão aguardando sua aprovação.</p>
+              </div>
             </div>
-            <ul class="todo-list">
-              <li><span class="checkbox"></span>
-                <div><strong>Aprovar orçamento Q2</strong><br><small>Financeiro • Hoje</small></div><span
-                  class="priority high">Urgente</span>
-              </li>
-              <li><span class="checkbox"></span>
-                <div><strong>Revisar contratos</strong><br><small>Comercial • Amanhã</small></div><span
-                  class="priority medium">Alta</span>
-              </li>
-              <li><span class="checkbox"></span>
-                <div><strong>Analisar performance campanha</strong><br><small>Marketing • 2 dias</small></div><span
-                  class="priority medium">Média</span>
-              </li>
-              <li><span class="checkbox"></span>
-                <div><strong>Atualizar treinamento equipe</strong><br><small>Operações • 3 dias</small></div><span
-                  class="priority low">Baixa</span>
-              </li>
-            </ul>
+
+            <div class="toolbar workflow-approval__toolbar" role="region" aria-label="Filtros de aprovação">
+              <div class="workflow-approval__filter-row">
+                <div class="filter-panel" id="workflowApprovalFilters" aria-label="Filtros de status da aprovação">
+                  <button class="filter-chip is-active" data-workflow-filter="all" type="button">Todos</button>
+                  <button class="filter-chip" data-workflow-filter="onTime" type="button">No prazo</button>
+                  <button class="filter-chip" data-workflow-filter="attention" type="button">Atenção</button>
+                  <button class="filter-chip" data-workflow-filter="critical" type="button">Críticos</button>
+                </div>
+                <button class="btn btn-secondary btn-sm workflow-approval__clear" id="workflowApprovalClearFilters"
+                  type="button" hidden><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="lucide lucide-eraser-icon lucide-eraser">
+                    <path
+                      d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21" />
+                    <path d="m5.082 11.09 8.828 8.828" />
+                  </svg>Limpar filtros</button>
+              
+              <div class="workflow-approval__compact-actions">
+                <div class="workflow-approval__search-wrap">
+                  <button class="icon-btn workflow-approval__search-toggle" id="workflowApprovalSearchToggle"
+                    type="button" aria-label="Abrir busca" aria-expanded="false"
+                    aria-controls="workflowApprovalSearchPanel">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="11" cy="11" r="7" />
+                      <path d="m20 20-3.5-3.5" />
+                    </svg>
+                  </button>
+                  <div class="workflow-approval__search-panel" id="workflowApprovalSearchPanel" hidden>
+                    <label class="search-box">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7" />
+                        <path d="m20 20-3.5-3.5" />
+                      </svg>
+                      <input id="workflowApprovalSearch" type="search" placeholder="Buscar workflow, estado ou ação..."
+                        autocomplete="off" />
+                    </label>
+                  </div>
+                </div>
+                <div class="workflow-approval__menu-wrap">
+                  <button class="icon-btn workflow-approval__menu-toggle" id="workflowApprovalMenuToggle"
+                    type="button" aria-label="Abrir filtros avançados" aria-expanded="false"
+                    aria-controls="workflowApprovalMenu">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="5" cy="12" r="1"></circle>
+                      <circle cx="12" cy="12" r="1"></circle>
+                      <circle cx="19" cy="12" r="1"></circle>
+                    </svg>
+                  </button>
+                  <div class="workflow-approval__menu" id="workflowApprovalMenu" hidden>
+                    <label class="workflow-approval__sort">
+                      <span>Ordenar por</span>
+                      <select id="workflowApprovalSort" aria-label="Ordenar aprovações">
+                        <option value="all">Todas</option>
+                        <option value="recent">Mais recentes</option>
+                        <option value="oldest">Mais antigos</option>
+                        <option value="az">Ordem de A a Z</option>
+                        <option value="waiting">Maior tempo aguardando</option>
+                      </select>
+                    </label>
+                    <label class="workflow-approval__sort">
+                      <span>Campanha</span>
+                      <select id="workflowApprovalCampaign" aria-label="Filtrar aprovações por campanha">
+                        <option value="all">Todas</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+            </div>
+
+            <ul class="workflow-approval__list" id="workflowApprovalList" aria-live="polite"></ul>
           </aside>
 
           <article class="summary-card">
             <div class="section-title" style="margin:0 0 14px">
               <div>
-                <h2>Atividades recente</h2>
+                <h2>Atividades recentes</h2>
                 <p>Últimas movimentações relevantes no portal.</p>
               </div><a class="open-link" href="#">Ver todas <svg class="icon-xs" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
@@ -768,6 +822,24 @@
             </svg>
           </button>
         </article>
+        <article class="customize-item">
+          <span class="customize-item__content"><strong>Aprovações pendentes</strong><small>Workflows aguardando análise.</small></span>
+          <button class="customize-eye" type="button" data-customize-toggle="approvals" aria-pressed="true"
+            aria-label="Ocultar Aprovações pendentes">
+            <svg class="customize-eye__open" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            <svg class="customize-eye__closed" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 3l18 18" />
+              <path d="M10.6 10.6A2 2 0 0 0 13.4 13.4" />
+              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c6.5 0 10 8 10 8a17.9 17.9 0 0 1-3.2 4.37" />
+              <path d="M6.61 6.61A17.68 17.68 0 0 0 2 12s3.5 8 10 8a9.7 9.7 0 0 0 4.4-1.07" />
+            </svg>
+          </button>
+        </article>
       </div>
       <div class="favorite-modal__actions">
         <button class="favorite-modal__btn favorite-modal__btn--secondary" id="customizeHideAll" type="button">Ocultar
@@ -818,19 +890,25 @@
               <div class="select-chip-dropdown" data-select-dropdown="eventStatus" data-select-variant="status">
                 <button class="select-chip-dropdown__trigger" id="eventStatusTrigger" type="button"
                   aria-haspopup="listbox" aria-expanded="false" aria-controls="eventStatusMenu"></button>
-                <div class="select-chip-dropdown__menu" id="eventStatusMenu" role="listbox" aria-label="Status do evento"
-                  hidden>
-                  <button class="select-chip-option" type="button" role="option" data-select-value="Agendado">Agendado</button>
-                  <button class="select-chip-option" type="button" role="option" data-select-value="Confirmado">Confirmado</button>
-                  <button class="select-chip-option" type="button" role="option" data-select-value="Em andamento">Em andamento</button>
-                  <button class="select-chip-option" type="button" role="option" data-select-value="Concluído">Concluído</button>
-                  <button class="select-chip-option" type="button" role="option" data-select-value="Cancelado">Cancelado</button>
+                <div class="select-chip-dropdown__menu" id="eventStatusMenu" role="listbox"
+                  aria-label="Status do evento" hidden>
+                  <button class="select-chip-option" type="button" role="option"
+                    data-select-value="Agendado">Agendado</button>
+                  <button class="select-chip-option" type="button" role="option"
+                    data-select-value="Confirmado">Confirmado</button>
+                  <button class="select-chip-option" type="button" role="option" data-select-value="Em andamento">Em
+                    andamento</button>
+                  <button class="select-chip-option" type="button" role="option"
+                    data-select-value="Concluído">Concluído</button>
+                  <button class="select-chip-option" type="button" role="option"
+                    data-select-value="Cancelado">Cancelado</button>
                 </div>
               </div>
             </label>
             <label class="event-field event-field--required">
               <span>Tipo de conteúdo</span>
-              <select id="eventContentType" name="contentType" class="event-field__native" tabindex="-1" aria-hidden="true">
+              <select id="eventContentType" name="contentType" class="event-field__native" tabindex="-1"
+                aria-hidden="true">
                 <option value="Reunião">Reunião</option>
                 <option value="Treinamento">Treinamento</option>
                 <option value="Comunicado">Comunicado</option>
@@ -842,11 +920,16 @@
                   aria-haspopup="listbox" aria-expanded="false" aria-controls="eventContentTypeMenu"></button>
                 <div class="select-chip-dropdown__menu" id="eventContentTypeMenu" role="listbox"
                   aria-label="Tipo de conteúdo" hidden>
-                  <button class="select-chip-option" type="button" role="option" data-select-value="Reunião">Reunião</button>
-                  <button class="select-chip-option" type="button" role="option" data-select-value="Treinamento">Treinamento</button>
-                  <button class="select-chip-option" type="button" role="option" data-select-value="Comunicado">Comunicado</button>
-                  <button class="select-chip-option" type="button" role="option" data-select-value="Apresentação">Apresentação</button>
-                  <button class="select-chip-option" type="button" role="option" data-select-value="Outro">Outro</button>
+                  <button class="select-chip-option" type="button" role="option"
+                    data-select-value="Reunião">Reunião</button>
+                  <button class="select-chip-option" type="button" role="option"
+                    data-select-value="Treinamento">Treinamento</button>
+                  <button class="select-chip-option" type="button" role="option"
+                    data-select-value="Comunicado">Comunicado</button>
+                  <button class="select-chip-option" type="button" role="option"
+                    data-select-value="Apresentação">Apresentação</button>
+                  <button class="select-chip-option" type="button" role="option"
+                    data-select-value="Outro">Outro</button>
                 </div>
               </div>
             </label>
@@ -886,24 +969,25 @@
             <div class="event-form__details">
               <div class="event-panel event-panel--content">
                 <textarea id="eventContent" name="content" rows="4"
-              placeholder="Descreva os principais pontos do evento."></textarea>
+                  placeholder="Descreva os principais pontos do evento."></textarea>
               </div>
               <div class="event-field event-field--attachments">
                 <section class="event-attachments event-panel">
                   <div class="event-attachments__header">
                   </div>
                   <label class="event-dropzone" id="eventDropzone" for="eventAttachmentInput">
-                    <input id="eventAttachmentInput" type="file" accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" multiple hidden />
+                    <input id="eventAttachmentInput" type="file"
+                      accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" multiple hidden />
                     <span class="event-dropzone__icon" aria-hidden="true">
                       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                      stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 16V4"></path>
-                      <path d="m7 9 5-5 5 5"></path>
-                      <path d="M5 20h14"></path>
-                    </svg>
-                  </span>
-                  <span>Arraste e solte arquivos aqui ou clique para selecionar</span>
-                  <label>Inclua documentos em PDF, JPEG ou PNG.</label>
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 16V4"></path>
+                        <path d="m7 9 5-5 5 5"></path>
+                        <path d="M5 20h14"></path>
+                      </svg>
+                    </span>
+                    <span>Arraste e solte arquivos aqui ou clique para selecionar</span>
+                    <label>Inclua documentos em PDF, JPEG ou PNG.</label>
                   </label>
                   <div class="event-attachments__list" id="eventAttachmentsList" aria-live="polite"></div>
                 </section>
@@ -949,18 +1033,24 @@
                 <!-- <h2 class="favorite-modal__title" id="calendarModalTitle">Calendário</h2> -->
                 <button class="calendar-today" id="calendarTodayButton" type="button">Ver hoje</button>
                 <div class="calendar-range-nav">
-                  <button class="calendar-range-nav__button" id="calendarPrevButton" type="button" aria-label="Período anterior">‹</button>
+                  <button class="calendar-range-nav__button" id="calendarPrevButton" type="button"
+                    aria-label="Período anterior">‹</button>
                   <label id="calendarRangeLabel"></label>
-                  <button class="calendar-range-nav__button" id="calendarNextButton" type="button" aria-label="Próximo período">›</button>
+                  <button class="calendar-range-nav__button" id="calendarNextButton" type="button"
+                    aria-label="Próximo período">›</button>
                 </div>
               </div>
               <div class="calendar-toolbar__actions">
                 <div class="calendar-view-switch" role="tablist" aria-label="Visualização do calendário">
-                  <button class="calendar-view-switch__button is-active" id="calendarViewDay" type="button" data-calendar-view="day">Dia</button>
-                  <button class="calendar-view-switch__button" id="calendarViewWeek" type="button" data-calendar-view="week">Semana</button>
-                  <button class="calendar-view-switch__button" id="calendarViewMonth" type="button" data-calendar-view="month">Mês</button>
+                  <button class="calendar-view-switch__button is-active" id="calendarViewDay" type="button"
+                    data-calendar-view="day">Dia</button>
+                  <button class="calendar-view-switch__button" id="calendarViewWeek" type="button"
+                    data-calendar-view="week">Semana</button>
+                  <button class="calendar-view-switch__button" id="calendarViewMonth" type="button"
+                    data-calendar-view="month">Mês</button>
                 </div>
-                <button class="favorite-modal__btn favorite-modal__btn--primary" id="calendarAddEventButton" type="button">Adicionar evento</button>
+                <button class="favorite-modal__btn favorite-modal__btn--primary" id="calendarAddEventButton"
+                  type="button">Adicionar evento</button>
               </div>
             </div>
           </header>
@@ -975,7 +1065,8 @@
   <div class="favorite-modal favorite-modal--calendar-detail" id="calendarDetailModal" aria-hidden="true">
     <div class="favorite-modal__backdrop" data-close-calendar-detail-modal></div>
     <div class="favorite-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="calendarDetailTitle">
-      <button class="favorite-modal__close" id="calendarDetailModalClose" type="button" aria-label="Fechar detalhes do evento">
+      <button class="favorite-modal__close" id="calendarDetailModalClose" type="button"
+        aria-label="Fechar detalhes do evento">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
           stroke-linejoin="round" aria-hidden="true">
           <path d="M6 6l12 12M18 6 6 18" />
@@ -1008,7 +1099,8 @@
 
   <div class="favorite-modal favorite-modal--datetime" id="eventDateTimeModal" aria-hidden="true">
     <div class="favorite-modal__backdrop" data-close-datetime-modal></div>
-    <div class="favorite-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="eventDateTimeModalTitle" style="gap: 16px;">
+    <div class="favorite-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="eventDateTimeModalTitle"
+      style="gap: 16px;">
       <button class="favorite-modal__close" id="eventDateTimeModalClose" type="button"
         aria-label="Fechar seleção de data e hora">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -1020,9 +1112,11 @@
       <div class="datetime-picker">
         <section class="datetime-picker__panel datetime-picker__panel--calendar">
           <div class="datetime-picker__header">
-            <button class="datetime-picker__nav" id="eventDateTimePrevMonth" type="button" aria-label="Mês anterior">‹</button>
+            <button class="datetime-picker__nav" id="eventDateTimePrevMonth" type="button"
+              aria-label="Mês anterior">‹</button>
             <strong id="eventDateTimeCurrentMonth"></strong>
-            <button class="datetime-picker__nav" id="eventDateTimeNextMonth" type="button" aria-label="Próximo mês">›</button>
+            <button class="datetime-picker__nav" id="eventDateTimeNextMonth" type="button"
+              aria-label="Próximo mês">›</button>
           </div>
           <div class="datetime-picker__weekdays">
             <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>

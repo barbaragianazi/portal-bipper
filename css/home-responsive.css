@@ -208,4 +208,25 @@
         margin-left: 0;
         margin-right: 12px;
     }
+
+    .workflow-approval-item__meta,
+    .workflow-approval-item__detail {
+        grid-template-columns: 1fr;
+    }
+
+    .workflow-approval__toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .workflow-approval__toolbar .search-box,
+    .workflow-approval__toolbar .filter-panel {
+        flex-basis: auto;
+        width: 100%;
+    }
+
+    .workflow-approval__search-panel {
+        right: 0;
+        width: min(320px, calc(100vw - 48px));
+    }
 }
