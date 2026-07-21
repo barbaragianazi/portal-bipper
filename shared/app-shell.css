@@ -399,6 +399,28 @@ body.sidebar-collapsed .app-shell {
     cursor: pointer;
 }
 
+.main {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .18s ease, transform .18s ease;
+}
+
+body.is-page-leaving .main {
+    opacity: .45;
+    transform: translateY(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .main {
+        transition: none;
+    }
+
+    body.is-page-leaving .main {
+        opacity: 1;
+        transform: none;
+    }
+}
+
 .env-pill {
     display: inline-flex;
     align-items: center;
@@ -478,6 +500,7 @@ body.sidebar-collapsed .app-shell {
 body.sidebar-collapsed .sidebar {
     padding-left: 10px;
     padding-right: 10px;
+    overflow: visible;
 }
 
 body.sidebar-collapsed .brand {
@@ -506,8 +529,11 @@ body.sidebar-collapsed .brand__logo {
 }
 
 body.sidebar-collapsed .brand-dropdown {
-    left: 50%;
-    transform: translateX(-50%);
+    top: calc(100% + 10px);
+    left: 0;
+    width: 236px;
+    transform: none;
+    z-index: 120;
 }
 
 body.sidebar-collapsed .nav-section {

@@ -1,0 +1,145 @@
+{
+  "campanhas-de-divulgacao": {
+    "key": "campanhas-de-divulgacao",
+    "type": "campanha",
+    "title": "Campanhas de divulgação",
+    "description": "Materiais sazonais, banners, textos e peças de mídia para comunicações ativas.",
+    "permissions": "Marketing e parceiros externos",
+    "coverImage": "campanhas-de-divulgacao.jpg",
+    "folders": [
+      { "name": "Black Friday 2026", "meta": "42 arquivos", "kind": "folder" },
+      { "name": "Campanha Regional Sul", "meta": "28 arquivos", "kind": "folder" },
+      { "name": "Banners e redes sociais", "meta": "64 arquivos", "kind": "folder" },
+      { "name": "Textos aprovados", "meta": "18 arquivos", "kind": "folder" }
+    ],
+    "files": [
+      { "name": "Banner principal - Black Friday.png", "type": "PNG", "owner": "Ana Martins", "date": "Atualizado ontem", "kind": "file" },
+      { "name": "Calendário de posts regional.xlsx", "type": "XLS", "owner": "Marketing", "date": "Atualizado há 2 dias", "kind": "file" },
+      { "name": "Roteiro de comunicação parceiros.docx", "type": "DOC", "owner": "Bruno Lima", "date": "Atualizado em 12/07", "kind": "file" },
+      { "name": "Teaser campanha regional.mp4", "type": "MP4", "owner": "Ana Martins", "date": "Em revisão", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "lancamento": {
+    "key": "lancamento",
+    "type": "produtos",
+    "title": "Lançamento",
+    "description": "Arquivos de go-to-market, kits de produto, apresentações comerciais e assets finais.",
+    "permissions": "Produto, vendas e diretoria",
+    "coverImage": "lancamento.jpg",
+    "folders": [
+      { "name": "Produto Atlas", "meta": "36 arquivos", "kind": "folder" },
+      { "name": "Kit comercial", "meta": "22 arquivos", "kind": "folder" },
+      { "name": "Treinamento de vendas", "meta": "17 arquivos", "kind": "folder" }
+    ],
+    "files": [
+      { "name": "Apresentação Produto Atlas.pdf", "type": "PDF", "owner": "Produto", "date": "Atualizado hoje", "kind": "file" },
+      { "name": "Argumentário de vendas.docx", "type": "DOC", "owner": "Vendas", "date": "Atualizado ontem", "kind": "file" },
+      { "name": "Fotos oficiais do produto.zip", "type": "ZIP", "owner": "Marketing", "date": "Atualizado em 10/07", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "divulgacao-de-produtos": {
+    "key": "divulgacao-de-produtos",
+    "type": "cliente",
+    "title": "Divulgação de produtos",
+    "description": "Conteúdos prontos para clientes, campanhas cooperadas e comunicados comerciais.",
+    "permissions": "Clientes selecionados",
+    "coverImage": "divulgacao-de-produtos.jpg",
+    "folders": [
+      { "name": "Comunicados comerciais", "meta": "21 arquivos", "kind": "folder" },
+      { "name": "Campanhas cooperadas", "meta": "34 arquivos", "kind": "folder" },
+      { "name": "Materiais para clientes", "meta": "41 arquivos", "kind": "folder" }
+    ],
+    "files": [
+      { "name": "Folder linha premium.pdf", "type": "PDF", "owner": "Comercial", "date": "Atualizado hoje", "kind": "file" },
+      { "name": "Email marketing revendas.html", "type": "HTML", "owner": "Marketing", "date": "Atualizado ontem", "kind": "file" },
+      { "name": "Tabela comparativa.xlsx", "type": "XLS", "owner": "Produto", "date": "Atualizado em 09/07", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "grupo-vu": {
+    "key": "grupo-vu",
+    "type": "grupo VU",
+    "title": "Grupo VU",
+    "description": "Arquivos compartilhados para um grupo específico de usuários e equipes internas.",
+    "permissions": "Grupo VU",
+    "coverImage": "grupo-vu.jpg",
+    "folders": [
+      { "name": "Documentos internos", "meta": "19 arquivos", "kind": "folder" },
+      { "name": "Guias operacionais", "meta": "27 arquivos", "kind": "folder" },
+      { "name": "Comunicados do grupo", "meta": "12 arquivos", "kind": "folder" }
+    ],
+    "files": [
+      { "name": "Manual operacional.pdf", "type": "PDF", "owner": "Operações", "date": "Atualizado há 3 dias", "kind": "file" },
+      { "name": "Lista de usuários.xlsx", "type": "XLS", "owner": "Administração", "date": "Atualizado em 08/07", "kind": "file" },
+      { "name": "Política de acesso.docx", "type": "DOC", "owner": "TI", "date": "Atualizado em 07/07", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "materiais-publicos": {
+    "key": "materiais-publicos",
+    "type": "publica",
+    "title": "Materiais públicos",
+    "description": "Documentos liberados para distribuição ampla, links externos e consultas sem restrição.",
+    "permissions": "Público com link",
+    "coverImage": "materiais-publicos.jpg",
+    "folders": [
+      { "name": "Catálogos públicos", "meta": "26 arquivos", "kind": "folder" },
+      { "name": "Institucional", "meta": "14 arquivos", "kind": "folder" },
+      { "name": "Links externos", "meta": "21 arquivos", "kind": "folder" }
+    ],
+    "files": [
+      { "name": "Catálogo comercial 2026.pdf", "type": "PDF", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file" },
+      { "name": "Release institucional.docx", "type": "DOC", "owner": "Comunicação", "date": "Atualizado ontem", "kind": "file" },
+      { "name": "Manual da marca público.pdf", "type": "PDF", "owner": "Marca", "date": "Atualizado em 11/07", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "cofre": {
+    "key": "cofre",
+    "type": "cofre",
+    "title": "Cofre",
+    "description": "Arquivos sensíveis protegidos por senha e acesso restrito.",
+    "permissions": "Diretoria, jurídico e financeiro",
+    "folders": [
+      { "name": "Contratos", "meta": "18 arquivos", "kind": "folder" },
+      { "name": "Financeiro", "meta": "11 arquivos", "kind": "folder" }
+    ],
+    "files": [
+      { "name": "Contrato matriz.pdf", "type": "PDF", "owner": "Jurídico", "date": "Atualizado hoje", "kind": "file" },
+      { "name": "Forecast confidencial.xlsx", "type": "XLS", "owner": "Financeiro", "date": "Atualizado ontem", "kind": "file" }
+    ],
+    "isProtected": true
+  },
+  "campanha-divulgacao": {
+    "key": "campanha-divulgacao",
+    "type": "campanha",
+    "title": "Campanha de divulgação",
+    "description": "Materiais de divulgação com peças digitais e documentação.",
+    "permissions": "Marketing e parceiros externos",
+    "coverImage": "campanha-divulgacao.jpg",
+    "folders": [
+      {
+        "name": "Peças digitais",
+        "meta": "3 arquivos",
+        "kind": "folder",
+        "files": [
+          { "name": "Capa Campanha Pay Performance Revendas M e G.png", "type": "PNG", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha de divulgação." },
+          { "name": "Capa Campanha Pay Performance Revendas P.png", "type": "PNG", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha de divulgação." },
+          { "name": "Capa Campanha Verba Trade Golden Channel E-commerce.png", "type": "PNG", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha de divulgação." }
+        ]
+      },
+      {
+        "name": "Documentação",
+        "meta": "1 arquivo",
+        "kind": "folder",
+        "files": [
+          { "name": "Guia de utilização das marcas v2.pdf", "type": "PDF", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "preview": "Guia com instruções de utilização das marcas da campanha." }
+        ]
+      }
+    ],
+    "files": [],
+    "isProtected": false
+  }
+}

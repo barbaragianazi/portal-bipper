@@ -26,7 +26,7 @@
     gauge: '<path d="M4 14a8 8 0 1 1 16 0"></path><path d="M12 14l3-5"></path><path d="M4 18h16"></path><path d="M7 14h.01"></path><path d="M17 14h.01"></path>',
     mapPin: '<path d="M12 21s6-5.3 6-11a6 6 0 0 0-12 0c0 5.7 6 11 6 11Z"></path><circle cx="12" cy="10" r="2"></circle>',
     actionPlan: '<path d="M4 18h16"></path><path d="M7 18V9"></path><path d="M12 18V5"></path><path d="M17 18v-6"></path><path d="M5 9h4"></path><path d="M10 5h4"></path><path d="M15 12h4"></path>',
-    rocket: '<path d="M13 4c3.5.4 5.6 2.5 6 6l-5 5-5-5 4-6Z"></path><path d="M9 10l-4 1-2 4 5-1"></path><path d="M14 15l-1 5 4-2 1-4"></path><circle cx="14.5" cy="8.5" r="1.5"></circle>',
+    rocket: '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22 22 0 0 1-4 2Z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>',
     calculator: '<rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M8 7h8"></path><path d="M8 11h.01"></path><path d="M12 11h.01"></path><path d="M16 11h.01"></path><path d="M8 15h.01"></path><path d="M12 15h.01"></path><path d="M16 15h.01"></path>',
     requests: '<path d="M4 7h6l-2-2"></path><path d="M10 7 8 9"></path><path d="M20 17h-6l2 2"></path><path d="M14 17l2-2"></path><path d="M7 17c3 0 4-10 10-10"></path>',
     training: '<path d="M3 8l9-4 9 4-9 4-9-4Z"></path><path d="M7 10v5c2.5 2 7.5 2 10 0v-5"></path><path d="M21 8v6"></path>',
@@ -292,8 +292,42 @@
     const dropdown = brandContainer.querySelector('.brand-dropdown');
     const logoBtn = brandContainer.querySelector('.brand__logo-btn');
     dropdown?.classList.remove('visible');
+    resetCollapsedBrandDropdown(dropdown);
     brandContainer.classList.remove('open');
     logoBtn?.setAttribute('aria-expanded', 'false');
+  }
+
+  function resetCollapsedBrandDropdown(dropdown) {
+    if (!dropdown) return;
+    dropdown.style.position = '';
+    dropdown.style.top = '';
+    dropdown.style.left = '';
+    dropdown.style.width = '';
+    dropdown.style.maxWidth = '';
+    dropdown.style.zIndex = '';
+  }
+
+  function positionCollapsedBrandDropdown(brandContainer) {
+    const dropdown = brandContainer.querySelector('.brand-dropdown');
+    const sidebar = brandContainer.closest('.sidebar');
+    const isCollapsed = document.body.classList.contains('sidebar-collapsed');
+    const isMobile = window.matchMedia('(max-width: 980px)').matches;
+    if (!dropdown || !sidebar || !isCollapsed || isMobile) {
+      resetCollapsedBrandDropdown(dropdown);
+      return;
+    }
+
+    const sidebarRect = sidebar.getBoundingClientRect();
+    const brandRect = brandContainer.getBoundingClientRect();
+    const gap = 120;
+    const width = Math.min(236, Math.max(180, window.innerWidth - sidebarRect.right - gap - 12));
+
+    dropdown.style.position = 'fixed';
+    dropdown.style.top = Math.max(12, brandRect.top) + 'px';
+    dropdown.style.left = (sidebarRect.right + gap) + 'px';
+    dropdown.style.width = width + 'px';
+    dropdown.style.maxWidth = 'calc(100vw - ' + (sidebarRect.right + gap + 12) + 'px)';
+    dropdown.style.zIndex = '220';
   }
 
   function toggleBrandDropdown(brandContainer) {
@@ -303,6 +337,8 @@
     dropdown?.classList.toggle('visible', willOpen);
     brandContainer.classList.toggle('open', willOpen);
     logoBtn?.setAttribute('aria-expanded', String(willOpen));
+    if (willOpen) positionCollapsedBrandDropdown(brandContainer);
+    else resetCollapsedBrandDropdown(dropdown);
   }
 
   function buildBrandDropdown(brandContainer, brands, activeKey) {
@@ -450,10 +486,47 @@
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') closeBrandDropdown(brandContainer);
     });
+
+    window.addEventListener('resize', () => {
+      if (brandContainer.classList.contains('open')) positionCollapsedBrandDropdown(brandContainer);
+    });
+
+    window.addEventListener('scroll', () => {
+      if (brandContainer.classList.contains('open')) positionCollapsedBrandDropdown(brandContainer);
+    }, { passive: true });
+  }
+
+  function initPageTransitions() {
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href]');
+      if (!link || event.defaultPrevented) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (link.target && link.target !== '_self') return;
+
+      const href = link.getAttribute('href');
+      if (!href || href.charAt(0) === '#') return;
+
+      let targetUrl;
+      try {
+        targetUrl = new URL(link.href, window.location.href);
+      } catch (error) {
+        return;
+      }
+
+      if (targetUrl.origin !== window.location.origin) return;
+      if (targetUrl.href === window.location.href) return;
+
+      event.preventDefault();
+      document.body.classList.add('is-page-leaving');
+      window.setTimeout(() => {
+        window.location.href = targetUrl.href;
+      }, 130);
+    });
   }
 
   async function initAppShell() {
     initSidebar();
+    initPageTransitions();
     try {
       await initMenu();
     } catch (error) {

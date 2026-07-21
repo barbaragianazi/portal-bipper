@@ -14,16 +14,37 @@
   let workspaceToastTimer = null;
   let pendingWorkspaceAction = null;
   let permissionsMultiSelect = null;
+  let activeBrandKey = 'zoetis';
+  let pendingCoverEditKey = null;
+  let newWorkspaceCoverDataUrl = null;
+  let coverFileInputEl = null;
+  const MAX_COVER_FILE_SIZE = 5 * 1024 * 1024;
+  const MAX_UPLOAD_IMAGE_SIZE = 5 * 1024 * 1024;
+  const IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'bmp'];
   const ELLIPSIS_ICON = '<svg xmlns="http://www.w3.org/2000/svg" class="icon-xs lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical" width="24" height="24" viewBox="0 0 24 24" fill="1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>';
+  const FILE_TYPE_ICON_PATH = '../../shared/assets/icones/';
+  const FILE_TYPE_ICONS = {
+    xls: 'excel.svg',
+    xlsx: 'excel.svg',
+    xlsm: 'excel.svg',
+    doc: 'word.svg',
+    docx: 'word.svg',
+    ppt: 'power-point.svg',
+    pptx: 'power-point.svg',
+    zip: 'zip.svg',
+    rar: 'zip.svg',
+    '7z': 'zip.svg',
+    pdf: 'pdf.svg'
+  };
   const workspaceReferenceOptions = {
-    campanha: ['Black Friday 2026', 'Campanha Regional Sul', 'Catálogo Comercial 2026', 'Primavera Agro 2026'],
+    campanha: ['Black Friday 2026', 'Campanha Regional Sul', 'Catálogo Comercial 2026', 'Primavera Agro 2026', 'Campanha de divulgação'],
     'grupo VU': ['Grupo VU Comercial', 'Grupo VU Lideranças', 'Grupo VU Operações'],
     'cliente (revenda)': ['Agro Amazônia', 'Revenda Centro Oeste', 'Canal Sul Premium'],
     'usuário(s)': ['Bárbara Gianazi', 'Ana Martins', 'Bruno Lima', 'Camila Rocha'],
     produtos: ['Produto Atlas', 'Linha Premium', 'Kit Comercial Safra 2026']
   };
 
-  const workspaceContent = {
+  let workspaceContent = {
     'campanhas-de-divulgacao': {
       key: 'campanhas-de-divulgacao',
       type: 'campanha',
@@ -133,10 +154,57 @@
       isProtected: true
     }
   };
-  const workspaceOrder = Object.keys(workspaceContent);
+  let workspaceOrder = Object.keys(workspaceContent);
+  const WORKSPACE_STORAGE_KEY = 'lp_active_brand';
+  const WORKSPACE_DATA_BY_BRAND = {
+    zoetis: '../data/workspaces-zoetis.json',
+    'agro-amazonia': '../data/workspaces-zoetis.json'
+  };
+  const DEFAULT_WORKSPACE_DATA_URL = '../data/workspaces-default.json';
+  const WORKSPACE_COVER_PATH_BY_BRAND = {
+    zoetis: '../data/workspace-covers/zoetis/',
+    'agro-amazonia': '../data/workspace-covers/zoetis/'
+  };
+  const DEFAULT_WORKSPACE_COVER_PATH = '../data/workspace-covers/default/';
+  let activeCoverPath = DEFAULT_WORKSPACE_COVER_PATH;
 
   page.dataset.ready = 'true';
   filesPage.dataset.ready = 'true';
+
+  function getFileExtension(file) {
+    const name = (file && file.name) || '';
+    const match = /\.([a-z0-9]+)$/i.exec(name);
+    if (match) return match[1].toLowerCase();
+    return ((file && file.type) || '').toLowerCase();
+  }
+
+  function getFileIconUrl(file) {
+    const icon = FILE_TYPE_ICONS[getFileExtension(file)];
+    return icon ? FILE_TYPE_ICON_PATH + icon : null;
+  }
+
+  function getImageSrc(file) {
+    if (file.dataUrl) return file.dataUrl;
+    return '../data/campanhas-images/' + (file.name || '');
+  }
+
+  function buildFileTypeBadgeHtml(file) {
+    if (file.isImage) {
+      const imageSrc = getImageSrc(file);
+      return '<div class="workspace-file-type workspace-file-type--image" style="background-image: url(\'' + imageSrc + '\');" title="' + (file.name || 'Imagem') + '"></div>';
+    }
+    const iconUrl = getFileIconUrl(file);
+    return iconUrl
+      ? '<div class="workspace-file-type workspace-file-type--icon"><img src="' + iconUrl + '" alt="" aria-hidden="true"></div>'
+      : '<div class="workspace-file-type"></div>';
+  }
+
+  function fillFileTypeBadge(container, file) {
+    const badge = container.querySelector('.workspace-file-type');
+    if (badge && !badge.classList.contains('workspace-file-type--icon') && !badge.classList.contains('workspace-file-type--image')) {
+      badge.textContent = file.type;
+    }
+  }
 
   function slugify(value) {
     return (value || '')
@@ -145,6 +213,79 @@
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
+  }
+
+  function normalizeWorkspaceDataset(dataset) {
+    const source = dataset && dataset.workspaces ? dataset.workspaces : dataset;
+    const entries = Array.isArray(source)
+      ? source.map(function (workspace) { return [workspace.key || slugify(workspace.title), workspace]; })
+      : Object.entries(source || {});
+
+    return entries.reduce(function (accumulator, entry) {
+      const key = entry[0];
+      const workspace = entry[1];
+      if (!key || !workspace) return accumulator;
+      accumulator[key] = {
+        ...workspace,
+        key: workspace.key || key,
+        folders: workspace.folders || [],
+        files: workspace.files || []
+      };
+      return accumulator;
+    }, {});
+  }
+
+  async function fetchWorkspaceDataset(url) {
+    const response = await fetch(url, { cache: 'no-store' });
+    if (!response.ok) throw new Error('Workspace data request failed: ' + response.status);
+    return normalizeWorkspaceDataset(await response.json());
+  }
+
+  function getActiveBrandKey() {
+    return localStorage.getItem(WORKSPACE_STORAGE_KEY) || 'zoetis';
+  }
+
+  function animateContentSwap(nodes) {
+    nodes.filter(Boolean).forEach(function (node) {
+      node.classList.add('bp-transition');
+      node.classList.remove('is-entering');
+      node.classList.add('is-transitioning');
+      window.requestAnimationFrame(function () {
+        node.classList.remove('is-transitioning');
+        node.classList.add('is-entering');
+      });
+      window.setTimeout(function () {
+        node.classList.remove('is-entering');
+      }, 280);
+    });
+  }
+
+  function renderWorkspaceCardsSkeleton() {
+    if (!workspaceGrid) return;
+
+    workspaceGrid.innerHTML = '';
+    for (let index = 0; index < 6; index += 1) {
+      const card = document.createElement('article');
+      card.className = 'area-card workspace-card--skeleton skeleton-shimmer';
+      workspaceGrid.appendChild(card);
+    }
+  }
+
+  async function loadWorkspaceData(brandKey) {
+    const dataUrl = WORKSPACE_DATA_BY_BRAND[brandKey] || DEFAULT_WORKSPACE_DATA_URL;
+    activeCoverPath = WORKSPACE_COVER_PATH_BY_BRAND[brandKey] || DEFAULT_WORKSPACE_COVER_PATH;
+    activeBrandKey = brandKey || 'default';
+    renderWorkspaceCardsSkeleton();
+
+    try {
+      workspaceContent = await fetchWorkspaceDataset(dataUrl);
+      workspaceOrder = Object.keys(workspaceContent);
+    } catch (error) {
+      console.error('Nao foi possivel carregar os dados de workspaces.', error);
+      workspaceOrder = Object.keys(workspaceContent);
+    }
+
+    renderWorkspaceCards();
   }
 
   function getWorkspaceCardMeta(workspace) {
@@ -163,7 +304,87 @@
   }
 
   function buildWorkspaceMenuHtml() {
-    return '<div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false">' + ELLIPSIS_ICON + '</button><div class="workspace-menu__list" hidden><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>';
+    return '<div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false">' + ELLIPSIS_ICON + '</button><div class="workspace-menu__list" hidden><button type="button" data-menu-action="edit-cover">Editar capa</button><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>';
+  }
+
+  function getWorkspaceCoverStorageKey(workspaceKey) {
+    return 'lp_workspace_cover:' + activeBrandKey + ':' + workspaceKey;
+  }
+
+  function getWorkspaceCoverUrl(workspace) {
+    const override = localStorage.getItem(getWorkspaceCoverStorageKey(workspace.key));
+    if (override) return override;
+    if (workspace.coverImage) return activeCoverPath + workspace.coverImage;
+    return null;
+  }
+
+  function processCoverFile(file) {
+    if (!file || file.type.indexOf('image/') !== 0) {
+      showWorkspaceToast('Selecione um arquivo de imagem válido.');
+      return Promise.resolve(null);
+    }
+    if (file.size > MAX_COVER_FILE_SIZE) {
+      showWorkspaceToast('A imagem excede o limite de 5MB.');
+      return Promise.resolve(null);
+    }
+    return new Promise(function (resolve) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        resolve(reader.result);
+      };
+      reader.onerror = function () {
+        showWorkspaceToast('Não foi possível ler a imagem selecionada.');
+        resolve(null);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function ensureCoverFileInput() {
+    if (coverFileInputEl) return coverFileInputEl;
+    coverFileInputEl = document.createElement('input');
+    coverFileInputEl.type = 'file';
+    coverFileInputEl.accept = 'image/*';
+    coverFileInputEl.hidden = true;
+    coverFileInputEl.addEventListener('change', handleCoverFileChange);
+    document.body.appendChild(coverFileInputEl);
+    return coverFileInputEl;
+  }
+
+  function handleCoverFileChange(event) {
+    const file = event.target.files && event.target.files[0];
+    event.target.value = '';
+    const workspaceKey = pendingCoverEditKey;
+    pendingCoverEditKey = null;
+    if (!file || !workspaceKey) return;
+
+    processCoverFile(file).then(function (dataUrl) {
+      if (!dataUrl) return;
+      localStorage.setItem(getWorkspaceCoverStorageKey(workspaceKey), dataUrl);
+      renderWorkspaceCards();
+      showWorkspaceToast('Capa atualizada com sucesso.');
+    });
+  }
+
+  function openCoverPicker(workspaceKey) {
+    pendingCoverEditKey = workspaceKey;
+    ensureCoverFileInput().click();
+  }
+
+  function countWorkspaceContents(workspace) {
+    let folderCount = 0;
+    let fileCount = (workspace.files || []).length;
+
+    function walk(folders) {
+      (folders || []).forEach(function (folder) {
+        folderCount += 1;
+        fileCount += (folder.files || []).length;
+        if (folder.folders && folder.folders.length) walk(folder.folders);
+      });
+    }
+
+    walk(workspace.folders);
+    return { folderCount: folderCount, fileCount: fileCount };
   }
 
   function renderWorkspaceCards() {
@@ -173,8 +394,9 @@
     workspaceOrder.forEach(function (key) {
       const workspace = workspaceContent[key];
       const meta = getWorkspaceCardMeta(workspace);
-      const folderLabel = workspace.folders.length + ' pastas';
-      const fileLabel = workspace.files.length + ' arquivos';
+      const counts = countWorkspaceContents(workspace);
+      const folderLabel = counts.folderCount + ' pastas';
+      const fileLabel = counts.fileCount + ' arquivos';
       const article = document.createElement('article');
       article.className = 'area-card workspace-card' + (workspace.isProtected ? ' workspace-card--vault' : '');
       article.dataset.workspace = key;
@@ -185,19 +407,188 @@
       if (workspace.isProtected) {
         article.innerHTML = '<div class="area-card__top"><div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">' + meta.icon + '</svg></div></div><h3>' + workspace.title + '</h3><button class="btn btn-primary workspace-vault-access" type="button">Acessar com senha</button>';
       } else {
-        article.innerHTML = '<div class="area-card__top"><div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">' + meta.icon + '</svg></div>' + buildWorkspaceMenuHtml() + '</div><div class="module-name"><h3>' + workspace.title + '</h3></div><p>' + workspace.description + '</p><ul class="module-list"><li class="module-item"><span>' + folderLabel + '</span><small>' + fileLabel + '</small></li><li class="module-item"><span>Permissões</span><small>' + workspace.permissions + '</small></li></ul>';
+        article.innerHTML = '<div class="workspace-card__cover">' + buildWorkspaceMenuHtml() + '</div><div class="module-name"><h3>' + workspace.title + '</h3></div><p>' + workspace.description + '</p><ul class="module-list"><li class="module-item"><span>' + folderLabel + '</span><small>' + fileLabel + '</small></li><li class="module-item"><span>Permissões</span><small>' + workspace.permissions + '</small></li></ul>';
+
+        const coverUrl = getWorkspaceCoverUrl(workspace);
+        if (coverUrl) {
+          const coverEl = article.querySelector('.workspace-card__cover');
+          coverEl.style.backgroundImage = "url('" + coverUrl + "'), linear-gradient(135deg, var(--soft), var(--accent) 220%)";
+        }
       }
 
       workspaceGrid.appendChild(article);
     });
 
     bindWorkspaceCardInteractions();
+    animateContentSwap([workspaceGrid]);
+  }
+
+  function getWorkspaceUploadsStorageKey(workspaceKey) {
+    return 'lp_workspace_uploads:' + activeBrandKey + ':' + workspaceKey;
+  }
+
+  function getPathKey(path) {
+    return (path || []).map(function (folder) { return slugify(folder.name); }).join('/');
+  }
+
+  function readWorkspaceUploads(workspaceKey) {
+    try {
+      const raw = localStorage.getItem(getWorkspaceUploadsStorageKey(workspaceKey));
+      return raw ? JSON.parse(raw) : {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function writeWorkspaceUploads(workspaceKey, data) {
+    try {
+      localStorage.setItem(getWorkspaceUploadsStorageKey(workspaceKey), JSON.stringify(data));
+      return true;
+    } catch (error) {
+      showWorkspaceToast('Não foi possível salvar: armazenamento local cheio.');
+      return false;
+    }
+  }
+
+  function getUploadedItemsForPath(workspaceKey, path) {
+    const stored = readWorkspaceUploads(workspaceKey);
+    const bucket = stored[getPathKey(path)];
+    return bucket ? { folders: bucket.folders || [], files: bucket.files || [] } : { folders: [], files: [] };
+  }
+
+  function addUploadedItems(workspaceKey, path, newFolders, newFiles) {
+    const stored = readWorkspaceUploads(workspaceKey);
+    const key = getPathKey(path);
+    const bucket = stored[key] || { folders: [], files: [] };
+    bucket.folders = (bucket.folders || []).concat(newFolders || []);
+    bucket.files = (bucket.files || []).concat(newFiles || []);
+    stored[key] = bucket;
+    return writeWorkspaceUploads(workspaceKey, stored);
+  }
+
+  function refreshCurrentArchiveView() {
+    if (!activeWorkspace) return;
+    updateArchive(activePath.length ? getFolderFiles(activeWorkspace, activePath) : getRootArchiveItems(activeWorkspace));
+  }
+
+  function isImageFile(file) {
+    return IMAGE_EXTENSIONS.indexOf(getFileExtension(file)) !== -1;
+  }
+
+  function readFileAsDataUrl(file) {
+    return new Promise(function (resolve) {
+      const reader = new FileReader();
+      reader.onload = function () { resolve(reader.result); };
+      reader.onerror = function () { resolve(null); };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function buildUploadedFileEntry(file, dataUrl) {
+    const ext = getFileExtension(file);
+    const isImage = isImageFile(file);
+    return {
+      name: file.name,
+      type: ext ? ext.toUpperCase() : '',
+      owner: 'Você',
+      date: 'Atualizado agora',
+      kind: 'file',
+      isImage: isImage,
+      dataUrl: isImage ? (dataUrl || null) : null,
+      preview: 'Arquivo enviado manualmente para este workspace.'
+    };
+  }
+
+  async function handleFilesUpload(fileList) {
+    const files = Array.from(fileList || []);
+    if (!files.length || !activeWorkspace) return;
+
+    const entries = await Promise.all(files.map(async function (file) {
+      let dataUrl = null;
+      if (isImageFile(file)) {
+        if (file.size > MAX_UPLOAD_IMAGE_SIZE) {
+          showWorkspaceToast('A imagem "' + file.name + '" excede 5MB e não terá miniatura.');
+        } else {
+          dataUrl = await readFileAsDataUrl(file);
+        }
+      }
+      return buildUploadedFileEntry(file, dataUrl);
+    }));
+
+    if (addUploadedItems(activeWorkspace.key, activePath, [], entries)) {
+      showWorkspaceToast(entries.length === 1 ? 'Arquivo adicionado com sucesso.' : entries.length + ' arquivos adicionados com sucesso.');
+      refreshCurrentArchiveView();
+    }
+  }
+
+  async function handleFolderUpload(fileList) {
+    const files = Array.from(fileList || []);
+    if (!files.length || !activeWorkspace) return;
+
+    const dataUrlMap = new Map();
+    await Promise.all(files.map(async function (file) {
+      if (!isImageFile(file)) return;
+      if (file.size > MAX_UPLOAD_IMAGE_SIZE) {
+        showWorkspaceToast('A imagem "' + file.name + '" excede 5MB e não terá miniatura.');
+        return;
+      }
+      dataUrlMap.set(file, await readFileAsDataUrl(file));
+    }));
+
+    const root = {};
+    files.forEach(function (file) {
+      const relativePath = file.webkitRelativePath || file.name;
+      const parts = relativePath.split('/').filter(Boolean);
+      let cursor = root;
+      parts.forEach(function (part, index) {
+        if (index === parts.length - 1) {
+          cursor.__files = cursor.__files || [];
+          cursor.__files.push(file);
+        } else {
+          cursor.__dirs = cursor.__dirs || {};
+          cursor.__dirs[part] = cursor.__dirs[part] || {};
+          cursor = cursor.__dirs[part];
+        }
+      });
+    });
+
+    function nodeToFolder(name, node) {
+      const folders = Object.keys(node.__dirs || {}).map(function (dirName) {
+        return nodeToFolder(dirName, node.__dirs[dirName]);
+      });
+      const fileEntries = (node.__files || []).map(function (file) {
+        return buildUploadedFileEntry(file, dataUrlMap.get(file));
+      });
+      return {
+        name: name,
+        kind: 'folder',
+        meta: (folders.length + fileEntries.length) + ' itens',
+        folders: folders,
+        files: fileEntries
+      };
+    }
+
+    const topFolders = Object.keys(root.__dirs || {}).map(function (dirName) {
+      return nodeToFolder(dirName, root.__dirs[dirName]);
+    });
+    const looseFiles = (root.__files || []).map(function (file) {
+      return buildUploadedFileEntry(file, dataUrlMap.get(file));
+    });
+
+    if (addUploadedItems(activeWorkspace.key, activePath, topFolders, looseFiles)) {
+      showWorkspaceToast('Pasta adicionada com sucesso.');
+      refreshCurrentArchiveView();
+    }
   }
 
   function getFolderFiles(workspace, path) {
     const folder = path[path.length - 1];
     const depth = path.length;
     const parentName = folder ? folder.name : workspace.title;
+    const uploaded = getUploadedItemsForPath(workspace.key, path);
+    if (folder && (Array.isArray(folder.folders) || Array.isArray(folder.files) || Array.isArray(folder.children))) {
+      return (folder.children || []).concat(folder.folders || [], folder.files || [], uploaded.folders, uploaded.files);
+    }
     const nestedFolders = depth < 3
       ? [
         {
@@ -215,6 +606,7 @@
 
     return [
       ...nestedFolders,
+      ...uploaded.folders,
       {
         name: parentName + ' - resumo executivo.pdf',
         type: 'PDF',
@@ -224,9 +616,9 @@
         kind: 'file'
       },
       {
-        name: parentName + ' - assets principais.png',
-        type: 'PNG',
-        owner: 'Marketing',
+        name: parentName + ' - assets principais.pdf',
+        type: 'PDF',
+        owner: workspace.title,
         date: 'Atualizado ontem',
         preview: 'Imagem de apresentação dos assets principais, com áreas de segurança, chamada e assinatura visual.',
         kind: 'file'
@@ -238,7 +630,8 @@
         date: 'Atualizado há 2 dias',
         preview: 'Planilha com status de aprovação, responsáveis, datas limite e observações de publicação.',
         kind: 'file'
-      }
+      },
+      ...uploaded.files
     ];
   }
 
@@ -325,7 +718,7 @@
     modal.classList.remove('is-visible', 'is-negative', 'is-positive');
     modal.setAttribute('aria-hidden', 'true');
     pendingWorkspaceAction = null;
-    if (!document.getElementById('createWorkspaceModal')?.hidden || !document.getElementById('workspaceVaultModal')?.hidden || !document.getElementById('workspacePreview')?.hidden) return;
+    if (!document.getElementById('createWorkspaceModal')?.hidden || !document.getElementById('workspaceVaultModal')?.hidden || !document.getElementById('workspacePreview')?.hidden || !document.getElementById('imagePreviewModal')?.hidden) return;
     document.body.classList.remove('workspace-preview-open');
   }
 
@@ -388,7 +781,7 @@
     card.tabIndex = 0;
     card.setAttribute('role', 'button');
     card.setAttribute('aria-label', 'Abrir pasta ' + folder.name);
-    card.innerHTML = '<div class="workspace-folder-card__icon" aria-hidden="true"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H10l2 2h6.5A2.5 2.5 0 0 1 21 8.5v8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5z"></path></svg></div><div><strong></strong><small></small></div>';
+    card.innerHTML = '<div class="workspace-folder-card__icon" aria-hidden="true"><svg class="icon-xs"  width="156" height="156" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H10l2 2h6.5A2.5 2.5 0 0 1 21 8.5v8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5z"></path></svg></div><div><strong></strong><small></small></div>';
     card.querySelector('strong').textContent = folder.name;
     card.querySelector('small').textContent = folder.meta;
     card.appendChild(createActionMenu(folder, 'folder'));
@@ -410,8 +803,8 @@
     card.tabIndex = 0;
     card.setAttribute('role', 'button');
     card.setAttribute('aria-label', 'Abrir previa de ' + file.name);
-    card.innerHTML = '<div class="workspace-file-type"></div><div><strong></strong><small></small></div>';
-    card.querySelector('.workspace-file-type').textContent = file.type;
+    card.innerHTML = buildFileTypeBadgeHtml(file) + '<div><strong></strong><small></small></div>';
+    fillFileTypeBadge(card, file);
     card.querySelector('strong').textContent = file.name;
     card.querySelector('small').textContent = file.owner + ' - ' + file.date;
     card.appendChild(createActionMenu(file, 'file'));
@@ -430,8 +823,8 @@
   function createFileItem(file) {
     const item = document.createElement('li');
     item.className = 'module-item workspace-file-item';
-    item.innerHTML = '<div class="workspace-file-type"></div><div class="module-item__content"><span></span><small></small></div><button class="icon-btn workspace-file-open" type="button" aria-label="Abrir arquivo"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></button>';
-    item.querySelector('.workspace-file-type').textContent = file.type;
+    item.innerHTML = buildFileTypeBadgeHtml(file) + '<div class="module-item__content"><span></span><small></small></div><button class="icon-btn workspace-file-open" type="button" aria-label="Abrir arquivo"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></button>';
+    fillFileTypeBadge(item, file);
     item.querySelector('span').textContent = file.name;
     item.querySelector('small').textContent = file.owner + ' - ' + file.date;
     item.appendChild(createActionMenu(file, 'file'));
@@ -460,6 +853,7 @@
       files.forEach(function (file) {
         fileList.appendChild(createFileItem(file));
       });
+      animateContentSwap([fileList]);
     }
   }
 
@@ -469,9 +863,22 @@
 
     breadcrumb.innerHTML = '';
 
+    const workspacesButton = document.createElement('button');
+    workspacesButton.type = 'button';
+    workspacesButton.textContent = 'Workspaces';
+    workspacesButton.addEventListener('click', function () {
+      showWorkspacesPage();
+    });
+    breadcrumb.appendChild(workspacesButton);
+
+    const rootSeparator = document.createElement('span');
+    rootSeparator.textContent = '>';
+    breadcrumb.appendChild(rootSeparator);
+
     const rootButton = document.createElement('button');
     rootButton.type = 'button';
     rootButton.textContent = 'Arquivos';
+    rootButton.setAttribute('aria-current', activePath.length ? 'false' : 'page');
     rootButton.addEventListener('click', function () {
       renderWorkspaceRoot();
     });
@@ -501,7 +908,7 @@
     for (let index = 0; index < 9; index += 1) {
       const skeleton = document.createElement('div');
       skeleton.className = 'workspace-folder-card workspace-folder-card--skeleton';
-      skeleton.innerHTML = '<div></div><span></span>';
+      skeleton.innerHTML = '<div class="skeleton-shimmer"></div><span class="skeleton-shimmer"></span>';
       folderList.appendChild(skeleton);
     }
   }
@@ -518,16 +925,18 @@
       items.forEach(function (item) {
         folderList.appendChild(item.kind === 'file' ? createLooseFileCard(item) : createFolderCard(item));
       });
+      animateContentSwap([folderList]);
     }
   }
 
   function getRootArchiveItems(workspace) {
-    return workspace.folders.concat(workspace.files.slice(0, 3).map(function (file) {
+    const uploaded = getUploadedItemsForPath(workspace.key, []);
+    return (workspace.children || []).concat(workspace.folders || [], uploaded.folders, (workspace.files || []).slice(0, 3).map(function (file) {
       return {
         ...file,
         kind: 'file'
       };
-    }));
+    }), uploaded.files);
   }
 
   function updateArchive(items) {
@@ -546,6 +955,15 @@
     updateArchive(getRootArchiveItems(activeWorkspace));
   }
 
+  function showWorkspacesPage() {
+    filesPage.hidden = true;
+    page.hidden = false;
+    closePreview();
+    closeImagePreview();
+    animateContentSwap([page]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   function renderWorkspace(workspace) {
     const title = filesPage.querySelector('#workspaceFilesTitle');
     const type = filesPage.querySelector('#workspaceFilesType');
@@ -560,6 +978,7 @@
 
     renderArchive(getRootArchiveItems(workspace));
     renderFiles(workspace.files, 'Arquivos recentes');
+    animateContentSwap([filesPage]);
   }
 
   function openPath(path) {
@@ -578,7 +997,35 @@
     return '<div class="workspace-preview-sheet"><div><strong>Status</strong><span>Em andamento</span></div><div><strong>Responsável</strong><span>' + file.owner + '</span></div><div><strong>Última atualização</strong><span>' + file.date + '</span></div><div><strong>Observações</strong><span>' + (file.preview || 'Dados principais do arquivo selecionado.') + '</span></div></div>';
   }
 
+  function openImagePreview(file) {
+    const modal = document.getElementById('imagePreviewModal');
+    const title = document.getElementById('imagePreviewTitle');
+    const type = document.getElementById('imagePreviewType');
+    const meta = document.getElementById('imagePreviewMeta');
+    const img = document.getElementById('imagePreviewImg');
+    const menuRoot = document.getElementById('imagePreviewMenu');
+    if (!modal || !title || !type || !meta || !img) return;
+
+    activePreviewFile = file;
+    title.textContent = file.name;
+    type.textContent = file.type;
+    meta.textContent = file.owner + ' - ' + file.date;
+    img.src = getImageSrc(file);
+    img.alt = file.name;
+    if (menuRoot) {
+      menuRoot.innerHTML = '';
+      menuRoot.appendChild(createActionMenu(file, 'file'));
+    }
+    modal.hidden = false;
+    document.body.classList.add('workspace-preview-open');
+  }
+
   function openPreview(file) {
+    if (file && file.isImage) {
+      openImagePreview(file);
+      return;
+    }
+
     const modal = document.getElementById('workspacePreview');
     const title = document.getElementById('workspacePreviewTitle');
     const type = document.getElementById('workspacePreviewType');
@@ -600,6 +1047,15 @@
     document.body.classList.add('workspace-preview-open');
   }
 
+  function closeImagePreview() {
+    const modal = document.getElementById('imagePreviewModal');
+    if (!modal) return;
+
+    activePreviewFile = null;
+    modal.hidden = true;
+    document.body.classList.remove('workspace-preview-open');
+  }
+
   function closePreview() {
     const modal = document.getElementById('workspacePreview');
     if (!modal) return;
@@ -611,6 +1067,7 @@
 
   function openFilesPage(workspaceKey, fallbackName) {
     const workspace = workspaceContent[workspaceKey] || {
+      key: workspaceKey,
       type: 'workspace',
       title: fallbackName || 'Workspace',
       description: 'Pastas e arquivos relacionados a este workspace.',
@@ -621,6 +1078,7 @@
     renderWorkspace(workspace);
     page.hidden = true;
     filesPage.hidden = false;
+    animateContentSwap([filesPage]);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -631,6 +1089,16 @@
     if (error) error.hidden = true;
     openModal('workspaceVaultModal');
     input?.focus();
+  }
+
+  function resetNewWorkspaceCover() {
+    newWorkspaceCoverDataUrl = null;
+    const input = document.getElementById('workspaceCoverInput');
+    const preview = document.getElementById('workspaceCoverPreview');
+    const previewImg = document.getElementById('workspaceCoverPreviewImg');
+    if (input) input.value = '';
+    if (preview) preview.hidden = true;
+    if (previewImg) previewImg.src = '';
   }
 
   function openCreateWorkspaceModal() {
@@ -652,6 +1120,7 @@
       option.selected = false;
     });
     renderPermissionsMultiSelect();
+    resetNewWorkspaceCover();
     openModal('createWorkspaceModal');
   }
 
@@ -835,6 +1304,10 @@
       isProtected: type === 'cofre'
     };
 
+    if (newWorkspaceCoverDataUrl) {
+      localStorage.setItem(getWorkspaceCoverStorageKey(key), newWorkspaceCoverDataUrl);
+    }
+
     workspaceOrder.push(key);
     renderWorkspaceCards();
     closeCreateWorkspaceModal();
@@ -868,6 +1341,11 @@
         event.stopPropagation();
         const card = button.closest('.workspace-card');
         if (card) {
+          if (button.dataset.menuAction === 'edit-cover') {
+            closeWorkspaceMenus();
+            openCoverPicker(card.dataset.workspace);
+            return;
+          }
           const title = card.querySelector('h3') ? card.querySelector('h3').textContent.trim() : 'Workspace';
           const label = button.textContent.trim();
           const action = label.indexOf('Compartilhar') === 0
@@ -920,15 +1398,10 @@
     });
   }
 
-  document.getElementById('backToWorkspaces')?.addEventListener('click', function () {
-    filesPage.hidden = true;
-    page.hidden = false;
-    closePreview();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
   document.getElementById('workspacePreviewClose')?.addEventListener('click', closePreview);
   document.getElementById('workspacePreviewOverlay')?.addEventListener('click', closePreview);
+  document.getElementById('imagePreviewClose')?.addEventListener('click', closeImagePreview);
+  document.getElementById('imagePreviewOverlay')?.addEventListener('click', closeImagePreview);
   document.getElementById('openCreateWorkspace')?.addEventListener('click', openCreateWorkspaceModal);
   document.getElementById('createWorkspaceClose')?.addEventListener('click', closeCreateWorkspaceModal);
   document.getElementById('createWorkspaceOverlay')?.addEventListener('click', closeCreateWorkspaceModal);
@@ -966,6 +1439,7 @@
       closePermissionsMultiSelect();
       closeWorkspaceMenus();
       closePreview();
+      closeImagePreview();
       closeCreateWorkspaceModal();
       closeVaultModal();
       closeWorkspaceConfirm();
@@ -993,6 +1467,65 @@
     createTestWorkspace(new FormData(event.currentTarget));
   });
 
+  document.getElementById('workspaceCoverInput')?.addEventListener('change', function (event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+
+    processCoverFile(file).then(function (dataUrl) {
+      if (!dataUrl) {
+        event.target.value = '';
+        return;
+      }
+      newWorkspaceCoverDataUrl = dataUrl;
+      const preview = document.getElementById('workspaceCoverPreview');
+      const previewImg = document.getElementById('workspaceCoverPreviewImg');
+      if (previewImg) previewImg.src = dataUrl;
+      if (preview) preview.hidden = false;
+    });
+  });
+
+  document.getElementById('uploadFilesBtn')?.addEventListener('click', function () {
+    document.getElementById('workspaceFilesUploadInput')?.click();
+  });
+  document.getElementById('uploadFolderBtn')?.addEventListener('click', function () {
+    document.getElementById('workspaceFolderUploadInput')?.click();
+  });
+  document.getElementById('workspaceFilesUploadInput')?.addEventListener('change', function (event) {
+    handleFilesUpload(event.target.files);
+    event.target.value = '';
+  });
+  document.getElementById('workspaceFolderUploadInput')?.addEventListener('change', function (event) {
+    handleFolderUpload(event.target.files);
+    event.target.value = '';
+  });
+
+  document.getElementById('workspaceCoverPreviewRemove')?.addEventListener('click', function (event) {
+    event.preventDefault();
+    resetNewWorkspaceCover();
+  });
+
+  document.addEventListener('app-shell:brand-change', function (event) {
+    const brandKey = event.detail && event.detail.key ? event.detail.key : getActiveBrandKey();
+    const wasViewingFiles = !filesPage.hidden && !!activeWorkspace;
+    const previousWorkspaceKey = wasViewingFiles ? activeWorkspace.key : null;
+    const brandName = event.detail && event.detail.brand && event.detail.brand.name;
+
+    loadWorkspaceData(brandKey).then(function () {
+      if (!wasViewingFiles) return;
+
+      closePreview();
+      closeImagePreview();
+
+      const workspace = workspaceContent[previousWorkspaceKey];
+      if (workspace) {
+        renderWorkspace(workspace);
+      } else {
+        showWorkspacesPage();
+        showWorkspaceToast('Este workspace não está disponível para ' + (brandName || 'esta marca') + '.');
+      }
+    });
+  });
+
   setupPermissionsMultiSelect();
-  renderWorkspaceCards();
+  loadWorkspaceData(getActiveBrandKey());
 })();

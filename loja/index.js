@@ -223,6 +223,21 @@
             showLoadError();
         });
 
+    function animateContentSwap(nodes) {
+        nodes.filter(Boolean).forEach(function (node) {
+            node.classList.add('bp-transition');
+            node.classList.remove('is-entering');
+            node.classList.add('is-transitioning');
+            window.requestAnimationFrame(function () {
+                node.classList.remove('is-transitioning');
+                node.classList.add('is-entering');
+            });
+            window.setTimeout(function () {
+                node.classList.remove('is-entering');
+            }, 280);
+        });
+    }
+
     function init() {
         buildFilterMeta();
         renderBreadcrumb();
@@ -892,6 +907,7 @@
         els.pageIndicator.textContent = searching ? 'Resultados da busca' : 'Página ' + state.currentPage + ' de ' + totalPages;
         els.pagination.hidden = searching;
         renderPagination(totalPages);
+        animateContentSwap([els.productsPrimary, els.emptyState, els.pagination]);
     }
 
     function renderPagination(totalPages) {

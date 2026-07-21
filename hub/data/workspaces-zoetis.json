@@ -1,0 +1,190 @@
+{
+  "campanhas-divulgacao-trade-pay-performance": {
+    "key": "campanhas-divulgacao-trade-pay-performance",
+    "type": "campanha",
+    "title": "Campanhas de Divulgação Trade/Pay Performance Zoetis",
+    "description": "Materiais de divulgação Trade/Pay Performance Zoetis com peças digitais e documentação.",
+    "permissions": "Zoetis e parceiros",
+    "coverImage": "campanhas-divulgacao-trade-pay-performance.jpg",
+    "folders": [
+      {
+        "name": "Peças digitais",
+        "meta": "3 arquivos",
+        "kind": "folder",
+        "files": [
+          { "name": "Capa Campanha Pay Performance Revendas M e G.png", "type": "PNG", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha Trade/Pay Performance Zoetis para revendas M e G." },
+          { "name": "Capa Campanha Pay Performance Revendas P.png", "type": "PNG", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha Trade/Pay Performance Zoetis para revendas P." },
+          { "name": "Capa Campanha Verba Trade Golden Channel E-commerce.png", "type": "PNG", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha Verba Trade Golden Channel Zoetis E-commerce." }
+        ]
+      },
+      {
+        "name": "Documentação",
+        "meta": "1 arquivo",
+        "kind": "folder",
+        "files": [
+          { "name": "Guia de utilização das marcas v2.pdf", "type": "PDF", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file", "preview": "Guia com instruções de utilização das marcas Zoetis da campanha Trade/Pay Performance." }
+        ]
+      }
+    ],
+    "files": [],
+    "isProtected": false
+  },
+  "campanha-simparic": {
+    "key": "campanha-simparic",
+    "type": "campanha",
+    "title": "Campanha Simparic",
+    "description": "Materiais da campanha Simparic para comunicação com tutores, equipes comerciais e revendas parceiras.",
+    "permissions": "Zoetis e Agro Amazônia",
+    "coverImage": "campanha-simparic.jpg",
+    "folders": [
+      {
+        "name": "Peças digitais",
+        "meta": "18 arquivos",
+        "kind": "folder",
+        "folders": [
+          {
+            "name": "Redes sociais",
+            "meta": "8 arquivos",
+            "kind": "folder",
+            "files": [
+              { "name": "Simparic - carrossel Instagram.png", "type": "PNG", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file", "preview": "Arte do carrossel principal da campanha Simparic." },
+              { "name": "Simparic - legenda posts.docx", "type": "DOC", "owner": "Conteúdo", "date": "Atualizado ontem", "kind": "file" }
+            ]
+          },
+          {
+            "name": "WhatsApp",
+            "meta": "4 arquivos",
+            "kind": "folder",
+            "files": [
+              { "name": "Mensagem curta para revendas.docx", "type": "DOC", "owner": "Trade Marketing", "date": "Atualizado ontem", "kind": "file" },
+              { "name": "Card WhatsApp Simparic.png", "type": "PNG", "owner": "Design", "date": "Atualizado em 18/07", "kind": "file" }
+            ]
+          }
+        ],
+        "files": [
+          { "name": "Plano de canais Simparic.xlsx", "type": "XLS", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file" }
+        ]
+      },
+      {
+        "name": "Materiais para PDV",
+        "meta": "12 arquivos",
+        "kind": "folder",
+        "files": [
+          { "name": "Wobbler Simparic.pdf", "type": "PDF", "owner": "Trade Marketing", "date": "Atualizado em 17/07", "kind": "file" },
+          { "name": "Faixa de gôndola Simparic.pdf", "type": "PDF", "owner": "Design", "date": "Atualizado em 17/07", "kind": "file" },
+          { "name": "Cartaz balcão Simparic.pdf", "type": "PDF", "owner": "Marketing Zoetis", "date": "Atualizado em 16/07", "kind": "file" }
+        ]
+      }
+    ],
+    "files": [
+      { "name": "Manual da marca.pdf", "type": "PDF", "owner": "Zoetis", "date": "Atualizado hoje", "kind": "file" },
+      { "name": "Cronograma Simparic - Agro Amazônia.xlsx", "type": "XLS", "owner": "Agro Amazônia", "date": "Atualizado ontem", "kind": "file" },
+      { "name": "Capa Campanha Pay Performance Revendas M e G.png", "type": "PNG", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha Trade/Pay Performance Zoetis para revendas M e G." },
+      { "name": "Guia de aprovação Simparic.docx", "type": "DOC", "owner": "Marketing Zoetis", "date": "Atualizado em 18/07", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "produtos-zoetis": {
+    "key": "produtos-zoetis",
+    "type": "produtos",
+    "title": "Produtos Zoetis",
+    "description": "Arquivos comerciais, técnicos e promocionais das linhas Zoetis usadas pela equipe e pela revenda.",
+    "permissions": "Produto, vendas e Agro Amazônia",
+    "coverImage": "produtos-zoetis.jpg",
+    "folders": [
+      {
+        "name": "Linha Pet",
+        "meta": "24 arquivos",
+        "kind": "folder",
+        "files": [
+          { "name": "Catálogo linha Pet Zoetis.pdf", "type": "PDF", "owner": "Produto", "date": "Atualizado hoje", "kind": "file" },
+          { "name": "Tabela comparativa linha Pet.xlsx", "type": "XLS", "owner": "Comercial", "date": "Atualizado ontem", "kind": "file" }
+        ]
+      },
+      {
+        "name": "Linha Pecuária",
+        "meta": "19 arquivos",
+        "kind": "folder",
+        "files": [
+          { "name": "Guia comercial pecuária.pdf", "type": "PDF", "owner": "Produto", "date": "Atualizado em 15/07", "kind": "file" },
+          { "name": "Treinamento linha pecuária.pptx", "type": "PPT", "owner": "Treinamento", "date": "Atualizado em 14/07", "kind": "file" }
+        ]
+      }
+    ],
+    "files": [
+      { "name": "Apresentação institucional Zoetis.pdf", "type": "PDF", "owner": "Zoetis", "date": "Atualizado hoje", "kind": "file" },
+      { "name": "Argumentário comercial Zoetis.docx", "type": "DOC", "owner": "Vendas", "date": "Atualizado ontem", "kind": "file" },
+      { "name": "Fotos oficiais produtos Zoetis.zip", "type": "ZIP", "owner": "Marketing", "date": "Atualizado em 16/07", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "agro-amazonia": {
+    "key": "agro-amazonia",
+    "type": "cliente",
+    "title": "Agro Amazônia",
+    "description": "Conteúdos personalizados para a revenda Agro Amazônia: campanhas cooperadas, comunicados e materiais de apoio.",
+    "permissions": "Clientes selecionados",
+    "coverImage": "agro-amazonia.jpg",
+    "folders": [
+      {
+        "name": "Campanhas cooperadas",
+        "meta": "16 arquivos",
+        "kind": "folder",
+        "files": [
+          { "name": "Campanha cooperada Simparic - plano.xlsx", "type": "XLS", "owner": "Agro Amazônia", "date": "Atualizado hoje", "kind": "file" },
+          { "name": "Email marketing cooperado.html", "type": "HTML", "owner": "Marketing", "date": "Atualizado ontem", "kind": "file" }
+        ]
+      },
+      {
+        "name": "Comunicados comerciais",
+        "meta": "9 arquivos",
+        "kind": "folder",
+        "files": [
+          { "name": "Comunicado condições comerciais.pdf", "type": "PDF", "owner": "Comercial", "date": "Atualizado em 18/07", "kind": "file" },
+          { "name": "Tabela de produtos foco.xlsx", "type": "XLS", "owner": "Vendas", "date": "Atualizado em 17/07", "kind": "file" }
+        ]
+      }
+    ],
+    "files": [
+      { "name": "Resumo executivo Agro Amazônia.pdf", "type": "PDF", "owner": "Zoetis", "date": "Atualizado hoje", "kind": "file" },
+      { "name": "Calendário comercial Agro Amazônia.xlsx", "type": "XLS", "owner": "Trade Marketing", "date": "Atualizado ontem", "kind": "file" },
+      { "name": "Kit de comunicação para vendedores.zip", "type": "ZIP", "owner": "Marketing", "date": "Atualizado em 16/07", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "materiais-publicos": {
+    "key": "materiais-publicos",
+    "type": "publica",
+    "title": "Materiais públicos",
+    "description": "Catálogos, releases e links liberados para distribuição ampla.",
+    "permissions": "Público com link",
+    "coverImage": "materiais-publicos.jpg",
+    "folders": [
+      { "name": "Catálogos Zoetis", "meta": "8 arquivos", "kind": "folder" },
+      { "name": "Institucional Zoetis", "meta": "6 arquivos", "kind": "folder" },
+      { "name": "Links externos", "meta": "5 arquivos", "kind": "folder" }
+    ],
+    "files": [
+      { "name": "Catálogo Zoetis 2026.pdf", "type": "PDF", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file" },
+      { "name": "Release institucional Zoetis.docx", "type": "DOC", "owner": "Comunicação", "date": "Atualizado ontem", "kind": "file" },
+      { "name": "Guia de marcas.pdf", "type": "PDF", "owner": "Marca", "date": "Atualizado em 11/07", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "cofre": {
+    "key": "cofre",
+    "type": "cofre",
+    "title": "Cofre",
+    "description": "Arquivos sensíveis protegidos por senha e acesso restrito.",
+    "permissions": "Diretoria, jurídico e financeiro",
+    "folders": [
+      { "name": "Contratos Agro Amazônia", "meta": "7 arquivos", "kind": "folder" },
+      { "name": "Condições comerciais", "meta": "5 arquivos", "kind": "folder" }
+    ],
+    "files": [
+      { "name": "Contrato comercial Agro Amazônia.pdf", "type": "PDF", "owner": "Jurídico", "date": "Atualizado hoje", "kind": "file" },
+      { "name": "Forecast confidencial Zoetis.xlsx", "type": "XLS", "owner": "Financeiro", "date": "Atualizado ontem", "kind": "file" }
+    ],
+    "isProtected": true
+  }
+}

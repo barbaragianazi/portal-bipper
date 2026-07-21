@@ -88,11 +88,11 @@
             <div class="hub-hero__content">
               <div>
                 <h1 id="hubHeroTitle">Confira seu hub de arquivos</h1>
-                <p>Existem <strong>4 materiais aguardando aprovação</strong> e <strong>7 arquivos próximos do
-                    vencimento</strong>.</p>
+                <p>Centralize todos os seus arquivos públicos, privados e relacionados a campanhas em um só lugar.</p>
               </div>
               <div class="hub-hero__actions">
-                <button class="btn btn-primary" type="button">Revisar aprovações</button>
+                <!-- Btn "Revisar aprovações" removido para atender ao que foi implementado -->
+                <!-- <button class="btn btn-primary" type="button">Revisar aprovações</button> -->
                 <a class="btn btn-secondary" href="/hub/workspaces/">Visualizar arquivos</a>
               </div>
             </div>
@@ -173,7 +173,8 @@
               </svg>
             </div>
           </article>
-          <article class="metric-card warning" style="--accent:#f59e0b;--soft:#fff7ed;">
+          <!-- KPI removido para atender ao que foi implementado -->
+          <!-- <article class="metric-card warning" style="--accent:#f59e0b;--soft:#fff7ed;">
             <div>
               <h3>Aguardando aprovação</h3>
               <strong>4</strong>
@@ -188,7 +189,7 @@
                 <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"></path>
               </svg>
             </div>
-          </article>
+          </article> -->
           <article class="metric-card" style="--accent:#10b981;--soft:#ecfdf5;">
             <div>
               <h3>Downloads no mês</h3>
@@ -220,12 +221,6 @@
                   <path d="m13 6 6 6-6 6"></path>
                 </svg>
               </a>
-
-
-
-
-
-
             </div>
             <ul class="activity-list hub-content-list">
               <li>
@@ -259,15 +254,12 @@
                     </svg>
                   </button>
                 </div>
-
-
               </li>
               <li>
                 <div class="hub-list-main">
                   <strong>Catálogo Comercial 2026</strong>
                   <small>Camila Rocha • 42 arquivos</small>
                 </div>
-
                 <div class="hub-badge-icon">
                   <span class="hub-status-badge">Agendada</span>
                   <button class="icon-btn hub-recent__action" type="button" aria-label="">
@@ -278,14 +270,12 @@
                     </svg>
                   </button>
                 </div>
-
               </li>
               <li>
                 <div class="hub-list-main">
                   <strong>Campanha Regional Sul</strong>
                   <small>Ana Martins • 66 arquivos</small>
                 </div>
-
                 <div class="hub-badge-icon">
                   <span class="hub-status-badge hub-status-badge--positive">Ativa</span>
                   <button class="icon-btn hub-recent__action" type="button" aria-label="">
@@ -299,143 +289,6 @@
               </li>
             </ul>
           </section>
-
-
-
-          <section class="area-card hub-approvals-card" aria-labelledby="hubApprovalsTitle">
-            <div class="area-card__top">
-              <div>
-                <h3 id="hubApprovalsTitle">Aprovações pendentes</h3>
-              </div>
-              <a class="open-link" href="#">Ver todas
-                <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12h14"></path>
-                  <path d="m13 6 6 6-6 6"></path>
-                </svg>
-              </a>
-            </div>
-            <ul class="module-list hub-approval-list">
-              <li class="module-item">
-                <div class="hub-file-icon" style="--file-color:#dbeafe;--file-ink:#2563eb;">PNG</div>
-                <div class="module-item__content">
-                  <span>Banner principal - Black Friday</span>
-                  <small>Black Friday 2026 • Ana Martins</small>
-                </div>
-                <div class="hub-approval-actions">
-                  <button class="hub-action-btn hub-action-btn--approve" type="button"
-                    aria-label="Aprovar banner principal">✓</button>
-                  <button class="hub-action-btn hub-action-btn--reject" type="button"
-                    aria-label="Rejeitar banner principal">×</button>
-                </div>
-              </li>
-              <li class="module-item">
-                <div class="hub-file-icon" style="--file-color:#fee2e2;--file-ink:#dc2626;">PDF</div>
-                <div class="module-item__content">
-                  <span>Manual da marca 2026</span>
-                  <small>Reposicionamento de marca • Camila Rocha</small>
-                </div>
-                <div class="hub-approval-actions">
-                  <button class="hub-action-btn hub-action-btn--approve" type="button"
-                    aria-label="Aprovar manual da marca">✓</button>
-                  <button class="hub-action-btn hub-action-btn--reject" type="button"
-                    aria-label="Rejeitar manual da marca">×</button>
-                </div>
-              </li>
-              <li class="module-item">
-                <div class="hub-file-icon" style="--file-color:#ede9fe;--file-ink:#7c3aed;">MP4</div>
-                <div class="module-item__content">
-                  <span>Vídeo teaser Produto Atlas</span>
-                  <small>Lançamento de produto • Bruno Lima</small>
-                </div>
-                <div class="hub-approval-actions">
-                  <button class="hub-action-btn hub-action-btn--approve" type="button"
-                    aria-label="Aprovar vídeo teaser">✓</button>
-                  <button class="hub-action-btn hub-action-btn--reject" type="button"
-                    aria-label="Rejeitar vídeo teaser">×</button>
-                </div>
-              </li>
-              <li class="module-item">
-                <div class="hub-file-icon" style="--file-color:#e0f2fe;--file-ink:#0891b2;">DOC</div>
-                <div class="module-item__content">
-                  <span>Tabela de preços regional</span>
-                  <small>Campanha regional Sul • Ana Martins</small>
-                </div>
-                <div class="hub-approval-actions">
-                  <button class="hub-action-btn hub-action-btn--approve" type="button"
-                    aria-label="Aprovar tabela de preços">✓</button>
-                  <button class="hub-action-btn hub-action-btn--reject" type="button"
-                    aria-label="Rejeitar tabela de preços">×</button>
-                </div>
-              </li>
-            </ul>
-          </section>
-        </div>
-
-        <div class="hub-row hub-row--content">
-
-          <section class="area-card hub-chart-card" aria-labelledby="hubDistributionTitle">
-            <div class="area-card__top">
-              <div>
-                <h3 id="hubDistributionTitle">Distribuição de conteúdo</h3>
-              </div>
-              <div class="hub-card-actions">
-                <span class="hub-chip">30 dias</span>
-              </div>
-            </div>
-            <div class="hub-chart-stats">
-              <div>
-                <small>Visualizações</small>
-                <strong>32,8 mil</strong>
-              </div>
-              <div>
-                <small>Downloads</small>
-                <strong>18,2 mil</strong>
-              </div>
-            </div>
-            <div class="hub-line-chart" aria-hidden="true">
-              <div class="hub-line-chart__grid"></div>
-              <svg viewBox="0 0 760 250" preserveAspectRatio="none">
-                <polyline class="hub-line-chart__line hub-line-chart__line--primary"
-                  points="20,190 90,168 160,176 230,146 300,154 370,128 440,136 510,106 580,118 650,90 720,74">
-                </polyline>
-                <polyline class="hub-line-chart__line hub-line-chart__line--secondary"
-                  points="20,210 90,194 160,198 230,176 300,184 370,170 440,172 510,152 580,146 650,126 720,108">
-                </polyline>
-                <g class="hub-line-chart__dots hub-line-chart__dots--primary">
-                  <circle cx="20" cy="190" r="4"></circle>
-                  <circle cx="90" cy="168" r="4"></circle>
-                  <circle cx="160" cy="176" r="4"></circle>
-                  <circle cx="230" cy="146" r="4"></circle>
-                  <circle cx="300" cy="154" r="4"></circle>
-                  <circle cx="370" cy="128" r="4"></circle>
-                  <circle cx="440" cy="136" r="4"></circle>
-                  <circle cx="510" cy="106" r="4"></circle>
-                  <circle cx="580" cy="118" r="4"></circle>
-                  <circle cx="650" cy="90" r="4"></circle>
-                  <circle cx="720" cy="74" r="4"></circle>
-                </g>
-                <g class="hub-line-chart__dots hub-line-chart__dots--secondary">
-                  <circle cx="20" cy="210" r="4"></circle>
-                  <circle cx="90" cy="194" r="4"></circle>
-                  <circle cx="160" cy="198" r="4"></circle>
-                  <circle cx="230" cy="176" r="4"></circle>
-                  <circle cx="300" cy="184" r="4"></circle>
-                  <circle cx="370" cy="170" r="4"></circle>
-                  <circle cx="440" cy="172" r="4"></circle>
-                  <circle cx="510" cy="152" r="4"></circle>
-                  <circle cx="580" cy="146" r="4"></circle>
-                  <circle cx="650" cy="126" r="4"></circle>
-                  <circle cx="720" cy="108" r="4"></circle>
-                </g>
-              </svg>
-              <div class="hub-line-chart__legend">
-                <span><i class="hub-legend-dot hub-legend-dot--primary"></i>Visualizações</span>
-                <span><i class="hub-legend-dot hub-legend-dot--secondary"></i>Downloads</span>
-              </div>
-            </div>
-          </section>
-
           <section class="area-card" aria-labelledby="hubAudienceTitle">
             <div class="area-card__top">
               <div>
@@ -517,9 +370,109 @@
               </li>
             </ul>
           </section>
+
+          <!-- Seçao de "Aprovacoes pendentes" removida para atender ao que foi implementado -->
+          <!-- <section class="area-card hub-approvals-card" aria-labelledby="hubApprovalsTitle">
+            <div class="area-card__top">
+              <div>
+                <h3 id="hubApprovalsTitle">Aprovações pendentes</h3>
+              </div>
+              <a class="open-link" href="#">Ver todas
+                <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14"></path>
+                  <path d="m13 6 6 6-6 6"></path>
+                </svg>
+              </a>
+            </div>
+            <ul class="module-list hub-approval-list">
+              <li class="module-item">
+                <div class="hub-file-icon" style="--file-color:#dbeafe;--file-ink:#2563eb;">PNG</div>
+                <div class="module-item__content">
+                  <span>Banner principal - Black Friday</span>
+                  <small>Black Friday 2026 • Ana Martins</small>
+                </div>
+                <div class="hub-approval-actions">
+                  <button class="hub-action-btn hub-action-btn--approve" type="button"
+                    aria-label="Aprovar banner principal">✓</button>
+                  <button class="hub-action-btn hub-action-btn--reject" type="button"
+                    aria-label="Rejeitar banner principal">×</button>
+                </div>
+              </li>
+              <li class="module-item">
+                <div class="hub-file-icon" style="--file-color:#fee2e2;--file-ink:#dc2626;">PDF</div>
+                <div class="module-item__content">
+                  <span>Manual da marca 2026</span>
+                  <small>Reposicionamento de marca • Camila Rocha</small>
+                </div>
+                <div class="hub-approval-actions">
+                  <button class="hub-action-btn hub-action-btn--approve" type="button"
+                    aria-label="Aprovar manual da marca">✓</button>
+                  <button class="hub-action-btn hub-action-btn--reject" type="button"
+                    aria-label="Rejeitar manual da marca">×</button>
+                </div>
+              </li>
+              <li class="module-item">
+                <div class="hub-file-icon" style="--file-color:#ede9fe;--file-ink:#7c3aed;">MP4</div>
+                <div class="module-item__content">
+                  <span>Vídeo teaser Produto Atlas</span>
+                  <small>Lançamento de produto • Bruno Lima</small>
+                </div>
+                <div class="hub-approval-actions">
+                  <button class="hub-action-btn hub-action-btn--approve" type="button"
+                    aria-label="Aprovar vídeo teaser">✓</button>
+                  <button class="hub-action-btn hub-action-btn--reject" type="button"
+                    aria-label="Rejeitar vídeo teaser">×</button>
+                </div>
+              </li>
+              <li class="module-item">
+                <div class="hub-file-icon" style="--file-color:#e0f2fe;--file-ink:#0891b2;">DOC</div>
+                <div class="module-item__content">
+                  <span>Tabela de preços regional</span>
+                  <small>Campanha regional Sul • Ana Martins</small>
+                </div>
+                <div class="hub-approval-actions">
+                  <button class="hub-action-btn hub-action-btn--approve" type="button"
+                    aria-label="Aprovar tabela de preços">✓</button>
+                  <button class="hub-action-btn hub-action-btn--reject" type="button"
+                    aria-label="Rejeitar tabela de preços">×</button>
+                </div>
+              </li>
+            </ul>
+          </section> -->
         </div>
 
-        <div class="hub-row hub-row--bottom">
+        <div class="hub-row hub-row--content">
+
+          <section class="area-card hub-chart-card" aria-labelledby="hubDistributionTitle">
+            <div class="area-card__top">
+              <div>
+                <h3 id="hubDistributionTitle">Distribuição de conteúdo</h3>
+              </div>
+              <div class="hub-card-actions">
+                <span class="hub-chip">30 dias</span>
+              </div>
+            </div>
+            <!-- <div class="hub-chart-stats">
+              <div>
+                <small>Visualizações</small>
+                <strong>32,8 mil</strong>
+              </div>
+              <div>
+                <small>Downloads</small>
+                <strong>18,2 mil</strong>
+              </div>
+            </div> -->
+            <div class="hub-line-chart">
+              <canvas id="hubDistributionChart" role="img"
+                aria-label="Gráfico de visualizações e downloads nos últimos 30 dias"></canvas>
+              <div class="hub-line-chart__legend">
+                <span><i class="hub-legend-dot hub-legend-dot--primary"></i>Visualizações</span>
+                <span><i class="hub-legend-dot hub-legend-dot--secondary"></i>Downloads</span>
+              </div>
+            </div>
+          </section>
+
           <section class="summary-card hub-bar-card" aria-labelledby="hubDownloadsTitle">
             <div class="area-card__top hub-bottom-title">
               <div>
@@ -528,35 +481,12 @@
               <span class="hub-chip">Julho</span>
             </div>
             <div class="hub-bars">
-              <div class="hub-bar-row">
-                <span>Clientes</span>
-                <div class="hub-bar"><i style="width:86%"></i></div>
-                <strong>5.820</strong>
-              </div>
-              <div class="hub-bar-row">
-                <span>Revendas</span>
-                <div class="hub-bar"><i style="width:71%"></i></div>
-                <strong>4.840</strong>
-              </div>
-              <div class="hub-bar-row">
-                <span>Representantes</span>
-                <div class="hub-bar"><i style="width:93%"></i></div>
-                <strong>6.710</strong>
-              </div>
-              <div class="hub-bar-row">
-                <span>Equipes internas</span>
-                <div class="hub-bar"><i style="width:64%"></i></div>
-                <strong>4.030</strong>
-              </div>
-              <div class="hub-bar-row">
-                <span>Parceiros</span>
-                <div class="hub-bar"><i style="width:39%"></i></div>
-                <strong>2.240</strong>
-              </div>
+              <canvas id="hubDownloadsChart" role="img"
+                aria-label="Gráfico de downloads por destinatário"></canvas>
             </div>
           </section>
-
-          <section class="summary-card hub-kpi-card" aria-labelledby="hubEfficiencyTitle">
+          <!-- Seçao "Tempo médio de aprovacao" removida para atender ao que foi implementado -->
+          <!-- <section class="summary-card hub-kpi-card" aria-labelledby="hubEfficiencyTitle">
             <div class="area-card__top hub-bottom-title">
               <div>
                 <h3 id="hubEfficiencyTitle">Tempo médio de aprovação</h3>
@@ -583,9 +513,10 @@
                 <strong>1,9d</strong>
               </div>
             </div>
-          </section>
+          </section> -->
 
-          <section class="summary-card hub-health-card" aria-labelledby="hubHealthTitle">
+          <!-- Seçao "Saúde do conteúdo" removida para atender ao que foi implementado -->
+          <!-- <section class="summary-card hub-health-card" aria-labelledby="hubHealthTitle">
             <div class="area-card__top hub-bottom-title">
               <div>
                 <h3 id="hubHealthTitle">Saúde do conteúdo</h3>
@@ -601,7 +532,7 @@
                 <li><i class="hub-health-dot hub-health-dot--danger"></i>3 arquivos duplicados</li>
               </ul>
             </div>
-          </section>
+          </section> -->
         </div>
       </section>
     </main>
@@ -616,6 +547,8 @@
     };
   </script>
   <script src="../shared/app-shell.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0" defer></script>
   <script src="index.js" defer></script>
 </body>
 

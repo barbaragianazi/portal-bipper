@@ -1,0 +1,12 @@
+Imagens de capa dos workspaces da marca Zoetis (Hub Workspaces).
+Formato recomendado: paisagem (ex: 1200x460px ou proporcao 21:8), JPG ou PNG.
+
+Suba os arquivos com estes nomes exatos, referenciados em hub/data/workspaces-zoetis.json:
+
+- campanhas-divulgacao-trade-pay-performance.jpg  (Campanhas de Divulgação Trade/Pay Performance Zoetis)
+- campanha-simparic.jpg                           (Campanha Simparic)
+- produtos-zoetis.jpg                             (Produtos Zoetis)
+- agro-amazonia.jpg                               (Agro Amazonia)
+- materiais-publicos.jpg                          (Materiais publicos)
+
+O card "Cofre" nao usa imagem de capa.

@@ -218,6 +218,21 @@
             showLoadError();
         });
 
+    function animateContentSwap(nodes) {
+        nodes.filter(Boolean).forEach(function (node) {
+            node.classList.add('bp-transition');
+            node.classList.remove('is-entering');
+            node.classList.add('is-transitioning');
+            window.requestAnimationFrame(function () {
+                node.classList.remove('is-transitioning');
+                node.classList.add('is-entering');
+            });
+            window.setTimeout(function () {
+                node.classList.remove('is-entering');
+            }, 280);
+        });
+    }
+
     function init() {
         renderBreadcrumb();
         updateBalance();
@@ -1121,6 +1136,7 @@
         renderProductGroup(els.productsPrimary, primary);
         renderProductGroup(els.productsSecondary, secondary);
         renderProductGroup(els.productsTertiary, tertiary);
+        animateContentSwap([els.gridPrimary, els.productsPrimary, els.productsSecondary, els.productsTertiary, els.emptyState]);
     }
 
     page.addEventListener('click', function (e) {

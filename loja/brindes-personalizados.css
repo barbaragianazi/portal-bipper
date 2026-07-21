@@ -1,23 +1,5 @@
 /* Estilos exclusivos da tela Brindes personalizados (loja). Usa tokens e componentes de shared/design-tokens.css e shared/base-components.css como base; não redefine nada global. */
 
-.bp-page {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.bp-page.is-loading .bp-content-ready {
-    display: none;
-}
-
-.bp-page.is-ready .bp-skeleton {
-    display: none;
-}
-
-.bp-content-ready {
-    display: contents;
-}
-
 .bp-page.is-searching #bpHero,
 .bp-page.is-searching #bpCategories,
 .bp-page.is-searching #bpFilters,
@@ -38,110 +20,7 @@
     grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
-.bp-skeleton {
-    display: grid;
-    gap: 20px;
-}
-
-.bp-skeleton__top,
-.bp-skeleton__filters,
-.bp-skeleton__categories {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.bp-skeleton__top {
-    display: grid;
-    grid-template-columns: 180px minmax(240px, 1fr) 170px;
-}
-
-.bp-skeleton__line,
-.bp-skeleton__pill,
-.bp-skeleton__hero,
-.bp-skeleton__categories span,
-.bp-skeleton__filters span,
-.bp-skeleton__grid article {
-    background-image: linear-gradient(90deg, #eef2f6 0%, #f8fafc 48%, #eef2f6 100%);
-    background-size: 220% 100%;
-    animation: bpSkeleton 1.15s ease-in-out infinite;
-}
-
-.bp-skeleton__line {
-    height: 18px;
-    border-radius: 999px;
-}
-
-.bp-skeleton__line--short {
-    width: 70%;
-}
-
-.bp-skeleton__pill {
-    height: 40px;
-    border-radius: 999px;
-}
-
-.bp-skeleton__hero {
-    min-height: 240px;
-    border-radius: var(--radius-xl);
-}
-
-.bp-skeleton__categories,
-.bp-skeleton__filters {
-    overflow: hidden;
-}
-
-.bp-skeleton__categories span {
-    flex: 0 0 58px;
-    height: 82px;
-    border-radius: 999px 999px 14px 14px;
-}
-
-.bp-skeleton__filters span {
-    flex: 0 0 136px;
-    height: 40px;
-    border-radius: 999px;
-}
-
-.bp-skeleton__grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-}
-
-.bp-skeleton__grid article {
-    min-height: 360px;
-    border-radius: var(--radius-lg);
-}
-
-.bp-skeleton__error {
-    border: 1px solid rgba(239, 68, 68, .18);
-    border-radius: var(--radius-lg);
-    background: #fff;
-    color: var(--ink);
-    padding: 24px;
-    box-shadow: var(--shadow-sm);
-}
-
-.bp-skeleton__error strong,
-.bp-skeleton__error span {
-    display: block;
-}
-
-.bp-skeleton__error span {
-    margin-top: 6px;
-    color: var(--muted);
-}
-
-@keyframes bpSkeleton {
-    0% {
-        background-position: 120% 0;
-    }
-
-    100% {
-        background-position: -120% 0;
-    }
-}
+/* .bp-page / .bp-skeleton*: definidos em shared/base-components.css, reutilizados aqui. */
 
 .bp-page .icon {
     width: 20px;

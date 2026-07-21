@@ -68,6 +68,34 @@
   cursor: pointer;
 }
 
+.workspace-card:not(.workspace-card--vault)::before {
+  display: none;
+}
+
+.workspace-card__cover {
+  position: relative;
+  margin: -22px -22px 16px;
+  width: calc(100% + 44px);
+  aspect-ratio: 21 / 8;
+  border-radius: 23px 23px 0 0;
+  background: linear-gradient(135deg, var(--soft), var(--accent) 220%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.workspace-card__cover .workspace-menu {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.workspace-card__cover .workspace-menu__trigger {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(2px);
+}
+
 .workspace-card .module-name {
   align-items: flex-start;
   gap: 12px;
@@ -170,11 +198,11 @@
 .workspace-folder-card {
   position: relative;
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns: 156px minmax(0, 1fr);
+  gap: 16px;
   align-items: center;
-  min-height: 82px;
-  padding: 14px 52px 14px 14px;
+  min-height: 128px;
+  padding: 16px 52px 16px 16px;
   border: 1px solid #e5eaf0;
   border-radius: 12px;
   background: #f8fafc;
@@ -207,14 +235,11 @@
 .workspace-folder-card--skeleton span {
   display: block;
   border-radius: 999px;
-  background: linear-gradient(90deg, #eef2f7 0%, #f8fafc 42%, #eef2f7 84%);
-  background-size: 220% 100%;
-  animation: workspaceSkeleton 1s ease-in-out infinite;
 }
 
 .workspace-folder-card--skeleton div {
-  width: 42px;
-  height: 42px;
+  width: 96px;
+  height: 96px;
   border-radius: 12px;
 }
 
@@ -223,14 +248,28 @@
   height: 14px;
 }
 
+.workspace-card--skeleton {
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.workspace-card--skeleton::before {
+  display: none;
+}
+
 .workspace-folder-card__icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  width: 156px;
+  height: 156px;
+  border-radius: 16px;
   background: #eaf2ff;
   color: #2563eb;
   display: grid;
   place-items: center;
+}
+
+.workspace-folder-card__icon .icon-xs {
+  width: 36px;
+  height: 36px;
 }
 
 .workspace-folder-card strong,
@@ -309,9 +348,27 @@
   font-weight: 900;
 }
 
-.workspace-folder-card--file .workspace-file-type {
-  background: #f1f5f9;
-  color: #334155;
+.workspace-folder-card .workspace-file-type {
+  width: 156px;
+  height: 156px;
+  border-radius: 16px;
+}
+
+.workspace-file-type--icon {
+  background: transparent;
+}
+
+.workspace-file-type--icon img {
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+}
+
+.workspace-file-type--image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid #e5eaf0;
 }
 
 .workspace-breadcrumb {
@@ -331,7 +388,7 @@
   color: var(--ink);
   cursor: pointer;
   font: inherit;
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: inherit;
   padding: 0;
 }
@@ -476,6 +533,8 @@
 }
 
 .workspace-preview__body {
+  display: flex;
+  justify-content: center;
   padding: 24px;
 }
 
@@ -766,11 +825,46 @@
   min-height: 92px;
 }
 
-/* .workspace-field__hint {
+.workspace-field__hint {
+  margin: 0;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.45;
-} */
+}
+
+.workspace-cover-preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 21 / 8;
+  border: 1px solid #e5eaf0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.workspace-cover-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.workspace-cover-preview__remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.6);
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+}
 
 .workspace-form__actions {
   display: flex;
@@ -912,16 +1006,6 @@
 .bp-toast.is-visible {
   opacity: 1;
   transform: translate(-50%, 0);
-}
-
-@keyframes workspaceSkeleton {
-  0% {
-    background-position: 120% 0;
-  }
-
-  100% {
-    background-position: -120% 0;
-  }
 }
 
 @media (max-width: 1320px) {

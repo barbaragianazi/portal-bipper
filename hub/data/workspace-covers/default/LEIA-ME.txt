@@ -1,0 +1,13 @@
+Imagens de capa dos workspaces do Workspace Default (Hub Workspaces).
+Formato recomendado: paisagem (ex: 1200x460px ou proporcao 21:8), JPG ou PNG.
+
+Suba os arquivos com estes nomes exatos, referenciados em hub/data/workspaces-default.json:
+
+- campanhas-de-divulgacao.jpg     (Campanhas de divulgação)
+- lancamento.jpg                  (Lançamento)
+- divulgacao-de-produtos.jpg      (Divulgação de produtos)
+- grupo-vu.jpg                    (Grupo VU)
+- materiais-publicos.jpg          (Materiais publicos)
+- campanha-divulgacao.jpg         (Campanha de divulgação)
+
+O card "Cofre" nao usa imagem de capa.
