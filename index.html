@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BIPPER — Bem-vindo</title>
   <link rel="icon" type="image/png" href="shared/assets/logos/fav-icon.png">
+  <link rel="stylesheet" href="shared/design-tokens.css">
+  <link rel="stylesheet" href="shared/base-components.css">
+  <link rel="stylesheet" href="shared/app-shell.css">
   <link rel="stylesheet" href="css/home-shell.css">
   <link rel="stylesheet" href="css/home-dashboard.css">
   <link rel="stylesheet" href="css/home-modals.css">
@@ -115,14 +118,12 @@
             </svg><span>Treinamentos</span></a>
         </nav>
       </div>
-      <div class="sidebar-card">
-        <strong>Central de ajuda</strong>
-        <p>Encontre materiais, novidades e suporte para continuar sua jornada.</p>
-        <a href="#">Abrir suporte <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14" />
-            <path d="m13 6 6 6-6 6" />
-          </svg></a>
+      <div class="sidebar-profile" aria-label="Perfil do usuário">
+        <div class="avatar">BG</div>
+        <div>
+          <strong>Bárbara Gianazi</strong>
+          <small>barbara.gianazi@upper.net.br</small>
+        </div>
       </div>
     </aside>
     <button class="sidebar-overlay" id="sidebarOverlay" type="button" aria-label="Fechar menu"></button>
@@ -138,19 +139,19 @@
           </svg></button>
         <!-- <div class="env-pill">Ambiente de qualidade</div> -->
         <div class="topbar-actions">
-          <button class="icon-btn" type="button" aria-label="Notificações"><svg class="icon" viewBox="0 0 24 24"
+          <!-- <button class="icon-btn" type="button" aria-label="Notificações"><svg class="icon" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
               aria-hidden="true">
               <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" />
               <path d="M10 21h4" />
-            </svg><span class="notification-dot">3</span></button>
-          <button class="icon-btn" id="openCustomizeAreas" type="button" aria-label="Personalizar dashboard"><svg
+            </svg><span class="notification-dot">3</span></button> -->
+          <!-- <button class="icon-btn" id="openCustomizeAreas" type="button" aria-label="Personalizar dashboard"><svg
               class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z" />
               <path
                 d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8.92 4a1.65 1.65 0 0 0 1-1.51V2a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.44.5.8.94.94H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
-            </svg></button>
+            </svg></button> -->
           <div class="guided-tip" id="customizeGuidedTip" role="status" aria-live="polite" hidden>
             <button class="guided-tip__close" id="customizeGuidedTipClose" type="button"
               aria-label="Fechar dica de configuração">

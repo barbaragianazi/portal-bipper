@@ -4,8 +4,8 @@
     --zoetis-orange: #ff6b00;
     --zoetis-orange-600: #e85900;
     --zoetis-teal: #00a7b5;
-    --brand-primary: var(--zoetis-orange);
-    --brand-secondary: var(--zoetis-orange-600);
+    --brand-primary: #ff6b00;
+    --brand-secondary: #e85900;
     --brand-soft: #fff1e8;
     --brand-primary-rgb: 255, 107, 0;
     --ink: #0f172a;

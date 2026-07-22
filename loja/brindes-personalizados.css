@@ -225,7 +225,7 @@
 }
 
 .bp-hero__slide:nth-child(3n+3) {
-    background: linear-gradient(135deg, var(--zoetis-teal), #067782);
+    background: linear-gradient(135deg, var(--brand-secondary), #067782);
 }
 
 .bp-hero__content {

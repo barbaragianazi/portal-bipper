@@ -68,9 +68,6 @@
     root.style.setProperty('--brand-primary', brand.primary);
     root.style.setProperty('--brand-secondary', brand.secondary || brand.primary);
     root.style.setProperty('--brand-soft', brand.surfaceAlt || brand.surface || '#fff1e8');
-    root.style.setProperty('--zoetis-orange', brand.primary);
-    root.style.setProperty('--zoetis-orange-600', brand.secondary || brand.primary);
-    root.style.setProperty('--zoetis-teal', brand.secondary || brand.primary);
 
     if (primaryRgb) {
       root.style.setProperty('--brand-primary-rgb', `${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}`);
