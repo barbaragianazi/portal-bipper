@@ -7,10 +7,10 @@
     "permissions": "Marketing e parceiros externos",
     "coverImage": "campanhas-de-divulgacao.jpg",
     "folders": [
-      { "name": "Black Friday 2026", "meta": "42 arquivos", "kind": "folder" },
-      { "name": "Campanha Regional Sul", "meta": "28 arquivos", "kind": "folder" },
-      { "name": "Banners e redes sociais", "meta": "64 arquivos", "kind": "folder" },
-      { "name": "Textos aprovados", "meta": "18 arquivos", "kind": "folder" }
+      { "name": "Black Friday 2026", "meta": "42 arquivos", "kind": "folder", "description": "Banners, peças e cronogramas da campanha de Black Friday 2026." },
+      { "name": "Campanha Regional Sul", "meta": "28 arquivos", "kind": "folder", "description": "Materiais de comunicação segmentados para a região Sul." },
+      { "name": "Banners e redes sociais", "meta": "64 arquivos", "kind": "folder", "description": "Artes prontas para banners e publicações em redes sociais." },
+      { "name": "Textos aprovados", "meta": "18 arquivos", "kind": "folder", "description": "Textos e roteiros já aprovados para uso em campanhas ativas." }
     ],
     "files": [
       { "name": "Banner principal - Black Friday.png", "type": "PNG", "owner": "Ana Martins", "date": "Atualizado ontem", "kind": "file" },
@@ -28,9 +28,9 @@
     "permissions": "Produto, vendas e diretoria",
     "coverImage": "lancamento.jpg",
     "folders": [
-      { "name": "Produto Atlas", "meta": "36 arquivos", "kind": "folder" },
-      { "name": "Kit comercial", "meta": "22 arquivos", "kind": "folder" },
-      { "name": "Treinamento de vendas", "meta": "17 arquivos", "kind": "folder" }
+      { "name": "Produto Atlas", "meta": "36 arquivos", "kind": "folder", "description": "Materiais comerciais e técnicos do lançamento do Produto Atlas." },
+      { "name": "Kit comercial", "meta": "22 arquivos", "kind": "folder", "description": "Kit completo de apoio à venda para a equipe comercial." },
+      { "name": "Treinamento de vendas", "meta": "17 arquivos", "kind": "folder", "description": "Conteúdos de capacitação para o time de vendas sobre o novo lançamento." }
     ],
     "files": [
       { "name": "Apresentação Produto Atlas.pdf", "type": "PDF", "owner": "Produto", "date": "Atualizado hoje", "kind": "file" },
@@ -47,9 +47,9 @@
     "permissions": "Clientes selecionados",
     "coverImage": "divulgacao-de-produtos.jpg",
     "folders": [
-      { "name": "Comunicados comerciais", "meta": "21 arquivos", "kind": "folder" },
-      { "name": "Campanhas cooperadas", "meta": "34 arquivos", "kind": "folder" },
-      { "name": "Materiais para clientes", "meta": "41 arquivos", "kind": "folder" }
+      { "name": "Comunicados comerciais", "meta": "21 arquivos", "kind": "folder", "description": "Comunicados de condições comerciais para clientes selecionados." },
+      { "name": "Campanhas cooperadas", "meta": "34 arquivos", "kind": "folder", "description": "Materiais de campanhas cooperadas com clientes parceiros." },
+      { "name": "Materiais para clientes", "meta": "41 arquivos", "kind": "folder", "description": "Peças e catálogos prontos para envio direto a clientes." }
     ],
     "files": [
       { "name": "Folder linha premium.pdf", "type": "PDF", "owner": "Comercial", "date": "Atualizado hoje", "kind": "file" },
@@ -66,9 +66,9 @@
     "permissions": "Grupo VU",
     "coverImage": "grupo-vu.jpg",
     "folders": [
-      { "name": "Documentos internos", "meta": "19 arquivos", "kind": "folder" },
-      { "name": "Guias operacionais", "meta": "27 arquivos", "kind": "folder" },
-      { "name": "Comunicados do grupo", "meta": "12 arquivos", "kind": "folder" }
+      { "name": "Documentos internos", "meta": "19 arquivos", "kind": "folder", "description": "Documentos de uso interno restrito ao Grupo VU." },
+      { "name": "Guias operacionais", "meta": "27 arquivos", "kind": "folder", "description": "Guias e manuais de processos operacionais do grupo." },
+      { "name": "Comunicados do grupo", "meta": "12 arquivos", "kind": "folder", "description": "Comunicados oficiais direcionados aos membros do Grupo VU." }
     ],
     "files": [
       { "name": "Manual operacional.pdf", "type": "PDF", "owner": "Operações", "date": "Atualizado há 3 dias", "kind": "file" },
@@ -85,9 +85,9 @@
     "permissions": "Público com link",
     "coverImage": "materiais-publicos.jpg",
     "folders": [
-      { "name": "Catálogos públicos", "meta": "26 arquivos", "kind": "folder" },
-      { "name": "Institucional", "meta": "14 arquivos", "kind": "folder" },
-      { "name": "Links externos", "meta": "21 arquivos", "kind": "folder" }
+      { "name": "Catálogos públicos", "meta": "26 arquivos", "kind": "folder", "description": "Catálogos comerciais liberados para distribuição pública." },
+      { "name": "Institucional", "meta": "14 arquivos", "kind": "folder", "description": "Materiais institucionais e de apresentação da marca." },
+      { "name": "Links externos", "meta": "21 arquivos", "kind": "folder", "description": "Links e referências externas de acesso público." }
     ],
     "files": [
       { "name": "Catálogo comercial 2026.pdf", "type": "PDF", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file" },
@@ -103,8 +103,8 @@
     "description": "Arquivos sensíveis protegidos por senha e acesso restrito.",
     "permissions": "Diretoria, jurídico e financeiro",
     "folders": [
-      { "name": "Contratos", "meta": "18 arquivos", "kind": "folder" },
-      { "name": "Financeiro", "meta": "11 arquivos", "kind": "folder" }
+      { "name": "Contratos", "meta": "18 arquivos", "kind": "folder", "description": "Contratos jurídicos e comerciais confidenciais." },
+      { "name": "Financeiro", "meta": "11 arquivos", "kind": "folder", "description": "Documentos financeiros de acesso restrito." }
     ],
     "files": [
       { "name": "Contrato matriz.pdf", "type": "PDF", "owner": "Jurídico", "date": "Atualizado hoje", "kind": "file" },
@@ -124,6 +124,7 @@
         "name": "Peças digitais",
         "meta": "3 arquivos",
         "kind": "folder",
+        "description": "Capas e artes digitais prontas para uso na campanha de divulgação.",
         "files": [
           { "name": "Capa Campanha Pay Performance Revendas M e G.png", "type": "PNG", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha de divulgação." },
           { "name": "Capa Campanha Pay Performance Revendas P.png", "type": "PNG", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha de divulgação." },
@@ -134,6 +135,7 @@
         "name": "Documentação",
         "meta": "1 arquivo",
         "kind": "folder",
+        "description": "Guias e instruções oficiais para utilização das marcas nesta campanha.",
         "files": [
           { "name": "Guia de utilização das marcas v2.pdf", "type": "PDF", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "preview": "Guia com instruções de utilização das marcas da campanha." }
         ]

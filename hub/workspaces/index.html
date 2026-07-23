@@ -159,8 +159,10 @@
       </section>
 
       <section class="content workspace-files-page" id="workspaceFilesPage" hidden>
-        <section class="summary-card workspaces-hero" aria-labelledby="workspaceFilesTitle">
-          <div>
+        <section class="summary-card workspaces-hero" id="workspaceFilesHero" aria-labelledby="workspaceFilesTitle">
+          <div class="workspaces-hero__cover" id="workspaceFilesCover" aria-hidden="true"></div>
+          <div class="workspaces-hero__scrim" aria-hidden="true"></div>
+          <div class="workspaces-hero__intro">
             <h1 id="workspaceFilesTitle">Workspace</h1>
             <p id="workspaceFilesDescription">Pastas e arquivos relacionados a este workspace.</p>
           </div>
@@ -182,6 +184,7 @@
               <span class="hub-status-badge" id="workspaceItemCount">0 itens</span>
             </div>
             <div class="workspace-folder-grid" id="workspaceFolderList"></div>
+            <div class="workspace-folder-grid workspace-folder-grid--files" id="workspaceLooseFileList"></div>
           </section>
         </section>
       </section>
@@ -394,6 +397,13 @@
     };
   </script>
   <script src="../../shared/app-shell.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="index.js" defer></script>
 </body>
 

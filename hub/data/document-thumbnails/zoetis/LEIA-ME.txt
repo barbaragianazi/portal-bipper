@@ -1,0 +1,46 @@
+Miniaturas (prints) dos DOCUMENTOS (PDF e Excel) dos workspaces da marca Zoetis (Hub Workspaces).
+Formato recomendado: retrato ou paisagem, JPG ou PNG, ex: 800x600px (a miniatura e cortada em "cover").
+
+Isso vale só para os arquivos de demonstracao do catalogo (sem arquivo real por tras).
+Arquivos enviados de verdade pelo usuario (upload) ja geram miniatura e preview reais
+automaticamente (PDF via PDF.js, Excel via SheetJS) - nao precisam de print manual.
+
+PPT/PPTX nao usa miniatura nem preview (sem biblioteca client-side capaz de renderizar
+o conteudo real) - continua so com o icone generico.
+
+Suba os arquivos com estes caminhos exatos, referenciados em hub/data/workspaces-zoetis.json:
+
+Workspace "Campanhas de Divulgação Trade/Pay Performance Zoetis"
+  - campanhas-divulgacao-trade-pay-performance/documentacao/guia-de-utilizacao-das-marcas-v2.jpg
+      (documento "Guia de utilização das marcas v2.pdf", pasta "Documentação")
+
+Workspace "Campanha Simparic"
+  - campanha-simparic/manual-da-marca.jpg
+      (documento "Manual da marca.pdf", raiz do workspace)
+  - campanha-simparic/cronograma-simparic-agro-amazonia.jpg
+      (documento "Cronograma Simparic - Agro Amazônia.xlsx", raiz do workspace)
+  - campanha-simparic/pecas-digitais/plano-de-canais-simparic.jpg
+      (documento "Plano de canais Simparic.xlsx", pasta "Peças digitais")
+  - campanha-simparic/materiais-para-pdv/wobbler-simparic.jpg
+      (documento "Wobbler Simparic.pdf", pasta "Materiais para PDV")
+  - campanha-simparic/materiais-para-pdv/faixa-de-gondola-simparic.jpg
+      (documento "Faixa de gôndola Simparic.pdf", pasta "Materiais para PDV")
+  - campanha-simparic/materiais-para-pdv/cartaz-balcao-simparic.jpg
+      (documento "Cartaz balcão Simparic.pdf", pasta "Materiais para PDV")
+
+Workspace "Produtos Zoetis"
+  - produtos-zoetis/apresentacao-institucional-zoetis.jpg
+      (documento "Apresentação institucional Zoetis.pdf", raiz do workspace)
+  - produtos-zoetis/linha-pet/catalogo-linha-pet-zoetis.jpg
+      (documento "Catálogo linha Pet Zoetis.pdf", pasta "Linha Pet")
+  - produtos-zoetis/linha-pet/tabela-comparativa-linha-pet.jpg
+      (documento "Tabela comparativa linha Pet.xlsx", pasta "Linha Pet")
+  - produtos-zoetis/linha-pecuaria/guia-comercial-pecuaria.jpg
+      (documento "Guia comercial pecuária.pdf", pasta "Linha Pecuária")
+
+Os workspaces "Agro Amazônia", "Materiais públicos" e "Cofre" estão ocultos no momento
+(ver isHidden em workspaces-zoetis.json), entao os documentos deles nao estao nesta lista.
+Se forem reativados depois, seguem a mesma convencao: <workspace-key>/<pasta opcional>/<nome-do-arquivo-sem-extensao>.jpg
+
+Se uma miniatura nao for enviada, o documento continua funcionando normalmente:
+o card exibe o icone generico do tipo de arquivo (Excel/PDF) no lugar da miniatura.

@@ -1,0 +1,36 @@
+Imagens de capa das PASTAS dentro dos workspaces da marca Zoetis (Hub Workspaces).
+Formato recomendado: paisagem, proporcao 21:9 (ex: 1260x540px), JPG ou PNG.
+
+Suba os arquivos exatamente nestes caminhos (relativos a esta pasta),
+referenciados em hub/data/workspaces-zoetis.json:
+
+Workspace "Campanhas de Divulgação Trade/Pay Performance Zoetis"
+  - campanhas-divulgacao-trade-pay-performance/pecas-digitais.jpg   (pasta "Peças digitais")
+  - campanhas-divulgacao-trade-pay-performance/documentacao.jpg     (pasta "Documentação")
+
+Workspace "Campanha Simparic"
+  - campanha-simparic/pecas-digitais.jpg                            (pasta "Peças digitais")
+  - campanha-simparic/pecas-digitais/redes-sociais.jpg              (subpasta "Redes sociais", dentro de "Peças digitais")
+  - campanha-simparic/pecas-digitais/whatsapp.jpg                   (subpasta "WhatsApp", dentro de "Peças digitais")
+  - campanha-simparic/materiais-para-pdv.jpg                        (pasta "Materiais para PDV")
+
+Workspace "Produtos Zoetis"
+  - produtos-zoetis/linha-pet.jpg                                   (pasta "Linha Pet")
+  - produtos-zoetis/linha-pecuaria.jpg                              (pasta "Linha Pecuária")
+
+Workspace "Agro Amazônia"
+  - agro-amazonia/campanhas-cooperadas.jpg                          (pasta "Campanhas cooperadas")
+  - agro-amazonia/comunicados-comerciais.jpg                        (pasta "Comunicados comerciais")
+
+Workspace "Materiais públicos"
+  - materiais-publicos/catalogos-zoetis.jpg                         (pasta "Catálogos Zoetis")
+  - materiais-publicos/institucional-zoetis.jpg                     (pasta "Institucional Zoetis")
+  - materiais-publicos/links-externos.jpg                           (pasta "Links externos")
+
+O workspace "Cofre" nao usa imagem de capa nas pastas.
+
+Se uma imagem nao for enviada, a pasta continua funcionando normalmente:
+o card exibe um degrade nas cores do workspace no lugar da capa.
+
+Voce tambem pode trocar a capa direto pela interface (menu "..." da pasta > "Editar capa"),
+mas isso salva a imagem so no navegador de quem editou (localStorage), nao aqui nos arquivos.

@@ -16,10 +16,11 @@
   let permissionsMultiSelect = null;
   let activeBrandKey = 'zoetis';
   let pendingCoverEditKey = null;
+  let pendingFolderCoverTarget = null;
   let newWorkspaceCoverDataUrl = null;
   let coverFileInputEl = null;
   const MAX_COVER_FILE_SIZE = 5 * 1024 * 1024;
-  const MAX_UPLOAD_IMAGE_SIZE = 5 * 1024 * 1024;
+  const MAX_UPLOAD_PREVIEW_FILE_SIZE = 5 * 1024 * 1024;
   const IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'bmp'];
   const ELLIPSIS_ICON = '<svg xmlns="http://www.w3.org/2000/svg" class="icon-xs lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical" width="24" height="24" viewBox="0 0 24 24" fill="1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>';
   const FILE_TYPE_ICON_PATH = '../../shared/assets/icones/';
@@ -52,10 +53,10 @@
       description: 'Materiais sazonais, banners, textos e peças de mídia para comunicações ativas.',
       permissions: 'Marketing e parceiros externos',
       folders: [
-        { name: 'Black Friday 2026', meta: '42 arquivos', kind: 'folder' },
-        { name: 'Campanha Regional Sul', meta: '28 arquivos', kind: 'folder' },
-        { name: 'Banners e redes sociais', meta: '64 arquivos', kind: 'folder' },
-        { name: 'Textos aprovados', meta: '18 arquivos', kind: 'folder' }
+        { name: 'Black Friday 2026', meta: '42 arquivos', kind: 'folder', description: 'Banners, peças e cronogramas da campanha de Black Friday 2026.' },
+        { name: 'Campanha Regional Sul', meta: '28 arquivos', kind: 'folder', description: 'Materiais de comunicação segmentados para a região Sul.' },
+        { name: 'Banners e redes sociais', meta: '64 arquivos', kind: 'folder', description: 'Artes prontas para banners e publicações em redes sociais.' },
+        { name: 'Textos aprovados', meta: '18 arquivos', kind: 'folder', description: 'Textos e roteiros já aprovados para uso em campanhas ativas.' }
       ],
       files: [
         { name: 'Banner principal - Black Friday.png', type: 'PNG', owner: 'Ana Martins', date: 'Atualizado ontem', kind: 'file' },
@@ -72,9 +73,9 @@
       description: 'Arquivos de go-to-market, kits de produto, apresentações comerciais e assets finais.',
       permissions: 'Produto, vendas e diretoria',
       folders: [
-        { name: 'Produto Atlas', meta: '36 arquivos', kind: 'folder' },
-        { name: 'Kit comercial', meta: '22 arquivos', kind: 'folder' },
-        { name: 'Treinamento de vendas', meta: '17 arquivos', kind: 'folder' }
+        { name: 'Produto Atlas', meta: '36 arquivos', kind: 'folder', description: 'Materiais comerciais e técnicos do lançamento do Produto Atlas.' },
+        { name: 'Kit comercial', meta: '22 arquivos', kind: 'folder', description: 'Kit completo de apoio à venda para a equipe comercial.' },
+        { name: 'Treinamento de vendas', meta: '17 arquivos', kind: 'folder', description: 'Conteúdos de capacitação para o time de vendas sobre o novo lançamento.' }
       ],
       files: [
         { name: 'Apresentacao Produto Atlas.pdf', type: 'PDF', owner: 'Produto', date: 'Atualizado hoje', kind: 'file' },
@@ -90,9 +91,9 @@
       description: 'Conteúdos prontos para clientes, campanhas cooperadas e comunicados comerciais.',
       permissions: 'Clientes selecionados',
       folders: [
-        { name: 'Comunicados comerciais', meta: '21 arquivos', kind: 'folder' },
-        { name: 'Campanhas cooperadas', meta: '34 arquivos', kind: 'folder' },
-        { name: 'Materiais para clientes', meta: '41 arquivos', kind: 'folder' }
+        { name: 'Comunicados comerciais', meta: '21 arquivos', kind: 'folder', description: 'Comunicados de condições comerciais para clientes selecionados.' },
+        { name: 'Campanhas cooperadas', meta: '34 arquivos', kind: 'folder', description: 'Materiais de campanhas cooperadas com clientes parceiros.' },
+        { name: 'Materiais para clientes', meta: '41 arquivos', kind: 'folder', description: 'Peças e catálogos prontos para envio direto a clientes.' }
       ],
       files: [
         { name: 'Folder linha premium.pdf', type: 'PDF', owner: 'Comercial', date: 'Atualizado hoje', kind: 'file' },
@@ -108,9 +109,9 @@
       description: 'Arquivos compartilhados para um grupo específico de usuários e equipes internas.',
       permissions: 'Grupo VU',
       folders: [
-        { name: 'Documentos internos', meta: '19 arquivos', kind: 'folder' },
-        { name: 'Guias operacionais', meta: '27 arquivos', kind: 'folder' },
-        { name: 'Comunicados do grupo', meta: '12 arquivos', kind: 'folder' }
+        { name: 'Documentos internos', meta: '19 arquivos', kind: 'folder', description: 'Documentos de uso interno restrito ao Grupo VU.' },
+        { name: 'Guias operacionais', meta: '27 arquivos', kind: 'folder', description: 'Guias e manuais de processos operacionais do grupo.' },
+        { name: 'Comunicados do grupo', meta: '12 arquivos', kind: 'folder', description: 'Comunicados oficiais direcionados aos membros do Grupo VU.' }
       ],
       files: [
         { name: 'Manual operacional.pdf', type: 'PDF', owner: 'Operações', date: 'Atualizado há 3 dias', kind: 'file' },
@@ -126,9 +127,9 @@
       description: 'Documentos liberados para distribuição ampla, links externos e consultas sem restrição.',
       permissions: 'Público com link',
       folders: [
-        { name: 'Catálogos públicos', meta: '26 arquivos', kind: 'folder' },
-        { name: 'Institucional', meta: '14 arquivos', kind: 'folder' },
-        { name: 'Links externos', meta: '21 arquivos', kind: 'folder' }
+        { name: 'Catálogos públicos', meta: '26 arquivos', kind: 'folder', description: 'Catálogos comerciais liberados para distribuição pública.' },
+        { name: 'Institucional', meta: '14 arquivos', kind: 'folder', description: 'Materiais institucionais e de apresentação da marca.' },
+        { name: 'Links externos', meta: '21 arquivos', kind: 'folder', description: 'Links e referências externas de acesso público.' }
       ],
       files: [
         { name: 'Catálogo comercial 2026.pdf', type: 'PDF', owner: 'Marketing', date: 'Atualizado hoje', kind: 'file' },
@@ -144,8 +145,8 @@
       description: 'Arquivos sensíveis protegidos por senha e acesso restrito.',
       permissions: 'Diretoria, jurídico e financeiro',
       folders: [
-        { name: 'Contratos', meta: '18 arquivos', kind: 'folder' },
-        { name: 'Financeiro', meta: '11 arquivos', kind: 'folder' }
+        { name: 'Contratos', meta: '18 arquivos', kind: 'folder', description: 'Contratos jurídicos e comerciais confidenciais.' },
+        { name: 'Financeiro', meta: '11 arquivos', kind: 'folder', description: 'Documentos financeiros de acesso restrito.' }
       ],
       files: [
         { name: 'Contrato matriz.pdf', type: 'PDF', owner: 'Jurídico', date: 'Atualizado hoje', kind: 'file' },
@@ -155,7 +156,14 @@
     }
   };
   // Cofre oculto para atender solicitação da Zoetis (mantido em workspaceContent para reativar depois)
-  let workspaceOrder = Object.keys(workspaceContent).filter(function (key) { return key !== 'cofre'; });
+  // Workspaces ocultos: 'cofre' (todas as marcas) + qualquer workspace com isHidden:true nos dados carregados
+  // (ex.: Agro Amazônia e Materiais públicos ocultos a pedido da Zoetis, mantidos no JSON para reativar depois)
+  function isWorkspaceVisible(key) {
+    const workspace = workspaceContent[key];
+    return key !== 'cofre' && !(workspace && workspace.isHidden);
+  }
+
+  let workspaceOrder = Object.keys(workspaceContent).filter(isWorkspaceVisible);
   const WORKSPACE_STORAGE_KEY = 'lp_active_brand';
   const WORKSPACE_DATA_BY_BRAND = {
     zoetis: '../data/workspaces-zoetis.json',
@@ -168,6 +176,19 @@
   };
   const DEFAULT_WORKSPACE_COVER_PATH = '../data/workspace-covers/default/';
   let activeCoverPath = DEFAULT_WORKSPACE_COVER_PATH;
+  const FOLDER_COVER_PATH_BY_BRAND = {
+    zoetis: '../data/folder-covers/zoetis/',
+    'agro-amazonia': '../data/folder-covers/zoetis/'
+  };
+  const DEFAULT_FOLDER_COVER_PATH = '../data/folder-covers/default/';
+  let activeFolderCoverPath = DEFAULT_FOLDER_COVER_PATH;
+  const DOCUMENT_THUMBNAIL_PATH_BY_BRAND = {
+    zoetis: '../data/document-thumbnails/zoetis/',
+    'agro-amazonia': '../data/document-thumbnails/zoetis/'
+  };
+  const DEFAULT_DOCUMENT_THUMBNAIL_PATH = '../data/document-thumbnails/default/';
+  let activeDocumentThumbnailPath = DEFAULT_DOCUMENT_THUMBNAIL_PATH;
+  const PDF_THUMBNAIL_SCALE = 0.4;
 
   page.dataset.ready = 'true';
   filesPage.dataset.ready = 'true';
@@ -189,6 +210,11 @@
     return '../data/campanhas-images/' + (file.name || '');
   }
 
+  function getDocumentThumbnailUrl(file) {
+    if (!file || !file.thumbnail) return null;
+    return activeDocumentThumbnailPath + file.thumbnail;
+  }
+
   function buildFileTypeBadgeHtml(file) {
     if (file.isImage) {
       const imageSrc = getImageSrc(file);
@@ -204,6 +230,59 @@
     const badge = container.querySelector('.workspace-file-type');
     if (badge && !badge.classList.contains('workspace-file-type--icon') && !badge.classList.contains('workspace-file-type--image')) {
       badge.textContent = file.type;
+    }
+  }
+
+  function dataUrlToUint8Array(dataUrl) {
+    const base64 = (dataUrl.split(',')[1] || '');
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let index = 0; index < binary.length; index += 1) bytes[index] = binary.charCodeAt(index);
+    return bytes;
+  }
+
+  function renderPdfPageThumbnail(dataUrl) {
+    if (!window.pdfjsLib) return Promise.resolve(null);
+    return window.pdfjsLib.getDocument({ data: dataUrlToUint8Array(dataUrl) }).promise
+      .then(function (pdf) { return pdf.getPage(1); })
+      .then(function (page) {
+        const viewport = page.getViewport({ scale: PDF_THUMBNAIL_SCALE });
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        return page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise
+          .then(function () { return canvas.toDataURL('image/png'); });
+      })
+      .catch(function () { return null; });
+  }
+
+  function upgradeBadgeToImage(badge, url, altText) {
+    const probe = new Image();
+    probe.onload = function () {
+      badge.classList.remove('workspace-file-type--icon');
+      badge.classList.add('workspace-file-type--image');
+      badge.innerHTML = '';
+      badge.style.backgroundImage = "url('" + url + "')";
+      badge.title = altText || '';
+    };
+    probe.src = url;
+  }
+
+  function enhanceFileThumbnail(container, file) {
+    if (file.isImage) return;
+    const badge = container.querySelector('.workspace-file-type');
+    if (!badge) return;
+
+    const thumbnailUrl = getDocumentThumbnailUrl(file);
+    if (thumbnailUrl) {
+      upgradeBadgeToImage(badge, thumbnailUrl, file.name || 'Documento');
+      return;
+    }
+
+    if (getFileExtension(file) === 'pdf' && file.dataUrl) {
+      renderPdfPageThumbnail(file.dataUrl).then(function (pdfThumbnailDataUrl) {
+        if (pdfThumbnailDataUrl) upgradeBadgeToImage(badge, pdfThumbnailDataUrl, file.name || 'Documento');
+      });
     }
   }
 
@@ -275,16 +354,17 @@
   async function loadWorkspaceData(brandKey) {
     const dataUrl = WORKSPACE_DATA_BY_BRAND[brandKey] || DEFAULT_WORKSPACE_DATA_URL;
     activeCoverPath = WORKSPACE_COVER_PATH_BY_BRAND[brandKey] || DEFAULT_WORKSPACE_COVER_PATH;
+    activeFolderCoverPath = FOLDER_COVER_PATH_BY_BRAND[brandKey] || DEFAULT_FOLDER_COVER_PATH;
+    activeDocumentThumbnailPath = DOCUMENT_THUMBNAIL_PATH_BY_BRAND[brandKey] || DEFAULT_DOCUMENT_THUMBNAIL_PATH;
     activeBrandKey = brandKey || 'default';
     renderWorkspaceCardsSkeleton();
 
     try {
       workspaceContent = await fetchWorkspaceDataset(dataUrl);
-      // Cofre oculto para atender solicitação da Zoetis (mantido em workspaceContent para reativar depois)
-      workspaceOrder = Object.keys(workspaceContent).filter(function (key) { return key !== 'cofre'; });
+      workspaceOrder = Object.keys(workspaceContent).filter(isWorkspaceVisible);
     } catch (error) {
       console.error('Nao foi possivel carregar os dados de workspaces.', error);
-      workspaceOrder = Object.keys(workspaceContent).filter(function (key) { return key !== 'cofre'; });
+      workspaceOrder = Object.keys(workspaceContent).filter(isWorkspaceVisible);
     }
 
     renderWorkspaceCards();
@@ -357,11 +437,19 @@
     const file = event.target.files && event.target.files[0];
     event.target.value = '';
     const workspaceKey = pendingCoverEditKey;
+    const folderTarget = pendingFolderCoverTarget;
     pendingCoverEditKey = null;
-    if (!file || !workspaceKey) return;
+    pendingFolderCoverTarget = null;
+    if (!file || (!workspaceKey && !folderTarget)) return;
 
     processCoverFile(file).then(function (dataUrl) {
       if (!dataUrl) return;
+      if (folderTarget) {
+        localStorage.setItem(getFolderCoverStorageKey(folderTarget.workspaceKey, folderTarget.pathKey), dataUrl);
+        refreshCurrentArchiveView();
+        showWorkspaceToast('Capa da pasta atualizada com sucesso.');
+        return;
+      }
       localStorage.setItem(getWorkspaceCoverStorageKey(workspaceKey), dataUrl);
       renderWorkspaceCards();
       showWorkspaceToast('Capa atualizada com sucesso.');
@@ -370,6 +458,23 @@
 
   function openCoverPicker(workspaceKey) {
     pendingCoverEditKey = workspaceKey;
+    ensureCoverFileInput().click();
+  }
+
+  function getFolderCoverStorageKey(workspaceKey, pathKey) {
+    return 'lp_folder_cover:' + activeBrandKey + ':' + workspaceKey + ':' + pathKey;
+  }
+
+  function getFolderCoverUrl(folder, pathKey) {
+    const override = activeWorkspace ? localStorage.getItem(getFolderCoverStorageKey(activeWorkspace.key, pathKey)) : null;
+    if (override) return override;
+    if (folder.coverImage) return activeFolderCoverPath + folder.coverImage;
+    return null;
+  }
+
+  function openFolderCoverPicker(folder) {
+    if (!activeWorkspace) return;
+    pendingFolderCoverTarget = { workspaceKey: activeWorkspace.key, pathKey: getPathKey(activePath.concat(folder)) };
     ensureCoverFileInput().click();
   }
 
@@ -477,6 +582,12 @@
     return IMAGE_EXTENSIONS.indexOf(getFileExtension(file)) !== -1;
   }
 
+  function fileNeedsDataUrl(file) {
+    if (isImageFile(file)) return true;
+    const ext = getFileExtension(file);
+    return ext === 'pdf' || ext === 'xls' || ext === 'xlsx' || ext === 'xlsm';
+  }
+
   function readFileAsDataUrl(file) {
     return new Promise(function (resolve) {
       const reader = new FileReader();
@@ -496,7 +607,7 @@
       date: 'Atualizado agora',
       kind: 'file',
       isImage: isImage,
-      dataUrl: isImage ? (dataUrl || null) : null,
+      dataUrl: dataUrl || null,
       preview: 'Arquivo enviado manualmente para este workspace.'
     };
   }
@@ -507,9 +618,9 @@
 
     const entries = await Promise.all(files.map(async function (file) {
       let dataUrl = null;
-      if (isImageFile(file)) {
-        if (file.size > MAX_UPLOAD_IMAGE_SIZE) {
-          showWorkspaceToast('A imagem "' + file.name + '" excede 5MB e não terá miniatura.');
+      if (fileNeedsDataUrl(file)) {
+        if (file.size > MAX_UPLOAD_PREVIEW_FILE_SIZE) {
+          showWorkspaceToast('O arquivo "' + file.name + '" excede 5MB e não terá miniatura/pré-visualização.');
         } else {
           dataUrl = await readFileAsDataUrl(file);
         }
@@ -529,9 +640,9 @@
 
     const dataUrlMap = new Map();
     await Promise.all(files.map(async function (file) {
-      if (!isImageFile(file)) return;
-      if (file.size > MAX_UPLOAD_IMAGE_SIZE) {
-        showWorkspaceToast('A imagem "' + file.name + '" excede 5MB e não terá miniatura.');
+      if (!fileNeedsDataUrl(file)) return;
+      if (file.size > MAX_UPLOAD_PREVIEW_FILE_SIZE) {
+        showWorkspaceToast('O arquivo "' + file.name + '" excede 5MB e não terá miniatura/pré-visualização.');
         return;
       }
       dataUrlMap.set(file, await readFileAsDataUrl(file));
@@ -565,6 +676,7 @@
         name: name,
         kind: 'folder',
         meta: (folders.length + fileEntries.length) + ' itens',
+        description: 'Pasta enviada manualmente para este workspace.',
         folders: folders,
         files: fileEntries
       };
@@ -596,12 +708,14 @@
         {
           name: depth === 1 ? 'Peças aprovadas' : 'Versões finais',
           meta: depth === 1 ? '12 arquivos' : '6 arquivos',
-          kind: 'folder'
+          kind: 'folder',
+          description: depth === 1 ? 'Peças finalizadas e aprovadas para uso.' : 'Últimas versões validadas dos arquivos.'
         },
         {
           name: depth === 1 ? 'Em revisão' : 'Arquivos de apoio',
           meta: depth === 1 ? '8 arquivos' : '4 arquivos',
-          kind: 'folder'
+          kind: 'folder',
+          description: depth === 1 ? 'Materiais aguardando validação da equipe responsável.' : 'Documentos complementares de apoio ao conteúdo principal.'
         }
       ]
       : [];
@@ -747,9 +861,10 @@
     const isFolder = kind === 'folder';
     const downloadLabel = isFolder ? 'Baixar conteúdo da pasta (.zip)' : 'Baixar arquivo';
     const itemName = item && item.name ? item.name : 'item';
+    const editCoverButtonHtml = isFolder ? '<button type="button" data-action="edit-cover">Editar capa</button>' : '';
 
     menu.className = 'workspace-menu workspace-item-menu';
-    menu.innerHTML = '<button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu de ' + itemName + '" aria-expanded="false">' + ELLIPSIS_ICON + '</button><div class="workspace-menu__list" hidden><button type="button" data-action="share">Compartilhar externamente</button><button type="button" data-action="copy">Copiar link</button><button type="button" data-action="rename">Renomear</button><button type="button" data-action="move">Mover para outro workspace</button><button type="button" data-action="download">' + downloadLabel + '</button><button class="is-danger" type="button" data-action="delete">Excluir</button></div>';
+    menu.innerHTML = '<button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu de ' + itemName + '" aria-expanded="false">' + ELLIPSIS_ICON + '</button><div class="workspace-menu__list" hidden>' + editCoverButtonHtml + '<button type="button" data-action="share">Compartilhar externamente</button><button type="button" data-action="copy">Copiar link</button><button type="button" data-action="rename">Renomear</button><button type="button" data-action="move">Mover para outro workspace</button><button type="button" data-action="download">' + downloadLabel + '</button><button class="is-danger" type="button" data-action="delete">Excluir</button></div>';
 
     const trigger = menu.querySelector('.workspace-menu__trigger');
     const list = menu.querySelector('.workspace-menu__list');
@@ -770,6 +885,11 @@
       button.addEventListener('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
+        if (button.dataset.action === 'edit-cover') {
+          closeWorkspaceMenus();
+          openFolderCoverPicker(item);
+          return;
+        }
         handleAction(button.dataset.action, item, kind);
       });
     });
@@ -779,14 +899,29 @@
 
   function createFolderCard(folder) {
     const card = document.createElement('article');
-    card.className = 'workspace-folder-card';
+    card.className = 'workspace-folder-card workspace-folder-card--folder';
     card.tabIndex = 0;
     card.setAttribute('role', 'button');
     card.setAttribute('aria-label', 'Abrir pasta ' + folder.name);
-    card.innerHTML = '<div class="workspace-folder-card__icon" aria-hidden="true"><svg class="icon-xs"  width="156" height="156" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H10l2 2h6.5A2.5 2.5 0 0 1 21 8.5v8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5z"></path></svg></div><div><strong></strong><small></small></div>';
-    card.querySelector('strong').textContent = folder.name;
+
+    const cardMeta = getWorkspaceCardMeta(activeWorkspace || {});
+    card.style.setProperty('--accent', cardMeta.accent);
+    card.style.setProperty('--soft', cardMeta.soft);
+
+    card.innerHTML = '<div class="workspace-folder-card__cover" aria-hidden="true"></div>' +
+      '<div class="workspace-folder-card__body"><h3></h3><p></p><small></small></div>';
+    card.querySelector('h3').textContent = folder.name;
+    card.querySelector('p').textContent = folder.description || 'Pasta deste workspace.';
     card.querySelector('small').textContent = folder.meta;
-    card.appendChild(createActionMenu(folder, 'folder'));
+
+    const pathKey = getPathKey(activePath.concat(folder));
+    const coverUrl = getFolderCoverUrl(folder, pathKey);
+    const coverEl = card.querySelector('.workspace-folder-card__cover');
+    coverEl.style.backgroundImage = coverUrl
+      ? "url('" + coverUrl + "'), linear-gradient(135deg, var(--soft), var(--accent) 220%)"
+      : 'linear-gradient(135deg, var(--soft), var(--accent) 220%)';
+    coverEl.appendChild(createActionMenu(folder, 'folder'));
+
     card.addEventListener('click', function () {
       openFolder(folder);
     });
@@ -807,6 +942,7 @@
     card.setAttribute('aria-label', 'Abrir previa de ' + file.name);
     card.innerHTML = buildFileTypeBadgeHtml(file) + '<div><strong></strong><small></small></div>';
     fillFileTypeBadge(card, file);
+    enhanceFileThumbnail(card, file);
     card.querySelector('strong').textContent = file.name;
     card.querySelector('small').textContent = file.owner + ' - ' + file.date;
     card.appendChild(createActionMenu(file, 'file'));
@@ -827,6 +963,7 @@
     item.className = 'module-item workspace-file-item';
     item.innerHTML = buildFileTypeBadgeHtml(file) + '<div class="module-item__content"><span></span><small></small></div><button class="icon-btn workspace-file-open" type="button" aria-label="Abrir arquivo"><svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></button>';
     fillFileTypeBadge(item, file);
+    enhanceFileThumbnail(item, file);
     item.querySelector('span').textContent = file.name;
     item.querySelector('small').textContent = file.owner + ' - ' + file.date;
     item.appendChild(createActionMenu(file, 'file'));
@@ -904,6 +1041,8 @@
 
   function showArchiveSkeleton() {
     const folderList = filesPage.querySelector('#workspaceFolderList');
+    const fileList = filesPage.querySelector('#workspaceLooseFileList');
+    if (fileList) fileList.innerHTML = '';
     if (!folderList) return;
 
     folderList.innerHTML = '';
@@ -918,17 +1057,29 @@
   function renderArchive(items) {
     const itemCount = filesPage.querySelector('#workspaceItemCount');
     const folderList = filesPage.querySelector('#workspaceFolderList');
+    const fileList = filesPage.querySelector('#workspaceLooseFileList');
 
     if (itemCount) itemCount.textContent = items.length + ' itens';
     renderBreadcrumb();
 
+    const folders = items.filter(function (item) { return item.kind !== 'file'; });
+    const looseFiles = items.filter(function (item) { return item.kind === 'file'; });
+
     if (folderList) {
       folderList.innerHTML = '';
-      items.forEach(function (item) {
-        folderList.appendChild(item.kind === 'file' ? createLooseFileCard(item) : createFolderCard(item));
+      folders.forEach(function (folder) {
+        folderList.appendChild(createFolderCard(folder));
       });
-      animateContentSwap([folderList]);
     }
+
+    if (fileList) {
+      fileList.innerHTML = '';
+      looseFiles.forEach(function (file) {
+        fileList.appendChild(createLooseFileCard(file));
+      });
+    }
+
+    animateContentSwap([folderList, fileList]);
   }
 
   function getRootArchiveItems(workspace) {
@@ -967,6 +1118,8 @@
   }
 
   function renderWorkspace(workspace) {
+    const hero = filesPage.querySelector('#workspaceFilesHero');
+    const cover = filesPage.querySelector('#workspaceFilesCover');
     const title = filesPage.querySelector('#workspaceFilesTitle');
     const type = filesPage.querySelector('#workspaceFilesType');
     const description = filesPage.querySelector('#workspaceFilesDescription');
@@ -977,6 +1130,10 @@
     if (title) title.textContent = workspace.title;
     if (type) type.textContent = workspace.type;
     if (description) description.textContent = workspace.description;
+
+    const coverUrl = getWorkspaceCoverUrl(workspace);
+    if (hero) hero.classList.toggle('has-cover', !!coverUrl);
+    if (cover) cover.style.backgroundImage = coverUrl ? "url('" + coverUrl + "')" : '';
 
     renderArchive(getRootArchiveItems(workspace));
     renderFiles(workspace.files, 'Arquivos recentes');
@@ -997,6 +1154,55 @@
 
   function createPreviewBody(file) {
     return '<div class="workspace-preview-sheet"><div><strong>Status</strong><span>Em andamento</span></div><div><strong>Responsável</strong><span>' + file.owner + '</span></div><div><strong>Última atualização</strong><span>' + file.date + '</span></div><div><strong>Observações</strong><span>' + (file.preview || 'Dados principais do arquivo selecionado.') + '</span></div></div>';
+  }
+
+  function isSpreadsheetExtension(ext) {
+    return ext === 'xls' || ext === 'xlsx' || ext === 'xlsm';
+  }
+
+  function buildDocumentPreviewHtml(file) {
+    const ext = getFileExtension(file);
+
+    if (ext === 'pdf' && file.dataUrl) {
+      return '<div class="workspace-preview-embed"><iframe src="' + file.dataUrl + '" title="Pré-visualização do PDF"></iframe></div>';
+    }
+
+    if (isSpreadsheetExtension(ext) && file.dataUrl) {
+      return '<div class="workspace-preview-embed workspace-preview-embed--table" id="workspaceExcelPreview"><p class="workspace-preview-embed__loading">Carregando planilha...</p></div>';
+    }
+
+    if (getDocumentThumbnailUrl(file)) {
+      return '<div class="workspace-preview-embed workspace-preview-embed--image" id="workspaceDocumentThumbnailPreview" hidden role="img" aria-label="Pré-visualização de ' + (file.name || 'documento') + '"></div>';
+    }
+
+    return '';
+  }
+
+  function revealDocumentThumbnailPreview(url) {
+    const previewEl = document.getElementById('workspaceDocumentThumbnailPreview');
+    if (!previewEl) return;
+    const probe = new Image();
+    probe.onload = function () {
+      previewEl.style.backgroundImage = "url('" + url + "')";
+      previewEl.hidden = false;
+    };
+    probe.src = url;
+  }
+
+  function renderExcelPreviewInto(container, dataUrl) {
+    if (!container) return;
+    if (!window.XLSX) {
+      container.innerHTML = '<p class="workspace-preview-embed__loading">Pré-visualização de planilha indisponível.</p>';
+      return;
+    }
+    try {
+      const base64 = dataUrl.split(',')[1] || '';
+      const workbook = window.XLSX.read(base64, { type: 'base64' });
+      const firstSheetName = workbook.SheetNames[0];
+      container.innerHTML = window.XLSX.utils.sheet_to_html(workbook.Sheets[firstSheetName], { header: '', footer: '' });
+    } catch (error) {
+      container.innerHTML = '<p class="workspace-preview-embed__loading">Não foi possível gerar a pré-visualização da planilha.</p>';
+    }
   }
 
   function openImagePreview(file) {
@@ -1040,7 +1246,16 @@
     title.textContent = file.name;
     type.textContent = file.type;
     meta.textContent = file.owner + ' - ' + file.date;
-    body.innerHTML = createPreviewBody(file);
+    body.innerHTML = buildDocumentPreviewHtml(file) + createPreviewBody(file);
+
+    const ext = getFileExtension(file);
+    if (isSpreadsheetExtension(ext) && file.dataUrl) {
+      renderExcelPreviewInto(document.getElementById('workspaceExcelPreview'), file.dataUrl);
+    } else {
+      const thumbnailUrl = getDocumentThumbnailUrl(file);
+      if (thumbnailUrl) revealDocumentThumbnailPreview(thumbnailUrl);
+    }
+
     if (menuRoot) {
       menuRoot.innerHTML = '';
       menuRoot.appendChild(createActionMenu(file, 'file'));
