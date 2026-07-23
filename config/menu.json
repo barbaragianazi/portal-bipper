@@ -18,24 +18,6 @@
           "linkKey": "portal"
         },
         {
-          "key": "loja",
-          "label": "Loja",
-          "icon": "store",
-          "linkKey": "loja",
-          "children": [
-            {
-              "key": "loja",
-              "label": "Página inicial",
-              "linkKey": "loja"
-            },
-            {
-              "key": "brindes-personalizados",
-              "label": "Brindes personalizados",
-              "href": "/loja/brindes-personalizados.html"
-            }
-          ]
-        },
-        {
           "key": "hub",
           "label": "Hub",
           "icon": "files",
