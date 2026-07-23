@@ -154,7 +154,8 @@
       isProtected: true
     }
   };
-  let workspaceOrder = Object.keys(workspaceContent);
+  // Cofre oculto para atender solicitação da Zoetis (mantido em workspaceContent para reativar depois)
+  let workspaceOrder = Object.keys(workspaceContent).filter(function (key) { return key !== 'cofre'; });
   const WORKSPACE_STORAGE_KEY = 'lp_active_brand';
   const WORKSPACE_DATA_BY_BRAND = {
     zoetis: '../data/workspaces-zoetis.json',
@@ -279,10 +280,11 @@
 
     try {
       workspaceContent = await fetchWorkspaceDataset(dataUrl);
-      workspaceOrder = Object.keys(workspaceContent);
+      // Cofre oculto para atender solicitação da Zoetis (mantido em workspaceContent para reativar depois)
+      workspaceOrder = Object.keys(workspaceContent).filter(function (key) { return key !== 'cofre'; });
     } catch (error) {
       console.error('Nao foi possivel carregar os dados de workspaces.', error);
-      workspaceOrder = Object.keys(workspaceContent);
+      workspaceOrder = Object.keys(workspaceContent).filter(function (key) { return key !== 'cofre'; });
     }
 
     renderWorkspaceCards();
