@@ -470,12 +470,6 @@
     buildBrandDropdown(brandContainer, brands, activeKey);
     applyBrand(activeBrand);
 
-    const logoBtn = brandContainer.querySelector('.brand__logo-btn');
-    logoBtn?.addEventListener('click', (event) => {
-      event.stopPropagation();
-      toggleBrandDropdown(brandContainer);
-    });
-
     document.addEventListener('click', (event) => {
       if (!brandContainer.contains(event.target)) closeBrandDropdown(brandContainer);
     });

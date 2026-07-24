@@ -85,10 +85,13 @@
       </header>
 
       <section class="content workspaces-page" id="hubWorkspacesPage">
-        <section class="summary-card workspaces-hero" aria-labelledby="workspacesHeroTitle">
-          <div>
+        <section class="summary-card workspaces-hero" id="workspacesHero" aria-labelledby="workspacesHeroTitle">
+          <div class="workspaces-hero__cover" id="workspacesHeroCover" aria-hidden="true"></div>
+          <div class="workspaces-hero__scrim" aria-hidden="true"></div>
+          <div class="workspaces-hero__title-subtitle">
             <h1 id="workspacesHeroTitle">Workspaces</h1>
-            <p>Organize pastas e arquivos por campanha, cliente, grupo ou usuário, com acessos separados para cada público.</p>
+            <span>Mantenha campanhas e documentos organizados para que sua equipe encontre tudo em segundos.</span><br>
+            <strong>Mais organização, mais produtividade e acesso inteligente aos seus arquivos.</strong>
           </div>
           <div class="workspaces-hero__actions">
             <button class="btn btn-primary" id="openCreateWorkspace" type="button">Novo workspace</button>
@@ -193,7 +196,7 @@
     <div class="workspace-preview" id="workspacePreview" hidden>
       <button class="workspace-preview__overlay" id="workspacePreviewOverlay" type="button"
         aria-label="Fechar prévia"></button>
-      <section class="workspace-preview__dialog" role="dialog" aria-modal="true" aria-labelledby="workspacePreviewTitle">
+      <section class="workspace-preview__dialog" id="workspacePreviewDialog" role="dialog" aria-modal="true" aria-labelledby="workspacePreviewTitle">
         <header class="workspace-preview__header">
           <div>
             <span class="workspace-eyebrow" id="workspacePreviewType">Arquivo</span>
@@ -213,7 +216,6 @@
         </header>
         <div class="workspace-preview__body" id="workspacePreviewBody"></div>
         <footer class="workspace-preview__actions">
-          <button class="btn btn-secondary" type="button">Compartilhar</button>
           <button class="btn btn-primary" type="button">Baixar arquivo</button>
         </footer>
       </section>
@@ -255,7 +257,7 @@
         <header class="workspace-modal__header">
           <div>
             <h2 id="createWorkspaceTitle">Criar workspace</h2>
-            <p>Monte um workspace de demonstração com permissões, descrição e estrutura inicial.</p>
+            <p>Monte um workspace de demonstração com descrição e estrutura inicial.</p>
           </div>
           <button class="icon-btn" id="createWorkspaceClose" type="button" aria-label="Fechar novo workspace">
             <svg class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -266,28 +268,9 @@
         </header>
         <form class="workspace-form" id="createWorkspaceForm">
           <div class="workspace-form__grid">
-            <label class="workspace-field">
+            <label class="workspace-field workspace-field--full">
               <span>Nome do workspace</span>
               <input name="title" type="text" placeholder="Ex: Campanha Divulgação 2026" required>
-            </label>
-            <label class="workspace-field">
-              <span>Tipo</span>
-              <select name="type" id="workspaceTypeSelect" required>
-                <option value="">Selecione um tipo</option>
-                <option value="campanha">Campanha</option>
-                <option value="grupo VU">Grupo VU</option>
-                <option value="cliente (revenda)">Cliente (revenda)</option>
-                <option value="usuário(s)">Usuário(s)</option>
-                <option value="produtos">Produtos</option>
-                <option value="pública">Workspace público</option>
-                <option value="cofre">Cofre - protegido por senha</option>
-              </select>
-            </label>
-            <label class="workspace-field workspace-field--full" id="workspaceReferenceField" hidden>
-              <span id="workspaceReferenceLabel">Selecionar referência</span>
-              <select name="reference" id="workspaceReferenceSelect">
-                <option value="">Selecione uma opção</option>
-              </select>
             </label>
             <label class="workspace-field workspace-field--full">
               <span>Capa do workspace</span>
@@ -301,31 +284,6 @@
             <label class="workspace-field workspace-field--full">
               <span>Descrição</span>
               <textarea name="description" rows="3" placeholder="Descreva o objetivo e o conteúdo principal deste workspace." required></textarea>
-            </label>
-            <label class="workspace-field workspace-field--full">
-              <span>Permissões</span>
-              <div class="workspace-multi-select" id="workspacePermissionsMultiSelect" data-placeholder="Selecione uma ou mais permissões.">
-                <button class="workspace-multi-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="workspacePermissionsLabel">
-                  <span class="workspace-multi-select__value" id="workspacePermissionsLabel"></span>
-                  <span class="workspace-multi-select__actions" aria-hidden="true">
-                    <span class="workspace-multi-select__clear">×</span>
-                    <svg class="workspace-multi-select__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="m6 9 6 6 6-6"></path>
-                    </svg>
-                  </span>
-                </button>
-                <div class="workspace-multi-select__dropdown" hidden>
-                  <ul class="workspace-multi-select__options" role="listbox" aria-multiselectable="true"></ul>
-                </div>
-              </div>
-              <select name="permissions" id="workspacePermissionsSelect" multiple required hidden>
-                <option value="Clientes piloto">Clientes piloto</option>
-                <option value="Comercial">Comercial</option>
-                <option value="Coordenadores regionais">Coordenadores regionais</option>
-                <option value="Marketing">Marketing</option>
-                <option value="Diretoria">Diretoria</option>
-                <option value="Parceiros externos">Parceiros externos</option>
-              </select>
             </label>
           </div>
           <div class="workspace-form__actions">
@@ -379,7 +337,6 @@
           <img id="imagePreviewImg" src="" alt="" style="max-width: 100%; max-height: 400px; object-fit: contain;">
         </div>
         <footer class="workspace-preview__actions">
-          <button class="btn btn-secondary" type="button">Compartilhar</button>
           <button class="btn btn-primary" type="button">Baixar arquivo</button>
         </footer>
       </section>

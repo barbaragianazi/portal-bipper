@@ -44,3 +44,28 @@ Se forem reativados depois, seguem a mesma convencao: <workspace-key>/<pasta opc
 
 Se uma miniatura nao for enviada, o documento continua funcionando normalmente:
 o card exibe o icone generico do tipo de arquivo (Excel/PDF) no lugar da miniatura.
+
+---
+
+MINIATURA PADRAO (fallback) para PDF e Excel
+---------------------------------------------
+Alem das miniaturas especificas acima, existe um fallback generico: uma unica
+imagem para "todo PDF sem miniatura propria" e outra para "todo Excel sem
+miniatura propria". Isso cobre os documentos antigos/de catalogo que nao tem
+arquivo real por tras (sem dataUrl) e nao tem uma miniatura especifica cadastrada.
+
+Suba os arquivos com estes nomes exatos, nesta mesma pasta
+(hub/data/document-thumbnails/zoetis/):
+
+  - generico-pdf.jpg      -> usado em qualquer .pdf sem miniatura propria
+  - generico-excel.jpg    -> usado em qualquer .xls/.xlsx/.xlsm sem miniatura propria
+
+Prioridade de exibicao para um documento:
+  1) miniatura real gerada automaticamente (upload com dataUrl - PDF.js/SheetJS)
+  2) miniatura especifica cadastrada no JSON (campo "thumbnail")
+  3) miniatura generica (generico-pdf.jpg / generico-excel.jpg)
+  4) icone generico do tipo de arquivo (ultimo recurso, sem imagem nenhuma)
+
+O mesmo par de arquivos (generico-pdf.jpg / generico-excel.jpg) tambem deve
+ser enviado em hub/data/document-thumbnails/default/ para cobrir marcas/
+workspaces que nao sejam Zoetis/Agro Amazonia.

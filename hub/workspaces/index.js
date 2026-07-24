@@ -13,7 +13,6 @@
   let activePreviewFile = null;
   let workspaceToastTimer = null;
   let pendingWorkspaceAction = null;
-  let permissionsMultiSelect = null;
   let activeBrandKey = 'zoetis';
   let pendingCoverEditKey = null;
   let pendingFolderCoverTarget = null;
@@ -37,14 +36,6 @@
     '7z': 'zip.svg',
     pdf: 'pdf.svg'
   };
-  const workspaceReferenceOptions = {
-    campanha: ['Black Friday 2026', 'Campanha Regional Sul', 'Catálogo Comercial 2026', 'Primavera Agro 2026', 'Campanha de divulgação'],
-    'grupo VU': ['Grupo VU Comercial', 'Grupo VU Lideranças', 'Grupo VU Operações'],
-    'cliente (revenda)': ['Agro Amazônia', 'Revenda Centro Oeste', 'Canal Sul Premium'],
-    'usuário(s)': ['Bárbara Gianazi', 'Ana Martins', 'Bruno Lima', 'Camila Rocha'],
-    produtos: ['Produto Atlas', 'Linha Premium', 'Kit Comercial Safra 2026']
-  };
-
   let workspaceContent = {
     'campanhas-de-divulgacao': {
       key: 'campanhas-de-divulgacao',
@@ -175,6 +166,7 @@
     'agro-amazonia': '../data/workspace-covers/zoetis/'
   };
   const DEFAULT_WORKSPACE_COVER_PATH = '../data/workspace-covers/default/';
+  const WORKSPACES_HERO_COVER_FILENAME = 'workspaces-hero.jpg';
   let activeCoverPath = DEFAULT_WORKSPACE_COVER_PATH;
   const FOLDER_COVER_PATH_BY_BRAND = {
     zoetis: '../data/folder-covers/zoetis/',
@@ -213,6 +205,18 @@
   function getDocumentThumbnailUrl(file) {
     if (!file || !file.thumbnail) return null;
     return activeDocumentThumbnailPath + file.thumbnail;
+  }
+
+  const GENERIC_DOCUMENT_THUMBNAIL_BY_EXTENSION = {
+    pdf: 'generico-pdf.jpg',
+    xls: 'generico-excel.jpg',
+    xlsx: 'generico-excel.jpg',
+    xlsm: 'generico-excel.jpg'
+  };
+
+  function getGenericDocumentThumbnailUrl(file) {
+    const genericName = GENERIC_DOCUMENT_THUMBNAIL_BY_EXTENSION[getFileExtension(file)];
+    return genericName ? activeDocumentThumbnailPath + genericName : null;
   }
 
   function buildFileTypeBadgeHtml(file) {
@@ -256,7 +260,68 @@
       .catch(function () { return null; });
   }
 
-  function upgradeBadgeToImage(badge, url, altText) {
+  const EXCEL_THUMBNAIL_MAX_ROWS = 8;
+  const EXCEL_THUMBNAIL_MAX_COLS = 6;
+  const EXCEL_THUMBNAIL_CELL_WIDTH = 60;
+  const EXCEL_THUMBNAIL_CELL_HEIGHT = 22;
+
+  function renderExcelThumbnail(dataUrl) {
+    if (!window.XLSX) return Promise.resolve(null);
+    try {
+      const base64 = dataUrl.split(',')[1] || '';
+      const workbook = window.XLSX.read(base64, { type: 'base64' });
+      const firstSheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[firstSheetName];
+      const rows = window.XLSX.utils.sheet_to_json(sheet, { header: 1, blankrows: false })
+        .slice(0, EXCEL_THUMBNAIL_MAX_ROWS)
+        .map(function (row) { return row.slice(0, EXCEL_THUMBNAIL_MAX_COLS); });
+
+      if (!rows.length) return Promise.resolve(null);
+
+      const colCount = rows.reduce(function (max, row) { return Math.max(max, row.length); }, 1);
+      const width = colCount * EXCEL_THUMBNAIL_CELL_WIDTH;
+      const height = rows.length * EXCEL_THUMBNAIL_CELL_HEIGHT;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, width, height);
+      ctx.font = '11px Arial';
+      ctx.textBaseline = 'middle';
+
+      rows.forEach(function (row, rowIndex) {
+        const y = rowIndex * EXCEL_THUMBNAIL_CELL_HEIGHT;
+        ctx.fillStyle = rowIndex === 0 ? '#eaf6ee' : '#ffffff';
+        ctx.fillRect(0, y, width, EXCEL_THUMBNAIL_CELL_HEIGHT);
+        ctx.fillStyle = rowIndex === 0 ? '#1f2937' : '#374151';
+
+        for (let colIndex = 0; colIndex < colCount; colIndex += 1) {
+          const x = colIndex * EXCEL_THUMBNAIL_CELL_WIDTH;
+          ctx.strokeStyle = '#dde3ea';
+          ctx.lineWidth = 1;
+          ctx.strokeRect(x + 0.5, y + 0.5, EXCEL_THUMBNAIL_CELL_WIDTH, EXCEL_THUMBNAIL_CELL_HEIGHT);
+
+          const cell = row[colIndex];
+          const text = cell === undefined || cell === null ? '' : String(cell);
+          const truncated = text.length > 9 ? text.slice(0, 8) + '…' : text;
+          if (truncated) ctx.fillText(truncated, x + 4, y + EXCEL_THUMBNAIL_CELL_HEIGHT / 2);
+        }
+      });
+
+      return Promise.resolve(canvas.toDataURL('image/png'));
+    } catch (error) {
+      return Promise.resolve(null);
+    }
+  }
+
+  function upgradeBadgeToImage(badge, url, altText, onError) {
+    if (!url) {
+      if (onError) onError();
+      return;
+    }
     const probe = new Image();
     probe.onload = function () {
       badge.classList.remove('workspace-file-type--icon');
@@ -264,6 +329,9 @@
       badge.innerHTML = '';
       badge.style.backgroundImage = "url('" + url + "')";
       badge.title = altText || '';
+    };
+    probe.onerror = function () {
+      if (onError) onError();
     };
     probe.src = url;
   }
@@ -275,15 +343,36 @@
 
     const thumbnailUrl = getDocumentThumbnailUrl(file);
     if (thumbnailUrl) {
-      upgradeBadgeToImage(badge, thumbnailUrl, file.name || 'Documento');
+      upgradeBadgeToImage(badge, thumbnailUrl, file.name || 'Documento', function () {
+        applyGenericDocumentThumbnail(badge, file);
+      });
       return;
     }
 
-    if (getFileExtension(file) === 'pdf' && file.dataUrl) {
+    const ext = getFileExtension(file);
+
+    if (ext === 'pdf' && file.dataUrl) {
       renderPdfPageThumbnail(file.dataUrl).then(function (pdfThumbnailDataUrl) {
         if (pdfThumbnailDataUrl) upgradeBadgeToImage(badge, pdfThumbnailDataUrl, file.name || 'Documento');
+        else applyGenericDocumentThumbnail(badge, file);
       });
+      return;
     }
+
+    if (isSpreadsheetExtension(ext) && file.dataUrl) {
+      renderExcelThumbnail(file.dataUrl).then(function (excelThumbnailDataUrl) {
+        if (excelThumbnailDataUrl) upgradeBadgeToImage(badge, excelThumbnailDataUrl, file.name || 'Documento');
+        else applyGenericDocumentThumbnail(badge, file);
+      });
+      return;
+    }
+
+    applyGenericDocumentThumbnail(badge, file);
+  }
+
+  function applyGenericDocumentThumbnail(badge, file) {
+    const genericUrl = getGenericDocumentThumbnailUrl(file);
+    if (genericUrl) upgradeBadgeToImage(badge, genericUrl, file.name || 'Documento');
   }
 
   function slugify(value) {
@@ -351,12 +440,31 @@
     }
   }
 
+  function applyWorkspacesHeroCover() {
+    const hero = document.getElementById('workspacesHero');
+    const cover = document.getElementById('workspacesHeroCover');
+    if (!hero || !cover) return;
+
+    const url = activeCoverPath + WORKSPACES_HERO_COVER_FILENAME;
+    const probe = new Image();
+    probe.onload = function () {
+      cover.style.backgroundImage = "url('" + url + "')";
+      hero.classList.add('has-cover');
+    };
+    probe.onerror = function () {
+      cover.style.backgroundImage = '';
+      hero.classList.remove('has-cover');
+    };
+    probe.src = url;
+  }
+
   async function loadWorkspaceData(brandKey) {
     const dataUrl = WORKSPACE_DATA_BY_BRAND[brandKey] || DEFAULT_WORKSPACE_DATA_URL;
     activeCoverPath = WORKSPACE_COVER_PATH_BY_BRAND[brandKey] || DEFAULT_WORKSPACE_COVER_PATH;
     activeFolderCoverPath = FOLDER_COVER_PATH_BY_BRAND[brandKey] || DEFAULT_FOLDER_COVER_PATH;
     activeDocumentThumbnailPath = DOCUMENT_THUMBNAIL_PATH_BY_BRAND[brandKey] || DEFAULT_DOCUMENT_THUMBNAIL_PATH;
     activeBrandKey = brandKey || 'default';
+    applyWorkspacesHeroCover();
     renderWorkspaceCardsSkeleton();
 
     try {
@@ -386,7 +494,7 @@
   }
 
   function buildWorkspaceMenuHtml() {
-    return '<div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false">' + ELLIPSIS_ICON + '</button><div class="workspace-menu__list" hidden><button type="button" data-menu-action="edit-cover">Editar capa</button><button type="button">Compartilhar externamente</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>';
+    return '<div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false">' + ELLIPSIS_ICON + '</button><div class="workspace-menu__list" hidden><button type="button" data-menu-action="edit-cover">Editar capa</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>';
   }
 
   function getWorkspaceCoverStorageKey(workspaceKey) {
@@ -514,7 +622,10 @@
       if (workspace.isProtected) {
         article.innerHTML = '<div class="area-card__top"><div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">' + meta.icon + '</svg></div></div><h3>' + workspace.title + '</h3><button class="btn btn-primary workspace-vault-access" type="button">Acessar com senha</button>';
       } else {
-        article.innerHTML = '<div class="workspace-card__cover">' + buildWorkspaceMenuHtml() + '</div><div class="module-name"><h3>' + workspace.title + '</h3></div><p>' + workspace.description + '</p><ul class="module-list"><li class="module-item"><span>' + folderLabel + '</span><small>' + fileLabel + '</small></li><li class="module-item"><span>Permissões</span><small>' + workspace.permissions + '</small></li></ul>';
+        article.innerHTML = '<div class="workspace-card__cover">' + buildWorkspaceMenuHtml() + '</div><div class="module-name"><h3>' + workspace.title + '</h3></div><p>' + workspace.description + '</p><ul class="module-list"><li class="module-item"><span>' + folderLabel + '</span><small>' + fileLabel + '</small></li></ul>';
+        
+        // Trecho removido que diz respeito às permissões de acesso ao workspace. Não será usado na V1. 
+        // <li class="module-item"><span>Permissões</span><small>' + workspace.permissions + '</small></li>
 
         const coverUrl = getWorkspaceCoverUrl(workspace);
         if (coverUrl) {
@@ -571,6 +682,43 @@
     bucket.files = (bucket.files || []).concat(newFiles || []);
     stored[key] = bucket;
     return writeWorkspaceUploads(workspaceKey, stored);
+  }
+
+  function getWorkspaceDeletedStorageKey(workspaceKey) {
+    return 'lp_workspace_deleted:' + activeBrandKey + ':' + workspaceKey;
+  }
+
+  function readWorkspaceDeleted(workspaceKey) {
+    try {
+      const raw = localStorage.getItem(getWorkspaceDeletedStorageKey(workspaceKey));
+      return raw ? JSON.parse(raw) : {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function getDeletedNamesForPath(workspaceKey, pathKey) {
+    const stored = readWorkspaceDeleted(workspaceKey);
+    return stored[pathKey] || [];
+  }
+
+  function markItemDeleted(workspaceKey, pathKey, name) {
+    const stored = readWorkspaceDeleted(workspaceKey);
+    const bucket = stored[pathKey] || [];
+    if (bucket.indexOf(name) === -1) bucket.push(name);
+    stored[pathKey] = bucket;
+    try {
+      localStorage.setItem(getWorkspaceDeletedStorageKey(workspaceKey), JSON.stringify(stored));
+    } catch (error) {
+      showWorkspaceToast('Não foi possível salvar: armazenamento local cheio.');
+    }
+  }
+
+  function excludeDeleted(deletedNames, items) {
+    if (!deletedNames.length) return items;
+    return items.filter(function (item) {
+      return deletedNames.indexOf(item.name) === -1;
+    });
   }
 
   function refreshCurrentArchiveView() {
@@ -699,9 +847,11 @@
     const folder = path[path.length - 1];
     const depth = path.length;
     const parentName = folder ? folder.name : workspace.title;
+    const pathKey = getPathKey(path);
+    const deletedNames = getDeletedNamesForPath(workspace.key, pathKey);
     const uploaded = getUploadedItemsForPath(workspace.key, path);
     if (folder && (Array.isArray(folder.folders) || Array.isArray(folder.files) || Array.isArray(folder.children))) {
-      return (folder.children || []).concat(folder.folders || [], folder.files || [], uploaded.folders, uploaded.files);
+      return excludeDeleted(deletedNames, (folder.children || []).concat(folder.folders || [], folder.files || [], uploaded.folders, uploaded.files));
     }
     const nestedFolders = depth < 3
       ? [
@@ -720,7 +870,7 @@
       ]
       : [];
 
-    return [
+    return excludeDeleted(deletedNames, [
       ...nestedFolders,
       ...uploaded.folders,
       {
@@ -748,7 +898,7 @@
         kind: 'file'
       },
       ...uploaded.files
-    ];
+    ]);
   }
 
   function closeWorkspaceMenus(exceptMenu) {
@@ -772,10 +922,8 @@
     const name = item && item.name ? item.name : 'item';
     const messages = {
       share: 'Compartilhamento externo preparado para ' + name,
-      copy: 'Link copiado para ' + name,
       rename: 'Renomear ' + name,
-      move: 'Mover ' + name + ' para outro workspace',
-      download: kind === 'folder' ? 'Baixando conteúdo da pasta ' + name + ' (.zip)' : 'Baixando arquivo ' + name,
+      download: kind === 'folder' ? 'Baixando conteúdo do workspace ' + name + ' (.zip)' : 'Baixando arquivo ' + name,
       delete: 'Excluir ' + name
     };
 
@@ -849,7 +997,18 @@
       if (orderIndex >= 0) workspaceOrder.splice(orderIndex, 1);
       renderWorkspaceCards();
       showWorkspaceToast('Workspace excluído com sucesso.');
-    } else {
+    } else if (activeWorkspace) {
+      markItemDeleted(activeWorkspace.key, getPathKey(activePath), item.name);
+
+      if (activePreviewFile === item) {
+        closePreview();
+        closeImagePreview();
+      }
+
+      refreshCurrentArchiveView();
+      if (!activePath.length) {
+        renderFiles(getVisibleWorkspaceFiles(activeWorkspace), 'Arquivos recentes');
+      }
       showWorkspaceToast((kind === 'folder' ? 'Pasta ' : 'Arquivo ') + item.name + ' excluído com sucesso.');
     }
 
@@ -859,12 +1018,12 @@
   function createActionMenu(item, kind) {
     const menu = document.createElement('div');
     const isFolder = kind === 'folder';
-    const downloadLabel = isFolder ? 'Baixar conteúdo da pasta (.zip)' : 'Baixar arquivo';
+    const downloadLabel = isFolder ? 'Baixar conteúdo do workspace (.zip)' : 'Baixar arquivo';
     const itemName = item && item.name ? item.name : 'item';
     const editCoverButtonHtml = isFolder ? '<button type="button" data-action="edit-cover">Editar capa</button>' : '';
 
     menu.className = 'workspace-menu workspace-item-menu';
-    menu.innerHTML = '<button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu de ' + itemName + '" aria-expanded="false">' + ELLIPSIS_ICON + '</button><div class="workspace-menu__list" hidden>' + editCoverButtonHtml + '<button type="button" data-action="share">Compartilhar externamente</button><button type="button" data-action="copy">Copiar link</button><button type="button" data-action="rename">Renomear</button><button type="button" data-action="move">Mover para outro workspace</button><button type="button" data-action="download">' + downloadLabel + '</button><button class="is-danger" type="button" data-action="delete">Excluir</button></div>';
+    menu.innerHTML = '<button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu de ' + itemName + '" aria-expanded="false">' + ELLIPSIS_ICON + '</button><div class="workspace-menu__list" hidden>' + editCoverButtonHtml + '<button type="button" data-action="rename">Renomear</button><button type="button" data-action="download">' + downloadLabel + '</button><button class="is-danger" type="button" data-action="delete">Excluir</button></div>';
 
     const trigger = menu.querySelector('.workspace-menu__trigger');
     const list = menu.querySelector('.workspace-menu__list');
@@ -1082,14 +1241,24 @@
     animateContentSwap([folderList, fileList]);
   }
 
+  function getVisibleWorkspaceFiles(workspace) {
+    const deletedNames = getDeletedNamesForPath(workspace.key, getPathKey([]));
+    return excludeDeleted(deletedNames, workspace.files || []);
+  }
+
   function getRootArchiveItems(workspace) {
+    const pathKey = getPathKey([]);
+    const deletedNames = getDeletedNamesForPath(workspace.key, pathKey);
     const uploaded = getUploadedItemsForPath(workspace.key, []);
-    return (workspace.children || []).concat(workspace.folders || [], uploaded.folders, (workspace.files || []).slice(0, 3).map(function (file) {
+    const folders = excludeDeleted(deletedNames, (workspace.children || []).concat(workspace.folders || [], uploaded.folders));
+    const visibleFiles = excludeDeleted(deletedNames, workspace.files || []);
+    const uploadedFiles = excludeDeleted(deletedNames, uploaded.files);
+    return folders.concat(visibleFiles.slice(0, 3).map(function (file) {
       return {
         ...file,
         kind: 'file'
       };
-    }), uploaded.files);
+    }), uploadedFiles);
   }
 
   function updateArchive(items) {
@@ -1136,7 +1305,7 @@
     if (cover) cover.style.backgroundImage = coverUrl ? "url('" + coverUrl + "')" : '';
 
     renderArchive(getRootArchiveItems(workspace));
-    renderFiles(workspace.files, 'Arquivos recentes');
+    renderFiles(getVisibleWorkspaceFiles(workspace), 'Arquivos recentes');
     animateContentSwap([filesPage]);
   }
 
@@ -1171,20 +1340,27 @@
       return '<div class="workspace-preview-embed workspace-preview-embed--table" id="workspaceExcelPreview"><p class="workspace-preview-embed__loading">Carregando planilha...</p></div>';
     }
 
-    if (getDocumentThumbnailUrl(file)) {
+    if (getDocumentThumbnailUrl(file) || getGenericDocumentThumbnailUrl(file)) {
       return '<div class="workspace-preview-embed workspace-preview-embed--image" id="workspaceDocumentThumbnailPreview" hidden role="img" aria-label="Pré-visualização de ' + (file.name || 'documento') + '"></div>';
     }
 
     return '';
   }
 
-  function revealDocumentThumbnailPreview(url) {
+  function revealDocumentThumbnailPreview(url, onError) {
     const previewEl = document.getElementById('workspaceDocumentThumbnailPreview');
     if (!previewEl) return;
+    if (!url) {
+      if (onError) onError();
+      return;
+    }
     const probe = new Image();
     probe.onload = function () {
       previewEl.style.backgroundImage = "url('" + url + "')";
       previewEl.hidden = false;
+    };
+    probe.onerror = function () {
+      if (onError) onError();
     };
     probe.src = url;
   }
@@ -1228,6 +1404,28 @@
     document.body.classList.add('workspace-preview-open');
   }
 
+  function fitDocumentPreviewIframeHeight() {
+    const dialog = document.getElementById('workspacePreviewDialog');
+    const body = document.getElementById('workspacePreviewBody');
+    const iframe = body ? body.querySelector('iframe') : null;
+    if (!dialog || !body || !iframe) return;
+
+    const header = dialog.querySelector('.workspace-preview__header');
+    const footer = dialog.querySelector('.workspace-preview__actions');
+    const dialogMaxHeight = parseFloat(window.getComputedStyle(dialog).maxHeight) || 0;
+    if (!dialogMaxHeight) return;
+
+    const headerHeight = header ? header.offsetHeight : 0;
+    const footerHeight = footer ? footer.offsetHeight : 0;
+    const bodyStyles = window.getComputedStyle(body);
+    const bodyPaddingY = parseFloat(bodyStyles.paddingTop) + parseFloat(bodyStyles.paddingBottom);
+
+    const availableHeight = dialogMaxHeight - headerHeight - footerHeight - bodyPaddingY;
+    if (availableHeight > 240) {
+      iframe.style.height = Math.min(availableHeight, 760) + 'px';
+    }
+  }
+
   function openPreview(file) {
     if (file && file.isImage) {
       openImagePreview(file);
@@ -1235,6 +1433,7 @@
     }
 
     const modal = document.getElementById('workspacePreview');
+    const dialog = document.getElementById('workspacePreviewDialog');
     const title = document.getElementById('workspacePreviewTitle');
     const type = document.getElementById('workspacePreviewType');
     const meta = document.getElementById('workspacePreviewMeta');
@@ -1246,14 +1445,22 @@
     title.textContent = file.name;
     type.textContent = file.type;
     meta.textContent = file.owner + ' - ' + file.date;
-    body.innerHTML = buildDocumentPreviewHtml(file) + createPreviewBody(file);
+    const documentPreviewHtml = buildDocumentPreviewHtml(file);
+    body.innerHTML = documentPreviewHtml + createPreviewBody(file);
+    body.classList.toggle('workspace-preview__body--split', Boolean(documentPreviewHtml));
+    if (dialog) dialog.classList.toggle('workspace-preview__dialog--wide', Boolean(documentPreviewHtml));
 
     const ext = getFileExtension(file);
     if (isSpreadsheetExtension(ext) && file.dataUrl) {
       renderExcelPreviewInto(document.getElementById('workspaceExcelPreview'), file.dataUrl);
     } else {
-      const thumbnailUrl = getDocumentThumbnailUrl(file);
-      if (thumbnailUrl) revealDocumentThumbnailPreview(thumbnailUrl);
+      const specificThumbnailUrl = getDocumentThumbnailUrl(file);
+      const genericThumbnailUrl = getGenericDocumentThumbnailUrl(file);
+      if (specificThumbnailUrl || genericThumbnailUrl) {
+        revealDocumentThumbnailPreview(specificThumbnailUrl, function () {
+          revealDocumentThumbnailPreview(genericThumbnailUrl);
+        });
+      }
     }
 
     if (menuRoot) {
@@ -1262,6 +1469,7 @@
     }
     modal.hidden = false;
     document.body.classList.add('workspace-preview-open');
+    fitDocumentPreviewIframeHeight();
   }
 
   function closeImagePreview() {
@@ -1320,23 +1528,7 @@
 
   function openCreateWorkspaceModal() {
     const form = document.getElementById('createWorkspaceForm');
-    const typeSelect = document.getElementById('workspaceTypeSelect');
-    const referenceField = document.getElementById('workspaceReferenceField');
-    const referenceSelect = document.getElementById('workspaceReferenceSelect');
-
     form?.reset();
-    if (typeSelect) typeSelect.value = '';
-    if (referenceField) referenceField.hidden = true;
-    if (referenceSelect) {
-      referenceSelect.required = false;
-      referenceSelect.innerHTML = '<option value="">Selecione uma opção</option>';
-      referenceSelect.value = '';
-    }
-    updateWorkspaceReferenceField('');
-    Array.from(document.getElementById('workspacePermissionsSelect')?.options || []).forEach(function (option) {
-      option.selected = false;
-    });
-    renderPermissionsMultiSelect();
     resetNewWorkspaceCover();
     openModal('createWorkspaceModal');
   }
@@ -1349,151 +1541,9 @@
     closeModal('workspaceVaultModal');
   }
 
-  function updateWorkspaceReferenceField(type) {
-    const field = document.getElementById('workspaceReferenceField');
-    const label = document.getElementById('workspaceReferenceLabel');
-    const select = document.getElementById('workspaceReferenceSelect');
-    if (!field || !label || !select) return;
-
-    const options = workspaceReferenceOptions[type] || [];
-    const labels = {
-      campanha: 'Qual campanha?',
-      'grupo VU': 'Qual grupo VU?',
-      'cliente (revenda)': 'Qual cliente (revenda)?',
-      'usuário(s)': 'Qual usuário?',
-      produtos: 'Qual produto?'
-    };
-
-    if (!options.length) {
-      field.hidden = true;
-      select.innerHTML = '<option value="">Selecione uma opção</option>';
-      select.required = false;
-      return;
-    }
-
-    field.hidden = false;
-    label.textContent = labels[type] || 'Selecionar referência';
-    select.required = true;
-    select.innerHTML = '<option value="">Selecione uma opção</option>' + options.map(function (option) {
-      return '<option value="' + option + '">' + option + '</option>';
-    }).join('');
-  }
-
-  function getSelectedPermissions(select) {
-    return Array.from(select.selectedOptions || []).map(function (option) {
-      return option.value;
-    }).filter(Boolean);
-  }
-
-  function closePermissionsMultiSelect() {
-    if (!permissionsMultiSelect) return;
-    permissionsMultiSelect.dropdown.hidden = true;
-    permissionsMultiSelect.root.classList.remove('is-open');
-    permissionsMultiSelect.trigger.setAttribute('aria-expanded', 'false');
-  }
-
-  function renderPermissionsMultiSelect() {
-    if (!permissionsMultiSelect) return;
-
-    const selected = getSelectedPermissions(permissionsMultiSelect.select);
-    permissionsMultiSelect.value.innerHTML = '';
-    permissionsMultiSelect.root.classList.toggle('has-value', selected.length > 0);
-
-    if (!selected.length) {
-      const placeholder = document.createElement('span');
-      placeholder.className = 'workspace-multi-select__placeholder';
-      placeholder.textContent = permissionsMultiSelect.root.dataset.placeholder || 'Selecione';
-      permissionsMultiSelect.value.appendChild(placeholder);
-    } else {
-      selected.forEach(function (item) {
-        const chip = document.createElement('span');
-        chip.className = 'workspace-multi-select__chip';
-        chip.innerHTML = '<span class="workspace-multi-select__chip-label"></span><button class="workspace-multi-select__chip-remove" type="button" aria-label="Remover ' + item + '">×</button>';
-        chip.querySelector('.workspace-multi-select__chip-label').textContent = item;
-        chip.querySelector('.workspace-multi-select__chip-remove').addEventListener('click', function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-          const option = Array.from(permissionsMultiSelect.select.options).find(function (entry) {
-            return entry.value === item;
-          });
-          if (option) option.selected = false;
-          renderPermissionsMultiSelect();
-        });
-        permissionsMultiSelect.value.appendChild(chip);
-      });
-    }
-
-    permissionsMultiSelect.options.innerHTML = '';
-    Array.from(permissionsMultiSelect.select.options).forEach(function (option) {
-      const listItem = document.createElement('li');
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'workspace-multi-select__option' + (option.selected ? ' is-selected' : '');
-      button.setAttribute('role', 'option');
-      button.setAttribute('aria-selected', String(option.selected));
-      button.innerHTML = '<span class="workspace-multi-select__option-indicator" aria-hidden="true"></span><span></span>';
-      button.querySelector('span:last-child').textContent = option.textContent;
-      button.addEventListener('click', function (event) {
-        event.preventDefault();
-        option.selected = !option.selected;
-        renderPermissionsMultiSelect();
-      });
-      listItem.appendChild(button);
-      permissionsMultiSelect.options.appendChild(listItem);
-    });
-  }
-
-  function setupPermissionsMultiSelect() {
-    const root = document.getElementById('workspacePermissionsMultiSelect');
-    const select = document.getElementById('workspacePermissionsSelect');
-    if (!root || !select) return;
-
-    permissionsMultiSelect = {
-      root: root,
-      select: select,
-      trigger: root.querySelector('.workspace-multi-select__trigger'),
-      value: root.querySelector('.workspace-multi-select__value'),
-      dropdown: root.querySelector('.workspace-multi-select__dropdown'),
-      options: root.querySelector('.workspace-multi-select__options'),
-      clear: root.querySelector('.workspace-multi-select__clear')
-    };
-
-    if (!permissionsMultiSelect.trigger || !permissionsMultiSelect.value || !permissionsMultiSelect.dropdown || !permissionsMultiSelect.options) {
-      permissionsMultiSelect = null;
-      return;
-    }
-
-    permissionsMultiSelect.trigger.addEventListener('click', function (event) {
-      event.preventDefault();
-      const willOpen = permissionsMultiSelect.dropdown.hidden;
-      if (willOpen) {
-        permissionsMultiSelect.dropdown.hidden = false;
-        permissionsMultiSelect.root.classList.add('is-open');
-        permissionsMultiSelect.trigger.setAttribute('aria-expanded', 'true');
-      } else {
-        closePermissionsMultiSelect();
-      }
-    });
-
-    permissionsMultiSelect.clear?.addEventListener('click', function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      Array.from(permissionsMultiSelect.select.options).forEach(function (option) {
-        option.selected = false;
-      });
-      renderPermissionsMultiSelect();
-    });
-
-    renderPermissionsMultiSelect();
-  }
-
   function createTestWorkspace(formData) {
     const title = formData.get('title').trim();
-    const type = formData.get('type').trim();
-    const reference = (formData.get('reference') || '').trim();
     const description = formData.get('description').trim();
-    const permissionsSelect = document.getElementById('workspacePermissionsSelect');
-    const permissions = getSelectedPermissions(permissionsSelect);
     const keyBase = slugify(title) || 'workspace-teste';
     let key = keyBase;
     let index = 2;
@@ -1505,20 +1555,18 @@
 
     workspaceContent[key] = {
       key: key,
-      type: type,
       title: title,
       description: description,
-      permissions: permissions.join(', '),
       folders: [
-        { name: (reference || title) + ' - materiais aprovados', meta: '14 arquivos', kind: 'folder' },
-        { name: (reference || title) + ' - operação', meta: '9 arquivos', kind: 'folder' }
+        { name: title + ' - materiais aprovados', meta: '14 arquivos', kind: 'folder' },
+        { name: title + ' - operação', meta: '9 arquivos', kind: 'folder' }
       ],
       files: [
         { name: title + ' - guia rápido.pdf', type: 'PDF', owner: 'Bárbara Gianazi', date: 'Atualizado hoje', kind: 'file', preview: 'Arquivo de demonstração criado no fluxo do novo workspace.' },
         { name: title + ' - checklist.xlsx', type: 'XLS', owner: 'Bárbara Gianazi', date: 'Atualizado hoje', kind: 'file', preview: 'Planilha de demonstração criada para apresentar a navegação do workspace.' },
         { name: title + ' - apresentação.png', type: 'PNG', owner: 'Equipe comercial', date: 'Atualizado hoje', kind: 'file', preview: 'Material visual inicial do workspace de demonstração.' }
       ],
-      isProtected: type === 'cofre'
+      isProtected: false
     };
 
     if (newWorkspaceCoverDataUrl) {
@@ -1626,9 +1674,6 @@
   document.getElementById('workspaceVaultClose')?.addEventListener('click', closeVaultModal);
   document.getElementById('workspaceVaultOverlay')?.addEventListener('click', closeVaultModal);
   document.getElementById('workspaceVaultCancel')?.addEventListener('click', closeVaultModal);
-  document.getElementById('workspaceTypeSelect')?.addEventListener('change', function (event) {
-    updateWorkspaceReferenceField(event.target.value);
-  });
   document.getElementById('workspaceConfirmClose')?.addEventListener('click', closeWorkspaceConfirm);
   document.getElementById('workspaceConfirmCancel')?.addEventListener('click', closeWorkspaceConfirm);
   document.getElementById('workspaceConfirmAction')?.addEventListener('click', confirmWorkspaceDelete);
@@ -1636,24 +1681,21 @@
     node.addEventListener('click', closeWorkspaceConfirm);
   });
 
-  document.querySelector('.workspace-preview__actions .btn-secondary')?.addEventListener('click', function () {
-    if (activePreviewFile) handleAction('share', activePreviewFile, 'file');
-  });
-
   document.querySelector('.workspace-preview__actions .btn-primary')?.addEventListener('click', function () {
     if (activePreviewFile) handleAction('download', activePreviewFile, 'file');
   });
 
+  window.addEventListener('resize', function () {
+    const modal = document.getElementById('workspacePreview');
+    if (modal && !modal.hidden) fitDocumentPreviewIframeHeight();
+  });
+
   document.addEventListener('click', function (event) {
-    if (permissionsMultiSelect && !event.target.closest('#workspacePermissionsMultiSelect')) {
-      closePermissionsMultiSelect();
-    }
     if (!event.target.closest('.workspace-menu')) closeWorkspaceMenus();
   });
 
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape') {
-      closePermissionsMultiSelect();
       closeWorkspaceMenus();
       closePreview();
       closeImagePreview();
@@ -1743,6 +1785,5 @@
     });
   });
 
-  setupPermissionsMultiSelect();
   loadWorkspaceData(getActiveBrandKey());
 })();

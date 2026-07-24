@@ -1,0 +1,14 @@
+Miniaturas de fallback (genericas) para os documentos PDF e Excel dos workspaces
+que nao sejam Zoetis/Agro Amazonia (Hub Workspaces).
+
+Suba os arquivos com estes nomes exatos, nesta mesma pasta
+(hub/data/document-thumbnails/default/):
+
+  - generico-pdf.jpg      -> usado em qualquer .pdf sem miniatura propria
+  - generico-excel.jpg    -> usado em qualquer .xls/.xlsx/.xlsm sem miniatura propria
+
+Formato recomendado: retrato ou paisagem, JPG ou PNG, ex: 800x600px
+(a miniatura e cortada em "cover").
+
+Ver hub/data/document-thumbnails/zoetis/LEIA-ME.txt para a explicacao completa
+da ordem de prioridade das miniaturas.
