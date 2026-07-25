@@ -21,12 +21,13 @@
           "key": "hub",
           "label": "Hub",
           "icon": "files",
-          "linkKey": "hub",
+          "href": "/hub/workspaces/",
           "children": [
             {
               "key": "hub-painel-administrativo",
               "label": "Painel administrativo",
-              "linkKey": "hub"
+              "linkKey": "hub",
+              "hidden": true
             },
             {
               "key": "hub-workspaces",

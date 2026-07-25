@@ -189,7 +189,9 @@
     if (isActive) group.classList.add('is-open');
     group.appendChild(createMenuItem(item, config));
 
-    if (Array.isArray(item.children) && item.children.length > 0) {
+    const visibleChildren = (item.children || []).filter((child) => !child.hidden);
+
+    if (visibleChildren.length > 0) {
       group.classList.add('has-children');
       const parentButton = group.querySelector('.nav-link--parent');
       const submenu = document.createElement('div');
@@ -197,7 +199,7 @@
       submenu.setAttribute('aria-label', item.label);
       submenu.hidden = !isActive;
 
-      item.children.forEach((child) => {
+      visibleChildren.forEach((child) => {
         submenu.appendChild(createSubmenuItem(child, config));
       });
 

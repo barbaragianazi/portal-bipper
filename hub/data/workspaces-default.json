@@ -126,9 +126,9 @@
         "kind": "folder",
         "description": "Capas e artes digitais prontas para uso na campanha de divulgação.",
         "files": [
-          { "name": "Capa Campanha Pay Performance Revendas M e G.png", "type": "PNG", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha de divulgação." },
-          { "name": "Capa Campanha Pay Performance Revendas P.png", "type": "PNG", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha de divulgação." },
-          { "name": "Capa Campanha Verba Trade Golden Channel E-commerce.png", "type": "PNG", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha de divulgação." }
+          { "name": "Capa Campanha Pay Performance Revendas M e G.png", "type": "PNG", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "isImage": true, "thumbnail": "campanha-divulgacao/pecas-digitais/Capa Campanha Pay Performance Revendas M e G.png", "size": 436272, "preview": "Imagem de capa da campanha de divulgação." },
+          { "name": "Capa Campanha Pay Performance Revendas P.png", "type": "PNG", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "isImage": true, "thumbnail": "campanha-divulgacao/pecas-digitais/Capa Campanha Pay Performance Revendas P.png", "size": 1035232, "preview": "Imagem de capa da campanha de divulgação." },
+          { "name": "Capa Campanha Verba Trade Golden Channel E-commerce.png", "type": "PNG", "owner": "Marketing", "date": "Atualizado hoje", "kind": "file", "isImage": true, "thumbnail": "campanha-divulgacao/pecas-digitais/Capa Campanha Verba Trade Golden Channel E-commerce.png", "size": 561813, "preview": "Imagem de capa da campanha de divulgação." }
         ]
       },
       {

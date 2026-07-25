@@ -6,6 +6,12 @@
   if (!page || !filesPage) return;
 
   const workspaceGrid = page.querySelector('.workspace-grid');
+  const WORKSPACE_PAGE_SIZE = 6;
+  let workspacePage = 1;
+  let workspaceSearchTerm = '';
+  let workspaceFileSearchTerm = '';
+  let workspaceFileTypeFilter = '';
+  let workspaceFileSortRecent = false;
   let activeWorkspace = null;
   let activeFolder = null;
   let activePath = [];
@@ -17,6 +23,7 @@
   let pendingCoverEditKey = null;
   let pendingFolderCoverTarget = null;
   let newWorkspaceCoverDataUrl = null;
+  let newFolderCoverDataUrl = null;
   let coverFileInputEl = null;
   const MAX_COVER_FILE_SIZE = 5 * 1024 * 1024;
   const MAX_UPLOAD_PREVIEW_FILE_SIZE = 5 * 1024 * 1024;
@@ -197,9 +204,42 @@
     return icon ? FILE_TYPE_ICON_PATH + icon : null;
   }
 
+  function getFileTypeGroup(file) {
+    const ext = getFileExtension(file);
+    if (isImageEntry(file)) return 'image';
+    if (ext === 'pdf') return 'pdf';
+    if (ext === 'xls' || ext === 'xlsx' || ext === 'xlsm') return 'excel';
+    if (ext === 'doc' || ext === 'docx') return 'word';
+    if (ext === 'ppt' || ext === 'pptx') return 'ppt';
+    if (ext === 'zip' || ext === 'rar' || ext === '7z') return 'zip';
+    return 'other';
+  }
+
+  function parseRelativeRecency(dateText) {
+    const text = (dateText || '').toLowerCase();
+    if (!text) return Infinity;
+    if (text.indexOf('agora') !== -1 || text.indexOf('hoje') !== -1) return 0;
+    if (text.indexOf('ontem') !== -1) return 1;
+
+    const daysAgoMatch = text.match(/h[áa]\s+(\d+)\s+dia/);
+    if (daysAgoMatch) return parseInt(daysAgoMatch[1], 10);
+
+    const dateMatch = text.match(/(\d{1,2})\/(\d{1,2})/);
+    if (dateMatch) {
+      const day = parseInt(dateMatch[1], 10);
+      const month = parseInt(dateMatch[2], 10) - 1;
+      const now = new Date();
+      const candidate = new Date(now.getFullYear(), month, day);
+      if (candidate > now) candidate.setFullYear(candidate.getFullYear() - 1);
+      return Math.round((now - candidate) / 86400000);
+    }
+
+    return Infinity;
+  }
+
   function getImageSrc(file) {
     if (file.dataUrl) return file.dataUrl;
-    return '../data/campanhas-images/' + (file.name || '');
+    return getDocumentThumbnailUrl(file);
   }
 
   function getDocumentThumbnailUrl(file) {
@@ -220,9 +260,11 @@
   }
 
   function buildFileTypeBadgeHtml(file) {
-    if (file.isImage) {
+    if (isImageEntry(file)) {
       const imageSrc = getImageSrc(file);
-      return '<div class="workspace-file-type workspace-file-type--image" style="background-image: url(\'' + imageSrc + '\');" title="' + (file.name || 'Imagem') + '"></div>';
+      if (imageSrc) {
+        return '<div class="workspace-file-type workspace-file-type--image" style="background-image: url(\'' + imageSrc + '\');" title="' + (file.name || 'Imagem') + '"></div>';
+      }
     }
     const iconUrl = getFileIconUrl(file);
     return iconUrl
@@ -337,7 +379,7 @@
   }
 
   function enhanceFileThumbnail(container, file) {
-    if (file.isImage) return;
+    if (isImageEntry(file)) return;
     const badge = container.querySelector('.workspace-file-type');
     if (!badge) return;
 
@@ -425,6 +467,7 @@
       });
       window.setTimeout(function () {
         node.classList.remove('is-entering');
+        node.classList.remove('bp-transition');
       }, 280);
     });
   }
@@ -475,6 +518,7 @@
       workspaceOrder = Object.keys(workspaceContent).filter(isWorkspaceVisible);
     }
 
+    workspacePage = 1;
     renderWorkspaceCards();
   }
 
@@ -494,7 +538,7 @@
   }
 
   function buildWorkspaceMenuHtml() {
-    return '<div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false">' + ELLIPSIS_ICON + '</button><div class="workspace-menu__list" hidden><button type="button" data-menu-action="edit-cover">Editar capa</button><button type="button">Renomear</button><button type="button">Baixar todos os arquivos</button><button class="is-danger" type="button">Excluir</button></div></div>';
+    return '<div class="workspace-menu"><button class="icon-btn workspace-menu__trigger" type="button" aria-label="Abrir menu do workspace" aria-expanded="false">' + ELLIPSIS_ICON + '</button><div class="workspace-menu__list" hidden><button type="button" data-menu-action="edit-cover">Editar capa</button><button type="button">Renomear</button><button type="button">Baixar tudo</button><button class="is-danger" type="button">Excluir</button></div></div>';
   }
 
   function getWorkspaceCoverStorageKey(workspaceKey) {
@@ -602,11 +646,48 @@
     return { folderCount: folderCount, fileCount: fileCount };
   }
 
+  function getSearchableWorkspaceOrder() {
+    const term = workspaceSearchTerm.trim().toLowerCase();
+    if (!term) return workspaceOrder;
+    return workspaceOrder.filter(function (key) {
+      const workspace = workspaceContent[key];
+      const haystack = (workspace.title + ' ' + (workspace.description || '')).toLowerCase();
+      return haystack.indexOf(term) !== -1;
+    });
+  }
+
   function renderWorkspaceCards() {
     if (!workspaceGrid) return;
 
     workspaceGrid.innerHTML = '';
-    workspaceOrder.forEach(function (key) {
+
+    if (!workspaceOrder.length) {
+      const empty = document.createElement('div');
+      empty.className = 'workspace-grid__empty';
+      empty.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"></path></svg><h3>Nenhuma pasta por aqui ainda</h3><p>Crie uma nova pasta para começar a organizar campanhas e documentos.</p><button class="btn btn-primary" type="button" id="workspaceEmptyStateCreate">Nova pasta</button>';
+      workspaceGrid.appendChild(empty);
+      document.getElementById('workspaceEmptyStateCreate')?.addEventListener('click', openCreateWorkspaceModal);
+      renderWorkspacePagination(0);
+      return;
+    }
+
+    const visibleOrder = getSearchableWorkspaceOrder();
+
+    if (!visibleOrder.length) {
+      const empty = document.createElement('div');
+      empty.className = 'workspace-grid__empty';
+      empty.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><h3>Nenhum workspace encontrado</h3><p>Tente buscar por outro termo.</p>';
+      workspaceGrid.appendChild(empty);
+      renderWorkspacePagination(0);
+      return;
+    }
+
+    const totalPages = Math.max(1, Math.ceil(visibleOrder.length / WORKSPACE_PAGE_SIZE));
+    workspacePage = Math.min(Math.max(1, workspacePage), totalPages);
+    const pageStart = (workspacePage - 1) * WORKSPACE_PAGE_SIZE;
+    const pageItems = visibleOrder.slice(pageStart, pageStart + WORKSPACE_PAGE_SIZE);
+
+    pageItems.forEach(function (key) {
       const workspace = workspaceContent[key];
       const meta = getWorkspaceCardMeta(workspace);
       const counts = countWorkspaceContents(workspace);
@@ -622,7 +703,7 @@
       if (workspace.isProtected) {
         article.innerHTML = '<div class="area-card__top"><div class="area-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">' + meta.icon + '</svg></div></div><h3>' + workspace.title + '</h3><button class="btn btn-primary workspace-vault-access" type="button">Acessar com senha</button>';
       } else {
-        article.innerHTML = '<div class="workspace-card__cover">' + buildWorkspaceMenuHtml() + '</div><div class="module-name"><h3>' + workspace.title + '</h3></div><p>' + workspace.description + '</p><ul class="module-list"><li class="module-item"><span>' + folderLabel + '</span><small>' + fileLabel + '</small></li></ul>';
+        article.innerHTML = '<div class="workspace-card__cover"></div><div class="workspace-card__info"><div class="module-name"><h3>' + workspace.title + '</h3></div><p>' + workspace.description + '</p></div><ul class="module-list"><li class="module-item"><span>' + folderLabel + '</span><small>' + fileLabel + '</small></li></ul>' + buildWorkspaceMenuHtml();
         
         // Trecho removido que diz respeito às permissões de acesso ao workspace. Não será usado na V1. 
         // <li class="module-item"><span>Permissões</span><small>' + workspace.permissions + '</small></li>
@@ -639,6 +720,40 @@
 
     bindWorkspaceCardInteractions();
     animateContentSwap([workspaceGrid]);
+    renderWorkspacePagination(totalPages);
+  }
+
+  function renderWorkspacePagination(totalPages) {
+    const nav = document.getElementById('workspacePagination');
+    if (!nav) return;
+
+    nav.innerHTML = '';
+    if (totalPages <= 1) {
+      nav.hidden = true;
+      return;
+    }
+    nav.hidden = false;
+
+    function createPageButton(label, page, options) {
+      options = options || {};
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'workspace-pagination__btn' + (options.isActive ? ' is-active' : '');
+      button.textContent = label;
+      button.disabled = Boolean(options.disabled);
+      if (options.ariaLabel) button.setAttribute('aria-label', options.ariaLabel);
+      button.addEventListener('click', function () {
+        workspacePage = page;
+        renderWorkspaceCards();
+      });
+      return button;
+    }
+
+    nav.appendChild(createPageButton('‹', workspacePage - 1, { disabled: workspacePage <= 1, ariaLabel: 'Página anterior' }));
+    for (let pageNumber = 1; pageNumber <= totalPages; pageNumber += 1) {
+      nav.appendChild(createPageButton(String(pageNumber), pageNumber, { isActive: pageNumber === workspacePage }));
+    }
+    nav.appendChild(createPageButton('›', workspacePage + 1, { disabled: workspacePage >= totalPages, ariaLabel: 'Próxima página' }));
   }
 
   function getWorkspaceUploadsStorageKey(workspaceKey) {
@@ -730,6 +845,17 @@
     return IMAGE_EXTENSIONS.indexOf(getFileExtension(file)) !== -1;
   }
 
+  function isImageEntry(file) {
+    return !!(file && (file.isImage || isImageFile(file)));
+  }
+
+  function formatFileSize(bytes) {
+    if (!bytes && bytes !== 0) return '—';
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
   function fileNeedsDataUrl(file) {
     if (isImageFile(file)) return true;
     const ext = getFileExtension(file);
@@ -756,6 +882,7 @@
       kind: 'file',
       isImage: isImage,
       dataUrl: dataUrl || null,
+      size: file.size,
       preview: 'Arquivo enviado manualmente para este workspace.'
     };
   }
@@ -778,67 +905,6 @@
 
     if (addUploadedItems(activeWorkspace.key, activePath, [], entries)) {
       showWorkspaceToast(entries.length === 1 ? 'Arquivo adicionado com sucesso.' : entries.length + ' arquivos adicionados com sucesso.');
-      refreshCurrentArchiveView();
-    }
-  }
-
-  async function handleFolderUpload(fileList) {
-    const files = Array.from(fileList || []);
-    if (!files.length || !activeWorkspace) return;
-
-    const dataUrlMap = new Map();
-    await Promise.all(files.map(async function (file) {
-      if (!fileNeedsDataUrl(file)) return;
-      if (file.size > MAX_UPLOAD_PREVIEW_FILE_SIZE) {
-        showWorkspaceToast('O arquivo "' + file.name + '" excede 5MB e não terá miniatura/pré-visualização.');
-        return;
-      }
-      dataUrlMap.set(file, await readFileAsDataUrl(file));
-    }));
-
-    const root = {};
-    files.forEach(function (file) {
-      const relativePath = file.webkitRelativePath || file.name;
-      const parts = relativePath.split('/').filter(Boolean);
-      let cursor = root;
-      parts.forEach(function (part, index) {
-        if (index === parts.length - 1) {
-          cursor.__files = cursor.__files || [];
-          cursor.__files.push(file);
-        } else {
-          cursor.__dirs = cursor.__dirs || {};
-          cursor.__dirs[part] = cursor.__dirs[part] || {};
-          cursor = cursor.__dirs[part];
-        }
-      });
-    });
-
-    function nodeToFolder(name, node) {
-      const folders = Object.keys(node.__dirs || {}).map(function (dirName) {
-        return nodeToFolder(dirName, node.__dirs[dirName]);
-      });
-      const fileEntries = (node.__files || []).map(function (file) {
-        return buildUploadedFileEntry(file, dataUrlMap.get(file));
-      });
-      return {
-        name: name,
-        kind: 'folder',
-        meta: (folders.length + fileEntries.length) + ' itens',
-        description: 'Pasta enviada manualmente para este workspace.',
-        folders: folders,
-        files: fileEntries
-      };
-    }
-
-    const topFolders = Object.keys(root.__dirs || {}).map(function (dirName) {
-      return nodeToFolder(dirName, root.__dirs[dirName]);
-    });
-    const looseFiles = (root.__files || []).map(function (file) {
-      return buildUploadedFileEntry(file, dataUrlMap.get(file));
-    });
-
-    if (addUploadedItems(activeWorkspace.key, activePath, topFolders, looseFiles)) {
-      showWorkspaceToast('Pasta adicionada com sucesso.');
       refreshCurrentArchiveView();
     }
   }
@@ -901,6 +967,20 @@
     ]);
   }
 
+  function syncWorkspaceMenuOverlay() {
+    const overlay = document.getElementById('workspaceMenuOverlay');
+    if (!overlay) return;
+    const hasOpenMenu = !!document.querySelector('.workspace-menu__list:not([hidden])');
+    overlay.classList.toggle('is-visible', hasOpenMenu);
+  }
+
+  function clearMenuStackingContexts(menu) {
+    if (!menu) return;
+    [menu.closest('.bp-transition'), menu.closest('.content')].filter(Boolean).forEach(function (node) {
+      node.classList.remove('bp-transition', 'is-transitioning', 'is-entering');
+    });
+  }
+
   function closeWorkspaceMenus(exceptMenu) {
     document.querySelectorAll('.workspace-menu').forEach(function (menu) {
       if (menu === exceptMenu) return;
@@ -910,8 +990,9 @@
       if (trigger) trigger.setAttribute('aria-expanded', 'false');
       if (list) list.hidden = true;
       menu.classList.remove('is-open');
-      menu.closest('.workspace-folder-card, .workspace-file-item')?.classList.remove('has-open-menu');
+      menu.closest('.workspace-card, .workspace-folder-card, .workspace-file-item')?.classList.remove('has-open-menu');
     });
+    syncWorkspaceMenuOverlay();
   }
 
   function handleAction(action, item, kind) {
@@ -1018,7 +1099,7 @@
   function createActionMenu(item, kind) {
     const menu = document.createElement('div');
     const isFolder = kind === 'folder';
-    const downloadLabel = isFolder ? 'Baixar conteúdo do workspace (.zip)' : 'Baixar arquivo';
+    const downloadLabel = isFolder ? 'Baixar tudo' : 'Baixar arquivo';
     const itemName = item && item.name ? item.name : 'item';
     const editCoverButtonHtml = isFolder ? '<button type="button" data-action="edit-cover">Editar capa</button>' : '';
 
@@ -1038,6 +1119,8 @@
       trigger.setAttribute('aria-expanded', String(willOpen));
       menu.classList.toggle('is-open', willOpen);
       menu.closest('.workspace-folder-card, .workspace-file-item')?.classList.toggle('has-open-menu', willOpen);
+      if (willOpen) clearMenuStackingContexts(menu);
+      syncWorkspaceMenuOverlay();
     });
 
     list.querySelectorAll('button').forEach(function (button) {
@@ -1079,7 +1162,7 @@
     coverEl.style.backgroundImage = coverUrl
       ? "url('" + coverUrl + "'), linear-gradient(135deg, var(--soft), var(--accent) 220%)"
       : 'linear-gradient(135deg, var(--soft), var(--accent) 220%)';
-    coverEl.appendChild(createActionMenu(folder, 'folder'));
+    card.appendChild(createActionMenu(folder, 'folder'));
 
     card.addEventListener('click', function () {
       openFolder(folder);
@@ -1155,6 +1238,26 @@
     }
   }
 
+  function getActiveFileTypeFilterLabel() {
+    const activeChip = document.querySelector('#workspaceFileTypeFilterPanel .filter-chip.is-active');
+    return activeChip && activeChip.dataset.fileTypeFilter ? activeChip.textContent.trim() : 'formato';
+  }
+
+  function createArchiveFilesEmptyState() {
+    const empty = document.createElement('div');
+    const hasTypeFilter = Boolean(workspaceFileTypeFilter);
+    const title = hasTypeFilter ? 'Nenhum arquivo deste tipo por aqui ainda' : 'Nenhum arquivo encontrado';
+    const description = hasTypeFilter
+      ? 'Não há arquivos do tipo ' + getActiveFileTypeFilterLabel() + ' nesta pasta.'
+      : 'Tente buscar por outro nome ou ajustar os filtros.';
+
+    empty.className = 'workspace-grid__empty workspace-grid__empty--archive-files';
+    empty.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v12"></path><path d="M14 3v5h5"></path><path d="M16 21H8a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6l5 5v9a2 2 0 0 1-2 2Z"></path></svg><h3></h3><p></p>';
+    empty.querySelector('h3').textContent = title;
+    empty.querySelector('p').textContent = description;
+    return empty;
+  }
+
   function renderBreadcrumb() {
     const breadcrumb = filesPage.querySelector('#workspaceFoldersTitle');
     if (!breadcrumb) return;
@@ -1175,7 +1278,7 @@
 
     const rootButton = document.createElement('button');
     rootButton.type = 'button';
-    rootButton.textContent = 'Arquivos';
+    rootButton.textContent = activeWorkspace ? activeWorkspace.title : 'Arquivos';
     rootButton.setAttribute('aria-current', activePath.length ? 'false' : 'page');
     rootButton.addEventListener('click', function () {
       renderWorkspaceRoot();
@@ -1217,25 +1320,69 @@
     const itemCount = filesPage.querySelector('#workspaceItemCount');
     const folderList = filesPage.querySelector('#workspaceFolderList');
     const fileList = filesPage.querySelector('#workspaceLooseFileList');
+    const folderSectionCount = filesPage.querySelector('#workspaceFolderSectionCount');
+    const fileSectionCount = filesPage.querySelector('#workspaceFileSectionCount');
+    const filesAccordion = filesPage.querySelector('#workspaceFilesAccordion');
 
-    if (itemCount) itemCount.textContent = items.length + ' itens';
+    const hasAnyLooseFiles = items.some(function (item) { return item.kind === 'file'; });
+    if (filesAccordion) filesAccordion.hidden = !hasAnyLooseFiles;
+
+    const term = workspaceFileSearchTerm.trim().toLowerCase();
+    const searchedItems = term
+      ? items.filter(function (item) { return (item.name || '').toLowerCase().indexOf(term) !== -1; })
+      : items;
+
+    const folders = searchedItems.filter(function (item) { return item.kind !== 'file'; });
+    const allLooseFiles = searchedItems.filter(function (item) { return item.kind === 'file'; });
+
+    let looseFiles = allLooseFiles;
+    if (workspaceFileTypeFilter) {
+      looseFiles = looseFiles.filter(function (file) { return getFileTypeGroup(file) === workspaceFileTypeFilter; });
+    }
+    if (workspaceFileSortRecent) {
+      looseFiles = looseFiles.slice().sort(function (a, b) {
+        return parseRelativeRecency(a.date) - parseRelativeRecency(b.date);
+      });
+    }
+
+    const isFiltering = Boolean(term || workspaceFileTypeFilter);
+    const visibleCount = folders.length + looseFiles.length;
+
+    if (itemCount) itemCount.textContent = visibleCount + ' itens' + (isFiltering ? ' encontrados' : '');
     renderBreadcrumb();
 
-    const folders = items.filter(function (item) { return item.kind !== 'file'; });
-    const looseFiles = items.filter(function (item) { return item.kind === 'file'; });
+    if (folderSectionCount) folderSectionCount.textContent = folders.length;
+    if (fileSectionCount) fileSectionCount.textContent = looseFiles.length;
 
     if (folderList) {
       folderList.innerHTML = '';
-      folders.forEach(function (folder) {
-        folderList.appendChild(createFolderCard(folder));
-      });
+      if (isFiltering && !visibleCount) {
+        const empty = document.createElement('div');
+        empty.className = 'workspace-grid__empty';
+        empty.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><h3>Nada encontrado</h3><p>Tente buscar por outro nome ou ajustar os filtros.</p>';
+        folderList.appendChild(empty);
+      } else if (!isFiltering && !folders.length) {
+        const empty = document.createElement('div');
+        empty.className = 'workspace-grid__empty';
+        empty.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"></path></svg><h3>Nenhuma pasta por aqui ainda</h3><p>Crie uma nova pasta para começar a organizar campanhas e documentos.</p><button class="btn btn-primary" type="button" id="workspaceArchiveEmptyStateCreate">Nova pasta</button>';
+        folderList.appendChild(empty);
+        document.getElementById('workspaceArchiveEmptyStateCreate')?.addEventListener('click', openCreateFolderInWorkspaceModal);
+      } else {
+        folders.forEach(function (folder) {
+          folderList.appendChild(createFolderCard(folder));
+        });
+      }
     }
 
     if (fileList) {
       fileList.innerHTML = '';
-      looseFiles.forEach(function (file) {
-        fileList.appendChild(createLooseFileCard(file));
-      });
+      if (isFiltering && !looseFiles.length) {
+        fileList.appendChild(createArchiveFilesEmptyState());
+      } else {
+        looseFiles.forEach(function (file) {
+          fileList.appendChild(createLooseFileCard(file));
+        });
+      }
     }
 
     animateContentSwap([folderList, fileList]);
@@ -1269,11 +1416,31 @@
     }, 220);
   }
 
+  function resetWorkspaceFileFilters() {
+    workspaceFileSearchTerm = '';
+    workspaceFileTypeFilter = '';
+    workspaceFileSortRecent = false;
+
+    const input = document.getElementById('workspaceFileSearchInput');
+    if (input) input.value = '';
+
+    document.querySelectorAll('#workspaceFileTypeFilterPanel .filter-chip').forEach(function (chip) {
+      chip.classList.toggle('is-active', chip.dataset.fileTypeFilter === '');
+    });
+
+    // const sortToggle = document.getElementById('workspaceFileSortToggle');
+    // if (sortToggle) {
+    //   sortToggle.classList.remove('is-active');
+    //   sortToggle.setAttribute('aria-pressed', 'false');
+    // }
+  }
+
   function renderWorkspaceRoot() {
     if (!activeWorkspace) return;
 
     activeFolder = null;
     activePath = [];
+    resetWorkspaceFileFilters();
     updateArchive(getRootArchiveItems(activeWorkspace));
   }
 
@@ -1304,6 +1471,7 @@
     if (hero) hero.classList.toggle('has-cover', !!coverUrl);
     if (cover) cover.style.backgroundImage = coverUrl ? "url('" + coverUrl + "')" : '';
 
+    resetWorkspaceFileFilters();
     renderArchive(getRootArchiveItems(workspace));
     renderFiles(getVisibleWorkspaceFiles(workspace), 'Arquivos recentes');
     animateContentSwap([filesPage]);
@@ -1314,6 +1482,7 @@
 
     activePath = path;
     activeFolder = activePath[activePath.length - 1] || null;
+    resetWorkspaceFileFilters();
     updateArchive(getFolderFiles(activeWorkspace, activePath));
   }
 
@@ -1322,7 +1491,23 @@
   }
 
   function createPreviewBody(file) {
-    return '<div class="workspace-preview-sheet"><div><strong>Status</strong><span>Em andamento</span></div><div><strong>Responsável</strong><span>' + file.owner + '</span></div><div><strong>Última atualização</strong><span>' + file.date + '</span></div><div><strong>Observações</strong><span>' + (file.preview || 'Dados principais do arquivo selecionado.') + '</span></div></div>';
+    const details = [
+      ['Tipo', file.type || getFileExtension(file).toUpperCase() || 'Arquivo'],
+      // ['Status', 'Em andamento'],
+      // ['Responsável', file.owner || 'Você'],
+      ['Última atualização', file.date || 'Atualizado agora'],
+      ['Enviado por', file.owner || 'Você'],
+      ['Data de upload', file.date || 'Atualizado agora'],
+      ['Tamanho do arquivo', formatFileSize(file.size)],
+      // ['Observações', file.preview || 'Dados principais do arquivo selecionado.']
+    ];
+
+    return '<aside class="workspace-preview-details" aria-label="Detalhes do arquivo">' +
+      '<h3>Detalhes do arquivo</h3>' +
+      details.map(function (detail) {
+        return '<div class="workspace-preview-details__item"><strong>' + detail[0] + '</strong><span>' + detail[1] + '</span></div>';
+      }).join('') +
+      '</aside>';
   }
 
   function isSpreadsheetExtension(ext) {
@@ -1387,6 +1572,8 @@
     const type = document.getElementById('imagePreviewType');
     const meta = document.getElementById('imagePreviewMeta');
     const img = document.getElementById('imagePreviewImg');
+    const fallback = document.getElementById('imagePreviewFallback');
+    const sheet = document.getElementById('imagePreviewSheet');
     const menuRoot = document.getElementById('imagePreviewMenu');
     if (!modal || !title || !type || !meta || !img) return;
 
@@ -1394,7 +1581,21 @@
     title.textContent = file.name;
     type.textContent = file.type;
     meta.textContent = file.owner + ' - ' + file.date;
-    img.src = getImageSrc(file);
+    if (sheet) sheet.innerHTML = createPreviewBody(file);
+
+    const imageSrc = getImageSrc(file);
+    img.onerror = function () {
+      img.hidden = true;
+      if (fallback) fallback.hidden = false;
+    };
+    if (imageSrc) {
+      img.hidden = false;
+      if (fallback) fallback.hidden = true;
+      img.src = imageSrc;
+    } else {
+      img.hidden = true;
+      if (fallback) fallback.hidden = false;
+    }
     img.alt = file.name;
     if (menuRoot) {
       menuRoot.innerHTML = '';
@@ -1427,7 +1628,7 @@
   }
 
   function openPreview(file) {
-    if (file && file.isImage) {
+    if (file && isImageEntry(file)) {
       openImagePreview(file);
       return;
     }
@@ -1574,9 +1775,52 @@
     }
 
     workspaceOrder.push(key);
+    workspacePage = Math.ceil(workspaceOrder.length / WORKSPACE_PAGE_SIZE);
     renderWorkspaceCards();
     closeCreateWorkspaceModal();
     showWorkspaceToast('Workspace criado com sucesso.');
+  }
+
+  function resetNewFolderCover() {
+    newFolderCoverDataUrl = null;
+    const input = document.getElementById('workspaceFolderCoverInput');
+    const preview = document.getElementById('workspaceFolderCoverPreview');
+    const previewImg = document.getElementById('workspaceFolderCoverPreviewImg');
+    if (input) input.value = '';
+    if (preview) preview.hidden = true;
+    if (previewImg) previewImg.src = '';
+  }
+
+  function openCreateFolderInWorkspaceModal() {
+    if (!activeWorkspace) return;
+    const form = document.getElementById('createFolderInWorkspaceForm');
+    form?.reset();
+    resetNewFolderCover();
+    openModal('createFolderInWorkspaceModal');
+  }
+
+  function closeCreateFolderInWorkspaceModal() {
+    closeModal('createFolderInWorkspaceModal');
+  }
+
+  function createWorkspaceFolder(formData) {
+    if (!activeWorkspace) return;
+    const title = formData.get('title').trim();
+    if (!title) return;
+    const description = formData.get('description').trim();
+
+    const folder = { name: title, description: description, meta: '0 arquivos', kind: 'folder', folders: [], files: [] };
+
+    if (!addUploadedItems(activeWorkspace.key, activePath, [folder], [])) return;
+
+    if (newFolderCoverDataUrl) {
+      const pathKey = getPathKey(activePath.concat(folder));
+      localStorage.setItem(getFolderCoverStorageKey(activeWorkspace.key, pathKey), newFolderCoverDataUrl);
+    }
+
+    refreshCurrentArchiveView();
+    closeCreateFolderInWorkspaceModal();
+    showWorkspaceToast('Pasta criada com sucesso.');
   }
 
   function bindWorkspaceCardInteractions() {
@@ -1595,6 +1839,10 @@
         closeWorkspaceMenus(menu);
         list.hidden = !willOpen;
         trigger.setAttribute('aria-expanded', String(willOpen));
+        menu.classList.toggle('is-open', willOpen);
+        menu.closest('.workspace-card')?.classList.toggle('has-open-menu', willOpen);
+        if (willOpen) clearMenuStackingContexts(menu);
+        syncWorkspaceMenuOverlay();
       });
     });
 
@@ -1663,6 +1911,93 @@
     });
   }
 
+  document.getElementById('workspaceSearchInput')?.addEventListener('input', function (event) {
+    workspaceSearchTerm = event.target.value;
+    workspacePage = 1;
+    renderWorkspaceCards();
+  });
+
+  document.getElementById('workspaceFileSearchInput')?.addEventListener('input', function (event) {
+    workspaceFileSearchTerm = event.target.value;
+    refreshCurrentArchiveView();
+  });
+
+  document.querySelectorAll('#workspaceFileTypeFilterPanel .filter-chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      document.querySelectorAll('#workspaceFileTypeFilterPanel .filter-chip').forEach(function (c) {
+        c.classList.remove('is-active');
+      });
+      chip.classList.add('is-active');
+      workspaceFileTypeFilter = chip.dataset.fileTypeFilter || '';
+      refreshCurrentArchiveView();
+    });
+  });
+
+  // document.getElementById('workspaceFileSortToggle')?.addEventListener('click', function () {
+  //   workspaceFileSortRecent = !workspaceFileSortRecent;
+  //   this.classList.toggle('is-active', workspaceFileSortRecent);
+  //   this.setAttribute('aria-pressed', String(workspaceFileSortRecent));
+  //   refreshCurrentArchiveView();
+  // });
+
+  (function initWorkspaceViewToggle() {
+    const toggle = document.querySelector('.workspace-view-toggle');
+    if (!toggle || !workspaceGrid) return;
+    const buttons = toggle.querySelectorAll('.workspace-view-toggle__btn');
+
+    function applyView(view) {
+      workspaceGrid.classList.toggle('view-list', view === 'list');
+      buttons.forEach(function (btn) {
+        const isActive = btn.dataset.view === view;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-pressed', String(isActive));
+      });
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        localStorage.setItem('lp_workspace_view', btn.dataset.view);
+        applyView(btn.dataset.view);
+      });
+    });
+
+    applyView(localStorage.getItem('lp_workspace_view') || 'grid');
+  })();
+
+  (function initWorkspaceBrowserViewToggle() {
+    const panel = document.querySelector('.workspace-browser__panel');
+    const buttons = document.querySelectorAll('[data-browser-view]');
+    if (!panel || !buttons.length) return;
+
+    function applyView(view) {
+      panel.classList.toggle('view-details', view === 'details');
+      buttons.forEach(function (btn) {
+        const isActive = btn.dataset.browserView === view;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-pressed', String(isActive));
+      });
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        localStorage.setItem('lp_workspace_browser_view', btn.dataset.browserView);
+        applyView(btn.dataset.browserView);
+      });
+    });
+
+    applyView(localStorage.getItem('lp_workspace_browser_view') || 'medium');
+  })();
+
+  document.querySelectorAll('.workspace-accordion__toggle').forEach(function (toggle) {
+    toggle.addEventListener('click', function () {
+      const accordion = toggle.closest('.workspace-accordion');
+      if (!accordion) return;
+      const willOpen = !accordion.classList.contains('is-open');
+      accordion.classList.toggle('is-open', willOpen);
+      toggle.setAttribute('aria-expanded', String(willOpen));
+    });
+  });
+
   document.getElementById('workspacePreviewClose')?.addEventListener('click', closePreview);
   document.getElementById('workspacePreviewOverlay')?.addEventListener('click', closePreview);
   document.getElementById('imagePreviewClose')?.addEventListener('click', closeImagePreview);
@@ -1671,6 +2006,10 @@
   document.getElementById('createWorkspaceClose')?.addEventListener('click', closeCreateWorkspaceModal);
   document.getElementById('createWorkspaceOverlay')?.addEventListener('click', closeCreateWorkspaceModal);
   document.getElementById('createWorkspaceCancel')?.addEventListener('click', closeCreateWorkspaceModal);
+  document.getElementById('openCreateFolderInWorkspace')?.addEventListener('click', openCreateFolderInWorkspaceModal);
+  document.getElementById('createFolderInWorkspaceClose')?.addEventListener('click', closeCreateFolderInWorkspaceModal);
+  document.getElementById('createFolderInWorkspaceOverlay')?.addEventListener('click', closeCreateFolderInWorkspaceModal);
+  document.getElementById('createFolderInWorkspaceCancel')?.addEventListener('click', closeCreateFolderInWorkspaceModal);
   document.getElementById('workspaceVaultClose')?.addEventListener('click', closeVaultModal);
   document.getElementById('workspaceVaultOverlay')?.addEventListener('click', closeVaultModal);
   document.getElementById('workspaceVaultCancel')?.addEventListener('click', closeVaultModal);
@@ -1700,6 +2039,7 @@
       closePreview();
       closeImagePreview();
       closeCreateWorkspaceModal();
+      closeCreateFolderInWorkspaceModal();
       closeVaultModal();
       closeWorkspaceConfirm();
     }
@@ -1726,6 +2066,33 @@
     createTestWorkspace(new FormData(event.currentTarget));
   });
 
+  document.getElementById('createFolderInWorkspaceForm')?.addEventListener('submit', function (event) {
+    event.preventDefault();
+    createWorkspaceFolder(new FormData(event.currentTarget));
+  });
+
+  document.getElementById('workspaceFolderCoverInput')?.addEventListener('change', function (event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+
+    processCoverFile(file).then(function (dataUrl) {
+      if (!dataUrl) {
+        event.target.value = '';
+        return;
+      }
+      newFolderCoverDataUrl = dataUrl;
+      const preview = document.getElementById('workspaceFolderCoverPreview');
+      const previewImg = document.getElementById('workspaceFolderCoverPreviewImg');
+      if (previewImg) previewImg.src = dataUrl;
+      if (preview) preview.hidden = false;
+    });
+  });
+
+  document.getElementById('workspaceFolderCoverPreviewRemove')?.addEventListener('click', function (event) {
+    event.preventDefault();
+    resetNewFolderCover();
+  });
+
   document.getElementById('workspaceCoverInput')?.addEventListener('change', function (event) {
     const file = event.target.files && event.target.files[0];
     if (!file) return;
@@ -1746,15 +2113,8 @@
   document.getElementById('uploadFilesBtn')?.addEventListener('click', function () {
     document.getElementById('workspaceFilesUploadInput')?.click();
   });
-  document.getElementById('uploadFolderBtn')?.addEventListener('click', function () {
-    document.getElementById('workspaceFolderUploadInput')?.click();
-  });
   document.getElementById('workspaceFilesUploadInput')?.addEventListener('change', function (event) {
     handleFilesUpload(event.target.files);
-    event.target.value = '';
-  });
-  document.getElementById('workspaceFolderUploadInput')?.addEventListener('change', function (event) {
-    handleFolderUpload(event.target.files);
     event.target.value = '';
   });
 

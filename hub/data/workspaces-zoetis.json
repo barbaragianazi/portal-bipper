@@ -14,9 +14,9 @@
         "description": "Capas e artes prontas da campanha Trade/Pay Performance para uso em revendas e canais digitais.",
         "coverImage": "campanhas-divulgacao-trade-pay-performance/pecas-digitais.jpg",
         "files": [
-          { "name": "Capa Campanha Pay Performance Revendas M e G.png", "type": "PNG", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha Trade/Pay Performance Zoetis para revendas M e G." },
-          { "name": "Capa Campanha Pay Performance Revendas P.png", "type": "PNG", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha Trade/Pay Performance Zoetis para revendas P." },
-          { "name": "Capa Campanha Verba Trade Golden Channel E-commerce.png", "type": "PNG", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file", "isImage": true, "preview": "Imagem de capa da campanha Verba Trade Golden Channel Zoetis E-commerce." }
+          { "name": "Capa Campanha Pay Performance Revendas M e G.png", "type": "PNG", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file", "isImage": true, "thumbnail": "campanhas-divulgacao-trade-pay-performance/pecas-digitais/Capa Campanha Pay Performance Revendas M e G.png", "size": 436272, "preview": "Imagem de capa da campanha Trade/Pay Performance Zoetis para revendas M e G." },
+          { "name": "Capa Campanha Pay Performance Revendas P.png", "type": "PNG", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file", "isImage": true, "thumbnail": "campanhas-divulgacao-trade-pay-performance/pecas-digitais/Capa Campanha Pay Performance Revendas P.png", "size": 1035232, "preview": "Imagem de capa da campanha Trade/Pay Performance Zoetis para revendas P." },
+          { "name": "Capa Campanha Verba Trade Golden Channel E-commerce.png", "type": "PNG", "owner": "Marketing Zoetis", "date": "Atualizado hoje", "kind": "file", "isImage": true, "thumbnail": "campanhas-divulgacao-trade-pay-performance/pecas-digitais/Capa Campanha Verba Trade Golden Channel E-commerce.png", "size": 561813, "preview": "Imagem de capa da campanha Verba Trade Golden Channel Zoetis E-commerce." }
         ]
       },
       {
@@ -131,6 +131,70 @@
       { "name": "Apresentação institucional Zoetis.pdf", "type": "PDF", "owner": "Zoetis", "date": "Atualizado hoje", "kind": "file", "thumbnail": "produtos-zoetis/apresentacao-institucional-zoetis.jpg" },
       { "name": "Argumentário comercial Zoetis.docx", "type": "DOC", "owner": "Vendas", "date": "Atualizado ontem", "kind": "file" },
       { "name": "Fotos oficiais produtos Zoetis.zip", "type": "ZIP", "owner": "Marketing", "date": "Atualizado em 16/07", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "campanha-revolution": {
+    "key": "campanha-revolution",
+    "type": "campanha",
+    "title": "Campanha Revolution",
+    "description": "Materiais de divulgação e apoio comercial da linha Revolution para equipes internas e revendas parceiras.",
+    "permissions": "Zoetis e parceiros",
+    "coverImage": "campanha-revolution.jpg",
+    "folders": [
+      { "name": "Peças digitais", "meta": "5 arquivos", "kind": "folder", "description": "Artes e banners digitais da campanha Revolution para uso em canais online." },
+      { "name": "Materiais para PDV", "meta": "6 arquivos", "kind": "folder", "description": "Peças gráficas para exposição no ponto de venda da campanha Revolution." }
+    ],
+    "files": [
+      { "name": "Briefing campanha Revolution.docx", "type": "DOC", "owner": "Marketing Zoetis", "date": "Atualizado ontem", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "materiais-institucionais": {
+    "key": "materiais-institucionais",
+    "type": "publica",
+    "title": "Materiais Institucionais",
+    "description": "Apresentações institucionais, manual de marca e documentos de uso público da Zoetis.",
+    "permissions": "Público com link",
+    "coverImage": "materiais-institucionais.jpg",
+    "folders": [
+      { "name": "Identidade visual", "meta": "8 arquivos", "kind": "folder", "description": "Manual de marca, logotipos e templates oficiais Zoetis." },
+      { "name": "Apresentações institucionais", "meta": "4 arquivos", "kind": "folder", "description": "Apresentações institucionais para uso externo e eventos." }
+    ],
+    "files": [
+      { "name": "Manual de marca Zoetis.pdf", "type": "PDF", "owner": "Zoetis", "date": "Atualizado há 2 dias", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "treinamentos-equipe": {
+    "key": "treinamentos-equipe",
+    "type": "usuário(s)",
+    "title": "Treinamentos e Capacitação",
+    "description": "Conteúdos de treinamento interno, trilhas de capacitação e materiais de onboarding da equipe.",
+    "permissions": "Equipe interna Zoetis",
+    "coverImage": "treinamentos-equipe.jpg",
+    "folders": [
+      { "name": "Onboarding", "meta": "6 arquivos", "kind": "folder", "description": "Materiais de integração para novos colaboradores." },
+      { "name": "Treinamentos de produto", "meta": "11 arquivos", "kind": "folder", "description": "Trilhas de capacitação técnica sobre as linhas de produtos Zoetis." }
+    ],
+    "files": [
+      { "name": "Calendário de treinamentos.xlsx", "type": "XLS", "owner": "RH", "date": "Atualizado hoje", "kind": "file" }
+    ],
+    "isProtected": false
+  },
+  "eventos-feiras": {
+    "key": "eventos-feiras",
+    "type": "cliente",
+    "title": "Eventos e Feiras",
+    "description": "Materiais de apoio para eventos, feiras do setor e ativações com clientes e parceiros.",
+    "permissions": "Marketing e eventos",
+    "coverImage": "eventos-feiras.jpg",
+    "folders": [
+      { "name": "Feiras do setor", "meta": "9 arquivos", "kind": "folder", "description": "Materiais de estande, banners e brindes para feiras do setor agropecuário e pet." },
+      { "name": "Eventos com clientes", "meta": "5 arquivos", "kind": "folder", "description": "Roteiros e materiais de apoio para eventos e ativações com clientes." }
+    ],
+    "files": [
+      { "name": "Calendário de eventos 2026.xlsx", "type": "XLS", "owner": "Marketing", "date": "Atualizado ontem", "kind": "file" }
     ],
     "isProtected": false
   },
