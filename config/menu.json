@@ -31,7 +31,7 @@
             },
             {
               "key": "hub-workspaces",
-              "label": "Workspaces",
+              "label": "Workspace",
               "href": "/hub/workspaces/"
             }
           ]
