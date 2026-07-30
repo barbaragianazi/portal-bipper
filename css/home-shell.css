@@ -22,8 +22,8 @@
     padding: 16px 42px 16px 16px;
     border-radius: 16px;
     border: 1px solid rgba(var(--brand-primary-rgb), .26);
-    background: #fff;
-    color: #273449;
+    background: var(--surface);
+    color: var(--text);
     box-shadow: 0 18px 48px rgba(15, 23, 42, .18);
     display: grid;
     gap: 6px;
@@ -42,7 +42,7 @@
     height: 14px;
     border-left: 1px solid rgba(var(--brand-primary-rgb), .26);
     border-top: 1px solid rgba(var(--brand-primary-rgb), .26);
-    background: #fff;
+    background: var(--surface);
     transform: rotate(45deg);
 }
 
@@ -55,7 +55,7 @@
     border: 0;
     border-radius: 999px;
     background: transparent;
-    color: #64748b;
+    color: var(--muted);
     display: grid;
     place-items: center;
     cursor: pointer;
@@ -63,7 +63,7 @@
 
 .guided-tip__close:hover {
     background: rgba(15, 23, 42, .06);
-    color: #111827;
+    color: var(--ink);
 }
 
 .guided-tip__close .icon {
@@ -72,7 +72,7 @@
 }
 
 .guided-tip strong {
-    color: #111827;
+    color: var(--ink);
     font-size: 13px;
 }
 

@@ -5,6 +5,7 @@
   const DEFAULT_MENU_URL = 'config/menu.json';
   const STORAGE_KEY = 'lp_active_brand';
   const SIDEBAR_STORAGE_KEY = 'bipper_sidebar_collapsed';
+  const THEME_STORAGE_KEY = 'lp_theme';
 
   const ICONS = {
     home: '<path d="M3 11.5 12 4l9 7.5"></path><path d="M5 10.5V20h14v-9.5"></path>',
@@ -456,6 +457,45 @@
     syncState();
   }
 
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.setAttribute('data-theme', 'dark');
+    } else {
+      root.removeAttribute('data-theme');
+    }
+  }
+
+  function initTheme() {
+    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light';
+    applyTheme(storedTheme);
+
+    const buttons = document.querySelectorAll('.theme-toggle [data-theme-choice]');
+    if (!buttons.length) return;
+
+    const syncButtons = (theme) => {
+      buttons.forEach((button) => {
+        const isActive = button.dataset.themeChoice === theme;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+    };
+
+    syncButtons(storedTheme);
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const theme = button.dataset.themeChoice === 'dark' ? 'dark' : 'light';
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
+        applyTheme(theme);
+        syncButtons(theme);
+        document.dispatchEvent(new CustomEvent('app-shell:theme-change', {
+          detail: { theme }
+        }));
+      });
+    });
+  }
+
   async function initBrands() {
     const brandContainer = document.querySelector('.brand');
     if (!brandContainer) return;
@@ -522,6 +562,7 @@
   }
 
   async function initAppShell() {
+    initTheme();
     initSidebar();
     initPageTransitions();
     try {
