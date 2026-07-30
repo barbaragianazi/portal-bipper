@@ -16,9 +16,7 @@
   justify-content: space-between;
   gap: 18px;
   padding: 28px;
-  background:
-    radial-gradient(circle at 100% 0%, rgba(0, 167, 181, 0.12), transparent 28%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+  background:var(--surface-2);
 }
 
 .workspace-eyebrow {
@@ -91,8 +89,7 @@
 }
 
 .workspace-card__cover .workspace-menu__trigger {
-  border-color: rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--surface-2);
   backdrop-filter: blur(2px);
 }
 
@@ -162,9 +159,7 @@
 .workspace-card--vault {
   min-height: 260px;
   justify-content: space-between;
-  background:
-    radial-gradient(circle at 100% 0%, rgba(15, 23, 42, 0.12), transparent 30%),
-    #fff;
+  background:var(--surface-2);
 }
 
 .workspace-card--vault p,
@@ -562,7 +557,6 @@
   display: grid;
   align-content: start;
   gap: 14px;
-  /* min-height: 112px; */
   padding: 20px 18px;
   border-right: 1px solid #e5eaf0;
   border-bottom: 1px solid #e5eaf0;
@@ -610,7 +604,6 @@
 }
 
 .workspace-field span {
-  /* color: var(--ink); */
   font-size: 13px;
   font-weight: 800;
 }

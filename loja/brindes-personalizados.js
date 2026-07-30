@@ -234,6 +234,7 @@
     }
 
     function init() {
+        mountDetailModal();
         renderBreadcrumb();
         updateBalance();
         updateWishlistCount();
@@ -253,6 +254,12 @@
         bindBalanceModal();
         syncCartState();
         setPageReady();
+    }
+
+    function mountDetailModal() {
+        if (els.detailModal && els.detailModal.parentElement !== document.body) {
+            document.body.appendChild(els.detailModal);
+        }
     }
 
     function setPageReady() {

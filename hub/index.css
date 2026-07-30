@@ -27,9 +27,7 @@
   grid-template-columns: minmax(0, 1.2fr) 220px;
   gap: 22px;
   padding: 28px;
-  background:
-    radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.14), transparent 28%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(234, 242, 255, 0.92));
+  background: var(--surface-2);
 }
 
 .hub-hero__content {
@@ -178,7 +176,6 @@
   margin-top: auto;
   min-height: 250px;
   border-radius: 20px;
-  background: linear-gradient(180deg, rgba(248, 250, 252, 0.9), rgba(255, 255, 255, 0.95));
   overflow: hidden;
 }
 

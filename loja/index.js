@@ -239,6 +239,7 @@
     }
 
     function init() {
+        mountDetailModal();
         buildFilterMeta();
         renderBreadcrumb();
         renderHero();
@@ -257,6 +258,12 @@
         bindStaticActions();
         syncCartState();
         setPageReady();
+    }
+
+    function mountDetailModal() {
+        if (els.detailModal && els.detailModal.parentElement !== document.body) {
+            document.body.appendChild(els.detailModal);
+        }
     }
 
     function setPageReady() {
@@ -412,6 +419,8 @@
             updateHero();
             restartHeroTimer();
         });
+        els.hero.addEventListener('mouseenter', function () { clearInterval(state.heroTimer); });
+        els.hero.addEventListener('mouseleave', restartHeroTimer);
         restartHeroTimer();
     }
 
