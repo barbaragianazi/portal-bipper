@@ -4,7 +4,8 @@
   "links": {
     "portal": "/",
     "loja": "/loja/",
-    "hub": "/hub/"
+    "hub": "/hub/",
+    "central-suporte": "/central-suporte/"
   },
   "sections": [
     {
@@ -54,15 +55,27 @@
           ]
         },
         {
+          "key": "central-suporte",
+          "label": "Suporte",
+          "icon": "handshake",
+          "linkKey": "central-suporte",
+          "children": [
+            {
+              "key": "central-suporte-admin",
+              "label": "Painel administrativo",
+              "linkKey": "central-suporte"
+            },
+            {
+              "key": "central-suporte-cliente",
+              "label": "Portal do cliente",
+              "href": "/central-suporte/portal-cliente/"
+            }
+          ]
+        },
+        {
           "key": "administracao",
           "label": "Administração",
           "icon": "admin",
-          "href": "#"
-        },
-        {
-          "key": "auditoria",
-          "label": "Auditoria",
-          "icon": "audit",
           "href": "#"
         },
         {
@@ -72,39 +85,9 @@
           "href": "#"
         },
         {
-          "key": "dashboards",
-          "label": "Dashboards",
-          "icon": "gauge",
-          "href": "#"
-        },
-        {
-          "key": "eventos",
-          "label": "Eventos",
-          "icon": "calendar",
-          "href": "#"
-        },
-        {
-          "key": "mapeamento",
-          "label": "Mapeamento",
-          "icon": "mapPin",
-          "href": "#"
-        },
-        {
           "key": "plano-de-acao",
           "label": "Plano de Ação",
           "icon": "actionPlan",
-          "href": "#"
-        },
-        {
-          "key": "projetos",
-          "label": "Projetos",
-          "icon": "rocket",
-          "href": "#"
-        },
-        {
-          "key": "remuneracao",
-          "label": "Remuneração",
-          "icon": "calculator",
           "href": "#"
         },
         {

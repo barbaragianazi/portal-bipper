@@ -230,7 +230,8 @@ Regras:
 
 ### Variantes
 
-- `.btn-primary`: gradiente `linear-gradient(135deg, var(--brand-primary), var(--brand-secondary))`, texto branco.
+- `.btn-primary`: fundo neutro `var(--btn-primary-bg)` (`#0e1014`, fixo nos dois temas), texto branco. E o botao primario padrao das telas.
+- `.btn-primary-acent`: fundo `var(--brand-primary)` (cor do cliente ativo), texto branco. Deve existir no maximo um por tela (a acao de maior destaque); `app-shell.js` emite um `console.warn` se detectar mais de um.
 - `.btn-secondary`: fundo branco, texto `#0f172a`, borda `var(--line)`, sombra no hover.
 - `.icon-btn`: quadrado `42px`, radius `14px`, borda `var(--line)`, fundo branco, icone `20px`.
 - `.favorite-btn`: `38px`, radius `13px`, estado ativo amarelo (`#f59e0b`, `#fffbeb`, `#fde68a`).
@@ -377,7 +378,7 @@ Para tabelas futuras, preferir a mesma linguagem: superficie branca, bordas leve
 - `.mobile-menu`, `.sidebar-overlay`
 - `.env-pill`, `.icon-btn`, `.notification-dot`, `.profile`, `.avatar`
 - `.hero-grid`, `.hero`, `.hero__content`, `.eyebrow`, `.hero-actions`
-- `.btn`, `.btn-primary`, `.btn-secondary`
+- `.btn`, `.btn-primary`, `.btn-primary-acent`, `.btn-secondary`
 - `.quick-stack`, `.quick-card`, `.quick-empty-state`
 - `.summary-card`, `.metrics-grid`, `.metric-card`, `.metric-icon`
 - `.toolbar`, `.search-box`, `.toggle-group`, `.filter-panel`, `.filter-chip`
@@ -409,7 +410,7 @@ Use como primeira importacao CSS em projetos novos. Ele contem:
 
 Use depois dos tokens quando quiser reaproveitar componentes. Ele contem:
 
-- Botoes: `.btn`, `.btn-primary`, `.btn-secondary`, `.icon-btn`.
+- Botoes: `.btn`, `.btn-primary`, `.btn-primary-acent`, `.btn-secondary`, `.icon-btn`.
 - Inputs e toolbar: `.search-box`, `.toolbar`, `.toggle-group`.
 - Chips: `.filter-panel`, `.filter-chip`.
 - Cards: `.summary-card`, `.metric-card`, `.area-card`, `.quick-card`.

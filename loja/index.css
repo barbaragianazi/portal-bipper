@@ -138,7 +138,7 @@
     color: #fff;
     display: inline-flex;
     align-items: center;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: .03em;
@@ -312,7 +312,7 @@
     display: block;
     margin-bottom: 8px;
     color: rgba(17, 17, 17, .6);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: .02em;
     text-transform: lowercase;
@@ -634,7 +634,7 @@
     padding: 0 12px;
     border-radius: 999px;
     background: rgba(255, 255, 255, .16);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: .05em;
@@ -800,7 +800,7 @@
     border-radius: 999px;
     background: rgba(15, 23, 42, .06);
     color: #475569;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: .06em;
@@ -884,7 +884,7 @@
 }
 
 .bp-gift-option__actions .btn {
-    min-height: 42px;
+    min-height: 32px;
 }
 
 @media (max-width: 1320px) {

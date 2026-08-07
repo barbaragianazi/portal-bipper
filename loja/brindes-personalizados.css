@@ -631,7 +631,7 @@
     color: #fff;
     display: inline-flex;
     align-items: center;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
     letter-spacing: .03em;
     z-index: 1;
@@ -1129,7 +1129,7 @@
 .bp-cart-card__caption,
 .bp-favorites-card__caption,
 .bp-cart-card__summary-label {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: .08em;
@@ -1396,7 +1396,7 @@
 .bp-balance-card__caption,
 .bp-balance-card__stat-label,
 .bp-balance-card__meter-copy span {
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.2;
 }
 
@@ -1626,7 +1626,7 @@ body.bp-modal-open {
     border-radius: 999px;
     background: rgba(var(--line-rgb), .5);
     color: var(--muted);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: .05em;

@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../shared/design-tokens.css">
   <link rel="stylesheet" href="../shared/base-components.css">
   <link rel="stylesheet" href="../shared/app-shell.css">
+  <link rel="stylesheet" href="../shared/custom-select.css">
   <link rel="stylesheet" href="index.css">
 </head>
 
@@ -112,7 +113,7 @@
           </ol>
         </nav>
 
-        <section class="suporte-hero" aria-labelledby="suporteHeroTitle">
+        <section class="summary-card suporte-hero" aria-labelledby="suporteHeroTitle">
           <div>
             <h1 id="suporteHeroTitle">Central unificada de atendimento</h1>
             <p>Uma única fila para todos os clientes, plataformas e instâncias.</p>
@@ -130,30 +131,31 @@
               <div class="field"><label>Plataforma</label><select class="control" id="platformFilter"><option value="all">Todas as plataformas</option></select></div>
               <div class="field"><label>Instância</label><select class="control" id="instanceFilter"><option value="all">Todas as instâncias</option></select></div>
               <div class="field"><label>Módulo</label><select class="control" id="moduleFilter"><option value="all">Todos os módulos</option></select></div>
+              <button class="btn btn-secondary btn-sm clear-scope-btn scope-grid__clear" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser-icon lucide-eraser"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21" /><path d="m5.082 11.09 8.828 8.828" /></svg>Limpar filtros</button>
             </div>
           </section>
 
           <div class="metrics-grid" id="supportMetrics"></div>
 
           <section class="instances-wrap panel">
-            <div class="panel-head"><div><h2>Ambientes disponíveis</h2><p>Acesso operacional por instância, com identificação da plataforma e banco.</p></div><label class="search-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="globalSearch" type="search" placeholder="Buscar ticket, cliente, plataforma ou instância..." autocomplete="off"></label><div class="panel-head__actions"><button class="btn btn-secondary btn-sm" id="exportCsv">⇩ Exportar CSV</button><button class="btn btn-secondary btn-sm" id="resetData">↻ Restaurar dados</button><button class="btn btn-secondary btn-sm" id="clearScope">Limpar filtos</button></div></div>
+            <div class="panel-head"><div><h2>Ambientes disponíveis</h2></div><label class="search-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="globalSearch" type="search" placeholder="Buscar ticket, cliente, plataforma ou instância..." autocomplete="off"></label><div class="panel-head__actions"><button class="btn btn-secondary" id="exportCsv">Exportar CSV</button><button class="btn btn-secondary" id="resetData">Restaurar dados</button><button class="btn btn-secondary btn-sm clear-scope-btn" id="clearScope"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser-icon lucide-eraser"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21" /><path d="m5.082 11.09 8.828 8.828" /></svg>Limpar filtros</button></div></div>
             <div class="panel-body"><div class="instance-strip" id="instanceStrip"></div></div>
           </section>
 
           <div class="work-grid">
             <section class="panel">
-              <div class="panel-head"><div><h2>Fila consolidada de tickets</h2><p id="queueSubtitle">Todos os clientes e ambientes</p></div><span class="badge status-progress" id="queueCount">0 tickets</span></div>
-              <div class="toolbar">
-                <input id="supportSearch" placeholder="Buscar na fila..." />
+              <div class="panel-head"><div><h2>Fila consolidada de tickets</h2></div><span class="badge status-progress" id="queueCount">0 tickets</span></div>
+              <div class="queue-toolbar">
+                <label class="search-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="supportSearch" type="search" placeholder="Buscar na fila..." autocomplete="off"></label>
                 <select id="queueInstanceFilter"><option value="all">Todas as instâncias</option></select>
                 <select id="statusFilter"><option value="all">Todos os status</option><option>Aberto</option><option>Em andamento</option><option>Aguardando cliente</option><option>Resolvido</option><option>Fechado</option></select>
                 <select id="priorityFilter"><option value="all">Todas as urgências</option><option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option></select>
                 <select id="assigneeFilter"><option value="all">Todos os responsáveis</option></select>
-                <button class="btn btn-secondary btn-sm queue-toolbar__clear" id="queueClearFilters" type="button" hidden><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser-icon lucide-eraser"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21" /><path d="m5.082 11.09 8.828 8.828" /></svg>Limpar filtros</button>
+                <button class="btn btn-secondary queue-toolbar__clear" id="queueClearFilters" type="button" hidden><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser-icon lucide-eraser"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21" /><path d="m5.082 11.09 8.828 8.828" /></svg>Limpar filtros</button>
               </div>
-              <div class="table-wrap"><table><thead><tr><th>Ticket</th><th>Cliente</th><th>Instância</th><th>Status</th><th>Urgência</th><th>SLA</th><th>Responsável</th><th>Ação</th></tr></thead><tbody id="supportTable"></tbody></table></div>
+              <div class="table-wrap"><table><thead><tr><th>Ticket</th><th>Instância</th><th>Status</th><th>Urgência</th><th>SLA</th><th>Responsável</th><th>Ação</th></tr></thead><tbody id="supportTable"></tbody></table></div>
             </section>
-            <aside class="panel"><div class="panel-head"><div><h2>Atividade recente</h2><p>Movimentações em todos os ambientes</p></div></div><div class="panel-body"><div class="activity-list" id="activities"></div></div></aside>
+            <aside class="panel"><div class="panel-head"><div><h2>Atividades recentes</h2></div></div><div class="panel-body"><div class="activity-list" id="activities"></div></div></aside>
           </div>
         </section>
       </section>
@@ -181,7 +183,7 @@
   </div>
 
   <div class="overlay" id="overlay"></div>
-  <aside class="drawer" id="drawer"><div class="drawer-head"><div><button class="ticket-link" id="drawerId"></button><h2 id="drawerTitle"></h2></div><button class="close" id="closeDrawer">×</button></div><div class="drawer-body" id="drawerBody"></div><div class="drawer-actions" id="drawerActions"></div></aside>
+  <aside class="drawer" id="drawer"><div class="drawer-head"><div><button class="ticket-link" id="drawerId"></button><span class="drawer-badges" id="drawerBadges"></span><h2 id="drawerTitle"></h2></div><button class="close" id="closeDrawer">×</button></div><div class="drawer-body" id="drawerBody"></div><div class="drawer-actions" id="drawerActions"></div></aside>
   <div class="toast-wrap" id="toastWrap"></div>
 
 
@@ -195,6 +197,7 @@
     };
   </script>
   <script src="../shared/app-shell.js"></script>
+  <script src="../shared/custom-select.js"></script>
   <script src="data.js" defer></script>
   <script src="index.js" defer></script>
 </body>

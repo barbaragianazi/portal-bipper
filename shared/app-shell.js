@@ -8,31 +8,31 @@
   const THEME_STORAGE_KEY = 'lp_theme';
 
   const ICONS = {
-    home: '<path d="M3 11.5 12 4l9 7.5"></path><path d="M5 10.5V20h14v-9.5"></path>',
-    briefcase: '<rect x="5" y="6" width="14" height="14" rx="2"></rect><path d="M9 6V4h6v2"></path>',
-    handshake: '<path d="M4 12a3 3 0 0 1 3-3h2l2-2h3a3 3 0 0 1 3 3"></path><path d="M4 12a3 3 0 0 0 3 3h2l2 2h3a3 3 0 0 0 3-3"></path><path d="M17 9h3v6h-3"></path>',
-    megaphone: '<path d="M4 13v-2l12-5v12L4 13Z"></path><path d="M8 14l2 5"></path><path d="M18 10h2"></path>',
-    compass: '<circle cx="12" cy="12" r="8"></circle><path d="M15 9l-4 6"></path><path d="M9 15l6-4"></path>',
-    wallet: '<rect x="4" y="7" width="16" height="12" rx="2"></rect><path d="M8 7V5h8v2"></path><path d="M16 13h4"></path><path d="M17.5 11.5v3"></path>',
-    chart: '<path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-6"></path>',
-    calendar: '<rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M8 3v4"></path><path d="M16 3v4"></path><path d="M4 10h16"></path>',
-    check: '<rect x="5" y="4" width="14" height="16" rx="2"></rect><path d="M9 12l2 2 4-5"></path>',
-    bell: '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 7h18s-3 0-3-7"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>',
-    settings: '<path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"></path><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6V20a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-.6 1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1H4a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 .6-1 1.7 1.7 0 0 0-.34-1.88l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6V4a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 .6 1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.2.36.4.67.6 1H20a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-.51 1Z"></path>',
-    store: '<path d="M4 10h16l-1-5H5l-1 5Z"></path><path d="M5 10v9h14v-9"></path><path d="M9 19v-5h6v5"></path>',
-    files: '<path d="M14 3H6a2 2 0 0 0-2 2v12"></path><path d="M14 3v5h5"></path><path d="M16 21H8a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6l5 5v9a2 2 0 0 1-2 2Z"></path><path d="M10 13h5"></path><path d="M10 17h5"></path>',
-    admin: '<rect x="4" y="8" width="16" height="11" rx="2"></rect><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><path d="M9 13h6"></path>',
-    audit: '<rect x="5" y="4" width="14" height="16" rx="2"></rect><path d="M9 4v3h6V4"></path><path d="M9 13l2 2 4-5"></path>',
-    flag: '<path d="M5 21V5"></path><path d="M5 5c4-2 6 2 10 0 1.5-.75 2.8-.8 4-.35v10c-1.2-.45-2.5-.4-4 .35-4 2-6-2-10 0"></path>',
-    gauge: '<path d="M4 14a8 8 0 1 1 16 0"></path><path d="M12 14l3-5"></path><path d="M4 18h16"></path><path d="M7 14h.01"></path><path d="M17 14h.01"></path>',
-    mapPin: '<path d="M12 21s6-5.3 6-11a6 6 0 0 0-12 0c0 5.7 6 11 6 11Z"></path><circle cx="12" cy="10" r="2"></circle>',
-    actionPlan: '<path d="M4 18h16"></path><path d="M7 18V9"></path><path d="M12 18V5"></path><path d="M17 18v-6"></path><path d="M5 9h4"></path><path d="M10 5h4"></path><path d="M15 12h4"></path>',
-    rocket: '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22 22 0 0 1-4 2Z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>',
-    calculator: '<rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M8 7h8"></path><path d="M8 11h.01"></path><path d="M12 11h.01"></path><path d="M16 11h.01"></path><path d="M8 15h.01"></path><path d="M12 15h.01"></path><path d="M16 15h.01"></path>',
-    requests: '<path d="M4 7h6l-2-2"></path><path d="M10 7 8 9"></path><path d="M20 17h-6l2 2"></path><path d="M14 17l2-2"></path><path d="M7 17c3 0 4-10 10-10"></path>',
-    training: '<path d="M3 8l9-4 9 4-9 4-9-4Z"></path><path d="M7 10v5c2.5 2 7.5 2 10 0v-5"></path><path d="M21 8v6"></path>',
-    chevronDown: '<path d="m6 9 6 6 6-6"></path>',
-    external: '<path d="M14 4h6v6"></path><path d="M10 14 20 4"></path><path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5"></path>'
+    home: '<path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5Z"></path>',
+    briefcase: '<path d="M10 4h4a2 2 0 0 1 2 2v1h4a2 2 0 0 1 2 2v3H2V9a2 2 0 0 1 2-2h4V6a2 2 0 0 1 2-2Zm4 3V6h-4v1h4Zm8 7v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4h8v1.5h4V14h8Z"></path>',
+    handshake: '<path d="M16.9 6.1 14 9h-3.3l-.9.9a2 2 0 0 0 2.8 2.8l1.2-1.2 5.4 5.4a2.2 2.2 0 0 0 .6-2.3l2.2-2.2V7h-3.4l-1.7-.9ZM2 7h5.4l1.1 1.1-.1.1a4 4 0 0 0 5.6 5.7l.1-.1 3.6 3.6a1 1 0 0 1-1.4 1.4L12.5 15 11 16.4l3.8 3.8a1 1 0 0 1-1.4 1.4L9.6 17.8 8.2 19.2l1.5 1.5a1 1 0 0 1-1.4 1.4L2 15.8V7Z"></path>',
+    megaphone: '<path d="M4 10.5 17 5v14L4 13.5v-3ZM6.4 15l2.2 5.4 2.8-1.1-1.7-4.2L6.4 15ZM19 10h3v4h-3v-4Z"></path>',
+    compass: '<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.5 5.5-2.6 6.4-6.4 2.6 2.6-6.4 6.4-2.6Z"></path>',
+    wallet: '<path d="M5 5h12a2 2 0 0 1 2 2H7a3 3 0 0 0-3 3v7a3 3 0 0 1-1-2V8a3 3 0 0 1 3-3Zm2 4h13a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Zm10 4a2 2 0 1 0 0 4h5v-4h-5Z"></path>',
+    chart: '<path d="M4 20h16v2H4v-2Zm1-8h4v6H5v-6Zm5-6h4v12h-4V6Zm5-4h4v16h-4V2Z"></path>',
+    calendar: '<path d="M7 2h2v3h6V2h2v3h2a2 2 0 0 1 2 2v2H3V7a2 2 0 0 1 2-2h2V2Zm14 9v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8h18Z"></path>',
+    check: '<path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm3.8 14.2 5.7-6.4L15 8.5l-4.3 4.9-1.8-1.8-1.4 1.4 3.3 3.2Z"></path>',
+    bell: '<path d="M12 22a2.8 2.8 0 0 0 2.7-2h-5.4A2.8 2.8 0 0 0 12 22Zm7-6V10a7 7 0 0 0-5-6.7V2a2 2 0 1 0-4 0v1.3A7 7 0 0 0 5 10v6l-2 2v1h18v-1l-2-2Z"></path>',
+    settings: '<path d="M19.4 13.5c.1-.5.1-1 .1-1.5s0-1-.1-1.5l2-1.5-2-3.5-2.4 1a8 8 0 0 0-2.6-1.5L14 2h-4l-.4 3a8 8 0 0 0-2.6 1.5l-2.4-1-2 3.5 2 1.5a8 8 0 0 0 0 3l-2 1.5 2 3.5 2.4-1a8 8 0 0 0 2.6 1.5l.4 3h4l.4-3a8 8 0 0 0 2.6-1.5l2.4 1 2-3.5-2-1.5ZM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"></path>',
+    store: '<path d="M5 4h14l2 6H3l2-6Zm0 8h14v8H5v-8Zm5 6h4v-4h-4v4Z"></path>',
+    files: '<path d="M6 2h8l5 5v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm7 1.5V8h4.5L13 3.5ZM8 11v2h8v-2H8Zm0 4v2h6v-2H8Z"></path>',
+    admin: '<path d="M9 4h6a2 2 0 0 1 2 2v2h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h3V6a2 2 0 0 1 2-2Zm6 4V6H9v2h6Zm-7 5v2h8v-2H8Z"></path>',
+    audit: '<path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm2 2v3h6V4H9Zm1.8 12.2 5.7-6.4L15 8.5l-4.3 4.9-1.8-1.8-1.4 1.4 3.3 3.2Z"></path>',
+    flag: '<path d="M5 3h2v18H5V3Zm4 1.2c3-1 4.9 1.5 8 .3.9-.3 1.6-.4 2-.3v10.6c-.9-.2-1.8 0-2.8.4-3 1.1-4.9-1.4-7.2-.3V4.2Z"></path>',
+    gauge: '<path d="M12 4a10 10 0 0 0-10 10c0 1.8.5 3.5 1.3 5h17.4A10 10 0 0 0 12 4Zm1.7 10.7a2.5 2.5 0 1 1-3.4-3.4L16 7l-2.3 7.7Z"></path>',
+    mapPin: '<path d="M12 2a7 7 0 0 0-7 7c0 5.6 7 13 7 13s7-7.4 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"></path>',
+    actionPlan: '<path d="M6 10h4v10H6V10Zm6-6h4v16h-4V4Zm6 8h4v8h-4v-8ZM3 20h20v2H3v-2Z"></path>',
+    rocket: '<path d="M13 3c2.8-1.1 5.8-1 8-.4.6 2.2.7 5.2-.4 8a14.3 14.3 0 0 1-6.4 7.1L8.3 11.8A14.3 14.3 0 0 1 13 3Zm2.8 5.2a2 2 0 1 0 2.8-2.8 2 2 0 0 0-2.8 2.8ZM7 13l4 4-2.4 2.4c-1.4 1.4-4.6 2-4.6 2s.6-3.2 2-4.6L7 13ZM7.6 10H3s.5-2.5 1.8-3.8C6.2 4.8 9 5 9 5a18 18 0 0 0-1.4 5Zm6.4 6.4c2.9-1.1 5-1.4 5-1.4s.2 2.8-1.2 4.2C16.5 20.5 14 21 14 21v-4.6Z"></path>',
+    calculator: '<path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm2 4v4h8V6H8Zm0 7v2h2v-2H8Zm4 0v2h2v-2h-2Zm4 0v2h2v-2h-2Zm-8 4v2h2v-2H8Zm4 0v2h2v-2h-2Zm4 0v2h2v-2h-2Z"></path>',
+    requests: '<path d="M7 4h7l-3 3 3 3H7a3 3 0 0 0-3 3v1H2v-1a5 5 0 0 1 5-5h2.2L7 5.8V4Zm10 16h-7l3-3-3-3h7a3 3 0 0 0 3-3v-1h2v1a5 5 0 0 1-5 5h-2.2l2.2 2.2V20Z"></path>',
+    training: '<path d="M12 3 2 8l10 5 8-4v6h2V8L12 3Zm-6 8.2v4.4c3.5 2.4 8.5 2.4 12 0v-4.4l-6 3-6-3Z"></path>',
+    chevronDown: '<path d="M7.4 8.6 12 13.2l4.6-4.6L18 10l-6 6-6-6 1.4-1.4Z"></path>',
+    external: '<path d="M14 3h7v7h-2V6.4l-8.3 8.3-1.4-1.4L17.6 5H14V3ZM5 5h6v2H6v11h11v-5h2v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"></path>'
   };
 
   function hexToRgb(hex) {
@@ -92,9 +92,7 @@
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('class', 'icon');
     svg.setAttribute('viewBox', '0 0 24 24');
-    svg.setAttribute('fill', 'none');
-    svg.setAttribute('stroke', 'currentColor');
-    svg.setAttribute('stroke-width', '1.8');
+    svg.setAttribute('fill', 'currentColor');
     svg.setAttribute('aria-hidden', 'true');
     svg.innerHTML = ICONS[name] || ICONS.external;
     return svg;
@@ -120,6 +118,7 @@
     link.className = 'nav-link';
     link.dataset.tooltip = item.label;
     link.setAttribute('aria-label', item.label);
+    if (item.key) link.dataset.navKey = item.key;
     if (hasChildren) {
       link.type = 'button';
       link.setAttribute('aria-expanded', String(isActive));
@@ -167,6 +166,7 @@
 
     link.className = 'nav-submenu__link';
     link.href = resolveMenuHref(item, config.links);
+    if (item.key) link.dataset.navKey = item.key;
     if (isActive) link.classList.add('active');
     if (isActive) link.setAttribute('aria-current', 'page');
     if (item.target) link.target = item.target;
@@ -252,6 +252,27 @@
 
       menuRoot.appendChild(nav);
     });
+
+    document.dispatchEvent(new CustomEvent('app-shell:menu-ready'));
+  }
+
+  function setNavBadge(key, count) {
+    const link = document.querySelector(`[data-nav-key="${key}"]`);
+    if (!link) return;
+    const value = Number(count) || 0;
+    let badge = link.querySelector('.nav-badge');
+    if (value <= 0) {
+      badge?.remove();
+      return;
+    }
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.className = 'nav-badge';
+      const chevron = link.querySelector('.nav-link__chevron');
+      if (chevron) link.insertBefore(badge, chevron);
+      else link.appendChild(badge);
+    }
+    badge.textContent = value > 99 ? '99+' : String(value);
   }
 
   async function initMenu() {
@@ -262,9 +283,34 @@
     const menuUrl = config.menuUrl || menuRoot.dataset.menuUrl || DEFAULT_MENU_URL;
     if (!menuUrl) return;
 
+    document.addEventListener('app-shell:menu-ready', applySupportBadges);
     const response = await fetch(menuUrl);
     const menuConfig = await response.json();
     renderMenu(menuRoot, menuConfig);
+  }
+
+  // Mantém os badges de "Suporte" visíveis em qualquer página do portal, não só
+  // quando a seção está aberta. Lê os tickets do protótipo direto do localStorage
+  // (mesma chave usada em central-suporte/data.js); se ainda não houver nada salvo
+  // (ex.: storage limpo e nenhuma tela de Suporte visitada), usa a contagem inicial
+  // do protótipo como placeholder.
+  const SUPPORT_TICKETS_STORAGE_KEY = 'supportPrototypeTicketsV3';
+  const SUPPORT_BADGE_FALLBACK = { admin: 3, client: 1 };
+
+  function applySupportBadges() {
+    let adminUnread = SUPPORT_BADGE_FALLBACK.admin;
+    let clientUnread = SUPPORT_BADGE_FALLBACK.client;
+    try {
+      const stored = JSON.parse(localStorage.getItem(SUPPORT_TICKETS_STORAGE_KEY));
+      if (Array.isArray(stored)) {
+        adminUnread = stored.reduce((sum, t) => sum + Number(t?.unreadSupport || 0), 0);
+        clientUnread = stored.filter((t) => t?.company === 'Zoetis').reduce((sum, t) => sum + Number(t?.unreadClient || 0), 0);
+      }
+    } catch {
+      // storage indisponível ou corrompido; mantém o placeholder inicial
+    }
+    setNavBadge('central-suporte-admin', adminUnread);
+    setNavBadge('central-suporte-cliente', clientUnread);
   }
 
   function createGroupLabel(label) {
@@ -561,10 +607,22 @@
     });
   }
 
+  function checkPrimaryAccentButtons() {
+    const accentButtons = document.querySelectorAll('.btn-primary-acent');
+    if (accentButtons.length > 1) {
+      console.warn(
+        `[Bipper] Encontrados ${accentButtons.length} elementos ".btn-primary-acent" nesta tela. ` +
+        'A regra e ter no maximo um botao com a cor do cliente por tela.',
+        accentButtons
+      );
+    }
+  }
+
   async function initAppShell() {
     initTheme();
     initSidebar();
     initPageTransitions();
+    checkPrimaryAccentButtons();
     try {
       await initMenu();
     } catch (error) {
@@ -576,6 +634,9 @@
       console.error('Nao foi possivel carregar as marcas do app shell.', error);
     }
   }
+
+  window.BipperShell = window.BipperShell || {};
+  window.BipperShell.setNavBadge = setNavBadge;
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAppShell);

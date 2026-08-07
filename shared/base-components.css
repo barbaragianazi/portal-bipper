@@ -11,14 +11,26 @@
     gap: 9px;
     cursor: pointer;
     transition: .18s ease;
+    height: var(--control-height);
 }
 
 .btn-primary {
-    background: var(--brand-primary);
+    background: var(--btn-primary-bg);
     color: #fff;
 }
 
 .btn-primary:hover {
+    background: color-mix(in srgb, var(--btn-primary-bg), white 12%);
+    transform: translateY(-1px);
+    box-shadow: -1px 1px 14px rgba(var(--btn-primary-bg-rgb), .32);
+}
+
+.btn-primary-acent {
+    background: var(--brand-primary);
+    color: #fff;
+}
+
+.btn-primary-acent:hover {
     transform: translateY(-1px);
     box-shadow: 0 18px 36px rgba(var(--brand-primary-rgb), .32);
 }
@@ -27,6 +39,8 @@
     background: var(--surface);
     color: var(--ink);
     border: 1px solid var(--line);
+    font-size: 12px;
+    height: var(--control-height);
 }
 
 .btn-secondary:hover,
@@ -35,6 +49,14 @@
     transform: translateY(-1px);
     border-color: #cbd5e1;
     box-shadow: var(--shadow-sm);
+}
+
+/* Modificador de tamanho, combina com .btn-primary/.btn-primary-acent/.btn-secondary.
+   Nunca declarar cor/fundo aqui — isso é papel das variantes acima. */
+.btn-sm {
+    min-height: var(--control-height);
+    padding: 0 16px;
+    font-size: 13px;
 }
 
 .icon-btn {
@@ -79,7 +101,7 @@
 
 .search-box input {
     width: 100%;
-    height: 40px;
+    height: var(--control-height);
     border: 1px solid var(--line);
     border-radius: 12px;
     background: var(--surface-2);
@@ -87,6 +109,7 @@
     outline: 0;
     color: var(--ink);
     box-shadow: var(--shadow-sm);
+    font-size: 12px;
 }
 
 .search-box input:focus {
@@ -172,7 +195,7 @@
 .metric-card {
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
-    background: rgba(var(--surface-rgb), .9);
+    background: var(--surface-2);
     padding: 18px;
     box-shadow: var(--shadow-sm);
     display: flex;
@@ -356,6 +379,8 @@
 .module-list small,
 .quick-card small {
     color: var(--muted);
+    display: block;
+    min-width: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -453,7 +478,7 @@
 .priority {
     border-radius: 999px;
     padding: 5px 8px;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 900;
 }
 
