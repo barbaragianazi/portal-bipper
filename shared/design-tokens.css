@@ -8,6 +8,8 @@
     --brand-secondary: #e85900;
     --brand-soft: #fff1e8;
     --brand-primary-rgb: 255, 107, 0;
+    --btn-primary-bg: #0e1014;
+    --btn-primary-bg-rgb: 14, 16, 20;
     --ink: #0f172a;
     --text: #263447;
     --muted: #65758b;
@@ -23,11 +25,13 @@
     --danger-soft: #fee2e2;
     --warning-strong: #b45309;
     --danger-strong: #dc2626;
+    --success-strong: #047857;
     --surface-rgb: 255, 255, 255;
     --line-rgb: 229, 234, 240;
     --radius-xl: 28px;
     --radius-lg: 20px;
     --radius-md: 14px;
+    --control-height: 36px;
     --shadow-sm: 0 8px 22px rgba(15, 23, 42, .06);
     --shadow-md: 0 18px 60px rgba(15, 23, 42, .11);
     --sidebar: 280px;
@@ -38,6 +42,8 @@
 
 :root[data-theme="dark"] {
     --brand-soft: rgba(var(--brand-primary-rgb), .16);
+    --btn-primary-bg: #1e1e1e;
+    --btn-primary-bg-rgb: 30, 30, 30;
     --ink: #f1f5f9;
     --text: #cbd5e1;
     --muted: #94a3b8;
@@ -52,6 +58,7 @@
     --danger-soft: rgba(239, 68, 68, .18);
     --warning-strong: var(--warning);
     --danger-strong: var(--danger);
+    --success-strong: var(--success);
 }
 
 * {

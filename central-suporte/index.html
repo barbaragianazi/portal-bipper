@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal Bipper - Painel Administrativo</title>
+  <link rel="icon" type="image/png" href="../shared/assets/logos/fav-icon.png">
+  <link rel="stylesheet" href="../shared/design-tokens.css">
+  <link rel="stylesheet" href="../shared/base-components.css">
+  <link rel="stylesheet" href="../shared/app-shell.css">
+  <link rel="stylesheet" href="../shared/custom-select.css">
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <div class="brand" data-brands-url="../shared/data/brands.json">
+        <div class="brand__area" aria-label="Marca ativa">
+          <button class="brand__logo-btn" type="button" aria-label="Selecionar marca" aria-haspopup="true"
+            aria-expanded="false">
+            <img src="../shared/assets/logos/zoetis-dark.svg" alt="Zoetis" class="brand__logo" data-logo="dark">
+          </button>
+          <div class="brand-dropdown" role="menu" aria-label="Selecionar marca"></div>
+        </div>
+        <button class="brand__toggle" id="sidebarToggle" type="button" aria-label="Recolher menu" aria-expanded="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div data-shell-menu data-menu-url="../config/menu.json"></div>
+
+      <div class="theme-toggle" role="group" aria-label="Tema do portal">
+        <button type="button" class="theme-toggle__btn" data-theme-choice="light" data-tooltip="Alternar para tema light" aria-label="Tema claro" aria-pressed="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </button>
+        <button type="button" class="theme-toggle__btn" data-theme-choice="dark" data-tooltip="Alternar para tema dark" aria-label="Tema escuro" aria-pressed="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="sidebar-profile" aria-label="Perfil do usuário">
+        <span class="avatar">BG</span>
+        <div>
+          <strong>Bárbara Gianazi</strong>
+          <small>barbara.gianazi@upper.net.br</small>
+        </div>
+      </div>
+    </aside>
+
+    <button class="sidebar-overlay" id="sidebarOverlay" type="button" aria-label="Fechar menu"></button>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="openMenu" type="button" aria-label="Abrir menu" aria-expanded="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+          </svg>
+        </button>
+
+        <div class="topbar-actions">
+          <button class="icon-btn" type="button" aria-label="Notificações">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              aria-hidden="true">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 7h18s-3 0-3-7"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-dot">3</span>
+          </button>
+          <button class="icon-btn" type="button" aria-label="Configurações">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              aria-hidden="true">
+              <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"></path>
+              <path
+                d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6V20a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-.6 1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1H4a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 .6-1 1.7 1.7 0 0 0-.34-1.88l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6V4a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 .6 1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.2.36.4.67.6 1H20a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-.51 1Z">
+              </path>
+            </svg>
+          </button>
+          <div class="profile" aria-label="Perfil do usuário">
+            <span class="avatar">BG</span>
+            <div>
+              <strong>Bárbara Gianazi</strong>
+              <small>Administradora</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="content" id="centralSuporteAdminPage">
+        <nav class="bp-breadcrumb" aria-label="Caminho de navegação">
+          <ol class="bp-breadcrumb__path">
+            <li><a href="/">Início</a></li>
+            <li><a href="/central-suporte/">Suporte</a></li>
+            <li><span>Painel administrativo</span></li>
+          </ol>
+        </nav>
+
+        <section class="summary-card suporte-hero" aria-labelledby="suporteHeroTitle">
+          <div>
+            <h1 id="suporteHeroTitle">Central unificada de atendimento</h1>
+            <p>Uma única fila para todos os clientes, plataformas e instâncias.</p>
+          </div>
+          <div class="suporte-hero__actions">
+            <button class="btn btn-primary" type="button" id="supportNew">+ Abrir ticket</button>
+          </div>
+        </section>
+
+        <section id="supportPage">
+          <section class="panel scope-panel">
+            <div class="scope-top"><div><strong>Escopo operacional</strong><span>Veja tudo de forma consolidada ou restrinja a operação usando os filtros abaixo.</span></div></div>
+            <div class="scope-grid">
+              <div class="field"><label>Cliente</label><select class="control" id="companyFilter"><option value="all">Todos os clientes</option></select></div>
+              <div class="field"><label>Plataforma</label><select class="control" id="platformFilter"><option value="all">Todas as plataformas</option></select></div>
+              <div class="field"><label>Instância</label><select class="control" id="instanceFilter"><option value="all">Todas as instâncias</option></select></div>
+              <div class="field"><label>Módulo</label><select class="control" id="moduleFilter"><option value="all">Todos os módulos</option></select></div>
+              <button class="btn btn-secondary btn-sm clear-scope-btn scope-grid__clear" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser-icon lucide-eraser"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21" /><path d="m5.082 11.09 8.828 8.828" /></svg>Limpar filtros</button>
+            </div>
+          </section>
+
+          <div class="metrics-grid" id="supportMetrics"></div>
+
+          <section class="instances-wrap panel">
+            <div class="panel-head"><div><h2>Ambientes disponíveis</h2></div><label class="search-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="globalSearch" type="search" placeholder="Buscar ticket, cliente, plataforma ou instância..." autocomplete="off"></label><div class="panel-head__actions"><button class="btn btn-secondary" id="exportCsv">Exportar CSV</button><button class="btn btn-secondary" id="resetData">Restaurar dados</button><button class="btn btn-secondary btn-sm clear-scope-btn" id="clearScope"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser-icon lucide-eraser"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21" /><path d="m5.082 11.09 8.828 8.828" /></svg>Limpar filtros</button></div></div>
+            <div class="panel-body"><div class="instance-strip" id="instanceStrip"></div></div>
+          </section>
+
+          <div class="work-grid">
+            <section class="panel">
+              <div class="panel-head"><div><h2>Fila consolidada de tickets</h2></div><span class="badge status-progress" id="queueCount">0 tickets</span></div>
+              <div class="queue-toolbar">
+                <label class="search-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="supportSearch" type="search" placeholder="Buscar na fila..." autocomplete="off"></label>
+                <select id="queueInstanceFilter"><option value="all">Todas as instâncias</option></select>
+                <select id="statusFilter"><option value="all">Todos os status</option><option>Aberto</option><option>Em andamento</option><option>Aguardando cliente</option><option>Resolvido</option><option>Fechado</option></select>
+                <select id="priorityFilter"><option value="all">Todas as urgências</option><option>Baixa</option><option>Média</option><option>Alta</option><option>Crítica</option></select>
+                <select id="assigneeFilter"><option value="all">Todos os responsáveis</option></select>
+                <button class="btn btn-secondary queue-toolbar__clear" id="queueClearFilters" type="button" hidden><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser-icon lucide-eraser"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21" /><path d="m5.082 11.09 8.828 8.828" /></svg>Limpar filtros</button>
+              </div>
+              <div class="table-wrap"><table><thead><tr><th>Ticket</th><th>Instância</th><th>Status</th><th>Urgência</th><th>SLA</th><th>Responsável</th><th>Ação</th></tr></thead><tbody id="supportTable"></tbody></table></div>
+            </section>
+            <aside class="panel"><div class="panel-head"><div><h2>Atividades recentes</h2></div></div><div class="panel-body"><div class="activity-list" id="activities"></div></div></aside>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="ticketModal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-head"><div><h2>Abrir novo ticket</h2><p>Identifique exatamente o cliente, a plataforma e a instância afetada.</p></div><button class="close" data-close-modal>×</button></div>
+      <form id="ticketForm">
+        <div class="modal-body"><div class="form-grid">
+          <div class="form-group"><label>Cliente <span class="required">*</span></label><select class="control" id="ticketCompany" required></select></div>
+          <div class="form-group"><label>Plataforma <span class="required">*</span></label><select class="control" id="ticketPlatform" required></select></div>
+          <div class="form-group"><label>Instância <span class="required">*</span></label><select class="control" id="ticketInstance" required></select></div>
+          <div class="form-group"><label>Módulo <span class="required">*</span></label><select class="control" id="ticketModule" required><option value="">Selecione</option><option>Plano de ação</option><option>Campanha</option><option>Fechamento</option><option>Pagamentos</option><option>Treinamento</option></select></div>
+          <div class="form-group full"><label>Assunto <span class="required">*</span></label><input class="control" id="ticketSubject" maxlength="120" required placeholder="Ex.: Campanha não aparece para aprovação" /></div>
+          <div class="form-group"><label>Nível de urgência <span class="required">*</span></label><select class="control" id="ticketPriority"><option>Baixa</option><option selected>Média</option><option>Alta</option><option>Crítica</option></select><div class="hint" id="slaHint"></div></div>
+          <div class="form-group"><label>Solicitante</label><input class="control" id="ticketRequester" value="Camila Ferreira" /></div>
+          <div class="form-group full"><label>Descrição <span class="required">*</span></label><textarea class="control" id="ticketDescription" required placeholder="Descreva o problema, o comportamento esperado e os passos para reprodução."></textarea></div>
+          <div class="form-group full"><label>Anexos</label><label class="upload" id="uploadBox" for="fileInput"><input id="fileInput" type="file" multiple accept=".png,.jpg,.jpeg,.pdf,.xlsx,.xls,.doc,.docx,.txt,.csv,.log"/><div style="font-size:22px">⇧</div><strong>Clique ou arraste arquivos</strong><p>Arquivos são simulados neste protótipo; apenas nome e tamanho ficam registrados.</p></label><div class="files" id="fileList"></div></div>
+        </div></div>
+        <div class="modal-foot"><button type="button" class="btn btn-secondary" data-close-modal>Cancelar</button><button type="submit" class="btn btn-primary">Criar ticket</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer"><div class="drawer-head"><div><button class="ticket-link" id="drawerId"></button><span class="drawer-badges" id="drawerBadges"></span><h2 id="drawerTitle"></h2></div><button class="close" id="closeDrawer">×</button></div><div class="drawer-body" id="drawerBody"></div><div class="drawer-actions" id="drawerActions"></div></aside>
+  <div class="toast-wrap" id="toastWrap"></div>
+
+
+
+  <script>
+    window.BipperShellConfig = {
+      app: 'central-suporte',
+      active: 'central-suporte-admin',
+      menuUrl: '../config/menu.json',
+      assetPathPrefix: '../'
+    };
+  </script>
+  <script src="../shared/app-shell.js"></script>
+  <script src="../shared/custom-select.js"></script>
+  <script src="data.js" defer></script>
+  <script src="index.js" defer></script>
+</body>
+
+</html>

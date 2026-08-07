@@ -288,6 +288,16 @@
     transition: border-color .18s ease, box-shadow .18s ease;
 }
 
+.event-field select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 42px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px
+}
+
 .event-field__native {
     position: absolute;
     width: 1px;
@@ -364,8 +374,14 @@
     border-right: 2px solid var(--ink);
     border-bottom: 2px solid var(--ink);
     transform: rotate(45deg) translateY(-1px);
+    transform-origin: 60% 60%;
     flex: 0 0 auto;
     margin-right: 2px;
+    transition: transform .18s ease;
+}
+
+.select-chip-dropdown.is-open .select-chip-dropdown__trigger::after {
+    transform: rotate(225deg) translateY(-1px);
 }
 
 .select-chip-dropdown.is-open .select-chip-dropdown__trigger,
@@ -795,7 +811,7 @@
 
 .calendar-surface__grid--week .calendar-event-card small,
 .calendar-surface__grid--week .calendar-event-card__time {
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .calendar-event-card--week small {
@@ -1047,7 +1063,7 @@
 
 .calendar-event-summary__meta dt {
     color: var(--muted);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: .06em;
@@ -1384,7 +1400,7 @@
     height: 18px;
     border-radius: 999px;
     background: rgba(15, 23, 42, .08);
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1;
     text-transform: lowercase;
 }
@@ -1395,12 +1411,6 @@
     gap: 14px;
     flex-wrap: wrap;
     justify-content: flex-end;
-}
-
-.btn-sm {
-    min-height: 38px;
-    padding: 0 16px;
-    border-radius: 999px;
 }
 
 .agenda-item--interactive {
