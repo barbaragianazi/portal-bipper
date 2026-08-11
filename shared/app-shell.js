@@ -6,6 +6,14 @@
   const STORAGE_KEY = 'lp_active_brand';
   const SIDEBAR_STORAGE_KEY = 'bipper_sidebar_collapsed';
   const THEME_STORAGE_KEY = 'lp_theme';
+  const AUTH_SESSION_KEY = 'bipper_auth_session';
+
+  const ROLE_GATES = {
+    'central-suporte-admin': { role: 'support', fallbackPath: 'central-suporte/portal-cliente/index.html' },
+    'central-suporte-relatorio-horas': { role: 'support', fallbackPath: 'central-suporte/portal-cliente/index.html' },
+    'central-suporte-configuracoes': { role: 'support', fallbackPath: 'central-suporte/portal-cliente/index.html' },
+    'central-suporte-cliente': { role: 'client', fallbackPath: 'central-suporte/index.html' }
+  };
 
   const ICONS = {
     home: '<path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5Z"></path>',
@@ -284,6 +292,7 @@
     if (!menuUrl) return;
 
     document.addEventListener('app-shell:menu-ready', applySupportBadges);
+    document.addEventListener('app-shell:menu-ready', applyRoleMenuVisibility);
     const response = await fetch(menuUrl);
     const menuConfig = await response.json();
     renderMenu(menuRoot, menuConfig);
@@ -311,6 +320,15 @@
     }
     setNavBadge('central-suporte-admin', adminUnread);
     setNavBadge('central-suporte-cliente', clientUnread);
+  }
+
+   function applyRoleMenuVisibility() {
+    const session = getAuthSession();
+    if (!session || !session.role) return;
+    Object.entries(ROLE_GATES).forEach(([key, gate]) => {
+      if (session.role === gate.role) return;
+      document.querySelector(`[data-nav-key="${key}"]`)?.classList.add('hide');
+    });
   }
 
   function createGroupLabel(label) {
@@ -607,6 +625,72 @@
     });
   }
 
+  function getAuthSession() {
+    try {
+      return JSON.parse(localStorage.getItem(AUTH_SESSION_KEY));
+    } catch {
+      return null;
+    }
+  }
+
+  function getInitials(name) {
+    return name.split(' ').filter(Boolean).slice(0, 2).map((part) => part[0].toUpperCase()).join('');
+  }
+
+  function enforceRoleGate(session) {
+    const gate = ROLE_GATES[getShellConfig().active];
+    if (!gate || session.role === gate.role) return false;
+    const prefix = getShellConfig().assetPathPrefix || '';
+    window.location.replace(`${prefix}${gate.fallbackPath}`);
+    return true;
+  }
+
+  function enforceAuthGuard() {
+    if (!document.getElementById('sidebar')) return false;
+    const session = getAuthSession();
+    if (!session) {
+      const prefix = getShellConfig().assetPathPrefix || '';
+      window.location.replace(`${prefix}login.html`);
+      return true;
+    }
+    return enforceRoleGate(session);
+  }
+
+  function logout() {
+    localStorage.removeItem(AUTH_SESSION_KEY);
+    const prefix = getShellConfig().assetPathPrefix || '';
+    window.location.href = `${prefix}login.html`;
+  }
+
+  function buildLogoutButton() {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'sidebar-profile__logout';
+    button.dataset.tooltip = 'Sair';
+    button.setAttribute('aria-label', 'Sair');
+    button.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M16 17l5-5-5-5"></path><path d="M21 12H9"></path></svg>';
+    button.addEventListener('click', logout);
+    return button;
+  }
+
+  function applyAuthSession() {
+    const session = getAuthSession();
+    if (!session || !session.name) return;
+    document.querySelectorAll('.sidebar-profile, .profile').forEach((profile) => {
+      const avatar = profile.querySelector('.avatar');
+      const name = profile.querySelector('strong');
+      const email = profile.querySelector('small');
+      if (avatar) avatar.textContent = getInitials(session.name);
+      if (name) name.textContent = session.name;
+      if (email && session.email) email.textContent = session.email;
+    });
+    document.querySelectorAll('.sidebar-profile').forEach((profile) => {
+      if (!profile.querySelector('.sidebar-profile__logout')) {
+        profile.appendChild(buildLogoutButton());
+      }
+    });
+  }
+
   function checkPrimaryAccentButtons() {
     const accentButtons = document.querySelectorAll('.btn-primary-acent');
     if (accentButtons.length > 1) {
@@ -619,10 +703,12 @@
   }
 
   async function initAppShell() {
+    if (enforceAuthGuard()) return;
     initTheme();
     initSidebar();
     initPageTransitions();
     checkPrimaryAccentButtons();
+    applyAuthSession();
     try {
       await initMenu();
     } catch (error) {

@@ -66,6 +66,16 @@
               "linkKey": "central-suporte"
             },
             {
+              "key": "central-suporte-relatorio-horas",
+              "label": "Relatório de horas",
+              "href": "/central-suporte/relatorio-horas/"
+            },
+            {
+              "key": "central-suporte-configuracoes",
+              "label": "Configurações",
+              "href": "/central-suporte/configuracoes/"
+            },
+            {
               "key": "central-suporte-cliente",
               "label": "Portal do cliente",
               "href": "/central-suporte/portal-cliente/"

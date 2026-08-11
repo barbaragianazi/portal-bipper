@@ -1,0 +1,331 @@
+/* Tela de login. Reaproveita tokens e componentes do design system — sem cor nova hardcoded. */
+
+.login-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(60% 55% at 12% 8%, rgba(var(--brand-primary-rgb), .12), transparent 60%),
+    radial-gradient(55% 45% at 88% 92%, rgba(var(--brand-primary-rgb), .08), transparent 60%),
+    var(--surface-2);
+}
+
+.login-card {
+  width: min(100%, 540px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: 32px;
+}
+
+
+.login-card__brand {
+  border-bottom: 0;
+  padding: 12px 16px;
+  margin: 0 0 8px;
+}
+
+.login-card__brand .brand__logo-btn:hover,
+.login-card__brand.open .brand__logo-btn {
+  background: rgba(var(--brand-primary-rgb), .08);
+}
+
+.login-brand__logo--dark {
+  display: none;
+}
+
+[data-theme="dark"] .login-brand__logo--light {
+  display: none;
+}
+
+[data-theme="dark"] .login-brand__logo--dark {
+  display: block;
+}
+
+.login-card__brand .brand-dropdown {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-md);
+}
+
+.login-card__brand .brand-dropdown__group {
+  color: var(--muted);
+}
+
+.login-card__brand .brand-dropdown__divider {
+  background: var(--line);
+}
+
+.login-card__brand .brand-dropdown__item,
+.login-card__brand .brand-dropdown__item--reseller {
+  color: var(--text);
+}
+
+.login-card__brand .brand-dropdown__item:hover {
+  background: var(--surface-3);
+}
+
+.login-card__brand .brand-dropdown__item.active {
+  background: rgba(var(--brand-primary-rgb), .16);
+  color: var(--ink);
+}
+
+.login-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.login-card__theme {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+/* Mesmo componente .theme-toggle da sidebar, mas com cores em token pra
+   funcionar no card claro/escuro do login (a sidebar continua sempre escura
+   e usa as cores fixas originais em shared/app-shell.css, sem impacto daqui). */
+.login-card__theme .theme-toggle {
+  background: var(--surface-3);
+  border: 1px solid var(--line);
+}
+
+/* .login-card__theme .theme-toggle__btn {
+  color: var(--muted);
+} */
+
+.login-card__theme .theme-toggle__btn:hover {
+  background: rgba(var(--brand-primary-rgb), .1);
+  color: var(--ink);
+}
+
+.login-card__theme .theme-toggle__btn::after {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.login-intro {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.login-intro h1 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 26px;
+  letter-spacing: -.03em;
+}
+
+.login-intro p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.login-form {
+  display: grid;
+  gap: 18px;
+}
+
+.login-field {
+  display: grid;
+  gap: 8px;
+}
+
+.login-field__label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.login-field__forgot {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brand-primary);
+}
+
+.login-field__control {
+  position: relative;
+}
+
+.login-field__control input {
+  width: 100%;
+  height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2);
+  color: var(--ink);
+  padding: 0 44px 0 16px;
+  outline: 0;
+  font-size: 14px;
+}
+
+.login-field__control input:focus {
+  border-color: rgba(0, 167, 181, .5);
+  box-shadow: 0 0 0 4px rgba(0, 167, 181, .12);
+}
+
+.login-field__action {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.login-field__action:hover {
+  color: var(--ink);
+  background: var(--surface-3);
+}
+
+.login-field__icon {
+  width: 18px;
+  height: 18px;
+}
+
+.login-field__eye-closed {
+  display: none;
+}
+
+.login-field__action.is-visible .login-field__eye-open {
+  display: none;
+}
+
+.login-field__action.is-visible .login-field__eye-closed {
+  display: block;
+}
+
+.login-error {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--danger-soft);
+  color: var(--danger-strong);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.login-submit {
+  width: 100%;
+  height: 48px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.login-demo {
+  margin-top: 8px;
+  padding-top: 20px;
+  /* border-top: 1px solid var(--line); */
+}
+
+.login-demo__title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.login-demo__list {
+  display: flex;
+  gap: 10px;
+}
+
+.login-demo__card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: .18s ease;
+}
+
+.login-demo__card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  border-color: #cbd5e1;
+}
+
+.login-demo__icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--brand-soft);
+  color: var(--brand-primary);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.login-demo__icon .icon {
+  width: 20px;
+  height: 20px;
+}
+
+.login-demo__content {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.login-demo__content strong {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.login-demo__content small {
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.login-footer {
+  margin: 0;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.login-footer a {
+  color: var(--brand-primary);
+  font-weight: 700;
+}
+
+@media (max-width: 420px) {
+  .login-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .login-card {
+    padding: 24px;
+  }
+}

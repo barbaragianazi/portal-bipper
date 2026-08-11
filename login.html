@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BIPPER — Entrar</title>
+  <link rel="icon" type="image/png" href="shared/assets/logos/fav-icon.png">
+  <link rel="stylesheet" href="shared/design-tokens.css">
+  <link rel="stylesheet" href="shared/base-components.css">
+  <link rel="stylesheet" href="shared/app-shell.css">
+  <link rel="stylesheet" href="css/login.css">
+  <meta name="description" content="Acesso ao Portal BIPPER." />
+</head>
+
+<body class="login-page">
+  <div class="login-shell">
+    <div class="login-card">
+      <div class="brand login-card__brand" data-brands-url="shared/data/brands.json">
+        <div class="brand__area" aria-label="Marca ativa">
+          <button class="brand__logo-btn" type="button" aria-label="Selecionar marca" aria-haspopup="true"
+            aria-expanded="false">
+            <img src="shared/assets/logos/zoetis-light.svg" alt="Zoetis" class="brand__logo login-brand__logo--light"
+              data-logo="light">
+            <img src="shared/assets/logos/zoetis-dark.svg" alt="Zoetis" class="brand__logo login-brand__logo--dark"
+              data-logo="dark">
+          </button>
+          <div class="brand-dropdown" role="menu" aria-label="Selecionar marca"></div>
+        </div>
+      </div>
+
+
+
+      <div class="login-intro">
+        <h1>Acesse a plataforma</h1>
+      </div>
+
+      <form class="login-form" id="loginForm">
+        <div class="login-field">
+          <div class="login-field__control">
+            <input id="loginEmail" name="email" type="email" placeholder="Insira o e-mail cadastrado"
+              autocomplete="username" required>
+            <button type="button" class="login-field__action" data-clear-target="loginEmail" aria-label="Limpar email">
+              <svg class="login-field__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="login-field">
+          <div class="login-field__label-row">
+            <label class="login-field__label eyebrow-label" for="loginPassword"> </label>
+            <a href="#" class="login-field__forgot">Esqueceu a senha?</a>
+          </div>
+          <div class="login-field__control">
+            <input id="loginPassword" name="password" type="password" placeholder="••••••••"
+              autocomplete="current-password" required>
+            <button type="button" class="login-field__action" id="togglePassword" aria-label="Mostrar senha"
+              aria-pressed="false">
+              <svg class="login-field__icon login-field__eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <svg class="login-field__icon login-field__eye-closed" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <path d="m3 3 18 18" />
+                <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+                <path d="M9.1 5.3A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18 18 0 0 1-3 4" />
+                <path d="M6.6 6.6C3.6 8.5 2 12 2 12s3.5 7 10 7c1.3 0 2.5-.3 3.5-.8" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <p class="login-error" id="loginError" hidden></p>
+
+        <button type="submit" class="btn btn-primary-acent login-submit">Entrar</button>
+      </form>
+
+      <div class="login-demo">
+        <span class="login-demo__title">Login de demonstração</span>
+        <div class="login-demo__list">
+          <button type="button" class="login-demo__card" data-demo-role="support">
+            <span class="login-demo__icon">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path
+                  d="M9 4h6a2 2 0 0 1 2 2v2h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h3V6a2 2 0 0 1 2-2Zm6 4V6H9v2h6Zm-7 5v2h8v-2H8Z" />
+              </svg>
+            </span>
+            <span class="login-demo__content">
+              <strong>Administrador</strong>
+              <small>admin@admin.com · admin123</small>
+            </span>
+          </button>
+          <button type="button" class="login-demo__card" data-demo-role="client">
+            <span class="login-demo__icon">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" />
+              </svg>
+            </span>
+            <span class="login-demo__content">
+              <strong>Usuário</strong>
+              <small>user@user.com · user123</small>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div class="login-bottom">
+        <p class="login-footer">Dificuldades com o acesso? <br> <a href="#">Fale com o suporte</a></p>
+
+        <div class="login-card__theme">
+          <div class="theme-toggle" role="group" aria-label="Tema do portal">
+            <button type="button" class="theme-toggle__btn" data-theme-choice="light"
+              data-tooltip="Alternar para tema light" aria-label="Tema claro" aria-pressed="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="m17.66 17.66 1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="m6.34 17.66-1.41 1.41"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+              </svg>
+            </button>
+            <button type="button" class="theme-toggle__btn" data-theme-choice="dark"
+              data-tooltip="Alternar para tema dark" aria-label="Tema escuro" aria-pressed="false">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="shared/app-shell.js"></script>
+  <script src="login.js"></script>
+</body>
+
+</html>

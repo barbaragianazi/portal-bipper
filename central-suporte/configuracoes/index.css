@@ -1,0 +1,27 @@
+/* Estilos específicos da tela "Configurações" da Central de Suporte. */
+/* Breadcrumb, hero, painel de lista, instance-strip/instance-card, modal e form-grid */
+/* (.bp-breadcrumb, .suporte-hero, .panel, .instances-wrap, .instance-card, .modal, .form-grid, .empty) */
+/* vêm de ../index.css, compartilhado com o Painel administrativo. Aqui entra só o que é exclusivo desta tela. */
+
+.checkboxes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.check-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.check-pill input {
+  accent-color: var(--ink);
+}

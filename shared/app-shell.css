@@ -399,6 +399,30 @@ body.sidebar-collapsed .app-shell {
     margin-top: 10px;
 }
 
+.sidebar-profile__logout {
+    margin-left: auto;
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    background: rgba(255, 255, 255, .06);
+    color: #b9c8d8;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+.sidebar-profile__logout:hover {
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
+}
+
+.sidebar-profile__logout .icon {
+    width: 17px;
+    height: 17px;
+}
+
 .theme-toggle {
     margin-top: auto;
     display: flex;

@@ -162,6 +162,7 @@ Regras:
 - Titulos de secao: `24px`, `letter-spacing: -.03em`.
 - Titulos de cards: `18px` a `22px`, `letter-spacing: -.02em` a `-.03em`.
 - Labels/chips/metadados: `11px` a `14px`, frequentemente com `font-weight: 700` a `900`.
+- Micro-label em caixa alta (rotulo de campo, eyebrow de secao, metadado): usar a classe `.eyebrow-label` (`shared/base-components.css`) — `12px`, `font-weight: 800`, `letter-spacing: .06em`, `text-transform: uppercase`, `var(--muted)`. Nao redeclarar esses valores localmente; se o contexto exigir tamanho menor (ex. card denso), documentar a excecao no lugar do uso.
 - Textos auxiliares: `12px` a `13px`, cor `var(--muted)`, `line-height` entre `1.45` e `1.55`.
 
 ## Espacamentos
@@ -377,7 +378,7 @@ Para tabelas futuras, preferir a mesma linguagem: superficie branca, bordas leve
 - `.nav-section`, `.nav-link`, `.nav-badge`
 - `.mobile-menu`, `.sidebar-overlay`
 - `.env-pill`, `.icon-btn`, `.notification-dot`, `.profile`, `.avatar`
-- `.hero-grid`, `.hero`, `.hero__content`, `.eyebrow`, `.hero-actions`
+- `.hero-grid`, `.hero`, `.hero__content`, `.eyebrow`, `.eyebrow-label`, `.hero-actions`
 - `.btn`, `.btn-primary`, `.btn-primary-acent`, `.btn-secondary`
 - `.quick-stack`, `.quick-card`, `.quick-empty-state`
 - `.summary-card`, `.metrics-grid`, `.metric-card`, `.metric-icon`
