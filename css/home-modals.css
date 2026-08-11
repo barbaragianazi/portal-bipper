@@ -291,6 +291,8 @@
 .event-field select {
     appearance: none;
     -webkit-appearance: none;
+    min-height: 48px;
+    line-height: 1.25;
     padding-right: 42px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -639,7 +641,7 @@
     color: var(--muted);
     font-size: 12px;
     font-weight: 800;
-    letter-spacing: .08em;
+    letter-spacing: .06em;
     text-transform: uppercase;
 }
 
@@ -1000,7 +1002,8 @@
 .calendar-event-summary h3 {
     margin: 4px 0 0;
     color: var(--ink);
-    font-size: 20px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .calendar-summary__count {
@@ -1113,7 +1116,8 @@
 .calendar-event-summary-empty h3 {
     margin: 0;
     color: var(--ink);
-    font-size: 24px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .calendar-event-summary-empty p {
@@ -1163,7 +1167,8 @@
 .datetime-picker__panel h3 {
     margin: 0;
     color: var(--ink);
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .datetime-picker__header {

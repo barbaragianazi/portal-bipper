@@ -75,7 +75,24 @@ Confira a lista "Classes CSS Reutilizaveis" em `design.md`
 `base-components.css`. Só escreva uma classe nova quando nada existente
 resolver.
 
-## 6. Dark mode deveria sair de graça — confirme, não reconstrua
+## 6. Procure primeiro se uma tela irmã já adaptou o mesmo protótipo
+
+Antes de escrever qualquer classe nova, veja se outra tela do mesmo produto já passou por
+esse processo com o mesmo HTML externo. Protótipos de terceiros costumam ter várias telas
+no mesmo arquivo (ex.: `supportPage`, `hoursPage`, `configPage` todos no mesmo `.html`) —
+se uma delas já foi integrada, o CSS próprio dela (ex.: `pasta-irma/index.css`) já deve ter
+tokenizado boa parte das classes que a tela nova também usa (`.panel`, `.scope-grid`,
+`.metric-icon`, `.badge`, estilos de tabela etc.). Rode grep pelas classes do trecho externo
+nos CSS já existentes do projeto antes de assumir que são novas — reaproveitar aqui evita
+remapear cor por cor um trabalho que outra tela já fez.
+
+O mesmo vale para dados e lógica: se o protótipo tem um array mockado dentro do `<script>`,
+veja se o projeto já tem um arquivo de dados equivalente (ex.: `data.js` compartilhado entre
+telas da mesma feature) modelando a mesma entidade — reaproveite os dados e os helpers já
+existentes (`esc`, `unique`, `metric`, `toast`...) em vez de copiar o array hardcoded do
+protótipo para dentro da tela nova.
+
+## 7. Dark mode deveria sair de graça — confirme, não reconstrua
 
 Como toda cor no sistema é variável CSS, se os passos 3–5 foram feitos
 direito o dark mode já funciona sozinho via os overrides em
@@ -84,12 +101,12 @@ tela nova — se algo quebra no escuro, é sinal de uma cor que ainda ficou
 hardcoded no passo 3; volte lá em vez de remendar com `[data-theme="dark"]`
 específico da tela.
 
-## 7. Estrutura HTML por último
+## 8. Estrutura HTML por último
 
 Só ajuste marcação/estrutura depois de tokens, tipografia e componentes
 resolvidos — normalmente é a parte que menos precisa mudar.
 
-## 8. Checklist manual para a Bárbara testar
+## 9. Checklist manual para a Bárbara testar
 
 Este projeto não roda servidor local nem abre browser aqui — ela testa via
 Live Server do VS Code. Ao final, entregar checklist manual:

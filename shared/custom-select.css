@@ -20,7 +20,11 @@
 
 .cs-select > select {
     background-image: none !important;
+    min-height: var(--control-height);
+    padding-top: 0;
+    padding-bottom: 0;
     padding-right: 42px;
+    line-height: calc(var(--control-height) - 2px);
 }
 
 .cs-select::after {

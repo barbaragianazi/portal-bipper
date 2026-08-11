@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal Bipper - Configurações</title>
+  <link rel="icon" type="image/png" href="../../shared/assets/logos/fav-icon.png">
+  <link rel="stylesheet" href="../../shared/design-tokens.css">
+  <link rel="stylesheet" href="../../shared/base-components.css">
+  <link rel="stylesheet" href="../../shared/app-shell.css">
+  <link rel="stylesheet" href="../../shared/custom-select.css">
+  <link rel="stylesheet" href="../index.css">
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <div class="brand" data-brands-url="../../shared/data/brands.json">
+        <div class="brand__area" aria-label="Marca ativa">
+          <button class="brand__logo-btn" type="button" aria-label="Selecionar marca" aria-haspopup="true"
+            aria-expanded="false">
+            <img src="../../shared/assets/logos/zoetis-dark.svg" alt="Zoetis" class="brand__logo" data-logo="dark">
+          </button>
+          <div class="brand-dropdown" role="menu" aria-label="Selecionar marca"></div>
+        </div>
+        <button class="brand__toggle" id="sidebarToggle" type="button" aria-label="Recolher menu" aria-expanded="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div data-shell-menu data-menu-url="../../config/menu.json"></div>
+
+      <div class="theme-toggle" role="group" aria-label="Tema do portal">
+        <button type="button" class="theme-toggle__btn" data-theme-choice="light" data-tooltip="Alternar para tema light" aria-label="Tema claro" aria-pressed="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </button>
+        <button type="button" class="theme-toggle__btn" data-theme-choice="dark" data-tooltip="Alternar para tema dark" aria-label="Tema escuro" aria-pressed="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="sidebar-profile" aria-label="Perfil do usuário">
+        <span class="avatar">BG</span>
+        <div>
+          <strong>Bárbara Gianazi</strong>
+          <small>barbara.gianazi@upper.net.br</small>
+        </div>
+      </div>
+    </aside>
+
+    <button class="sidebar-overlay" id="sidebarOverlay" type="button" aria-label="Fechar menu"></button>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="openMenu" type="button" aria-label="Abrir menu" aria-expanded="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+          </svg>
+        </button>
+
+        <div class="topbar-actions">
+          <div class="profile" aria-label="Perfil do usuário">
+            <span class="avatar">BG</span>
+            <div>
+              <strong>Bárbara Gianazi</strong>
+              <small>Administradora</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="content" id="suporteConfiguracoesPage">
+        <nav class="bp-breadcrumb" aria-label="Caminho de navegação">
+          <ol class="bp-breadcrumb__path">
+            <li><a href="/">Início</a></li>
+            <li><a href="/central-suporte/">Suporte</a></li>
+            <li><span>Configurações</span></li>
+          </ol>
+        </nav>
+
+        <section class="summary-card suporte-hero" aria-labelledby="suporteHeroTitle">
+          <div>
+            <h1 id="suporteHeroTitle">Configurações</h1>
+            <p>Cadastre clientes e instâncias, e defina integração, identidade, SLA e equipe responsável de cada ambiente.</p>
+          </div>
+          <div class="suporte-hero__actions">
+            <button class="btn btn-primary" type="button" id="newClientBtn">+ Incluir novo cliente</button>
+          </div>
+        </section>
+
+        <section id="configPage">
+          <section class="instances-wrap panel">
+            <div class="panel-head">
+              <div>
+                <h2>Clientes e instâncias</h2>
+              </div>
+              <label class="search-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="configSearch" type="search" placeholder="Buscar cliente, plataforma ou instância..." autocomplete="off"></label>
+              <div style="display:flex;align-items:center;gap:10px"><span class="badge status-progress" id="configCount">0 ambientes</span><button class="info-tip" type="button" data-tooltip="Ambientes usados pela fila consolidada e pelo relatório de horas." aria-label="Sobre este card"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg></button></div>
+            </div>
+            <div class="panel-body"><div class="instance-strip" id="configList"></div></div>
+          </section>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="configModal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h2 id="configModalTitle">Incluir novo cliente</h2>
+        </div><button class="close" data-close-modal>×</button>
+      </div>
+      <form id="configForm">
+        <input type="hidden" id="configId">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="form-group"><label>Plataforma <span class="required">*</span></label><select class="control" id="configPlatform" required><option value="BIPPER">BIPPER</option><option value="Coaliza">Coaliza</option></select></div>
+            <div class="form-group"><label>Nome do cliente <span class="required">*</span></label><input class="control" id="configCompany" required placeholder="Ex.: Master Card"></div>
+            <div class="form-group"><label>Nome da instância <span class="required">*</span></label><input class="control" id="configLabel" required placeholder="Ex.: Master Card Produção"></div>
+            <div class="form-group"><label>Identificador da instância <span class="required">*</span></label><input class="control" id="configInstance" required placeholder="mastercard-prod"></div>
+            <div class="form-group"><label>Imagem / logo (URL)</label><input class="control" id="configImage" placeholder="https://..."></div>
+            <div class="form-group"><label>Cor do cliente <span class="required">*</span></label><input class="control" id="configColor" type="color" value="#ff6b00" required></div>
+            <div class="form-group full"><label>API para comunicações <span class="required">*</span></label><input class="control" id="configApi" required placeholder="https://api.cliente.com/support/webhook"></div>
+            <div class="form-group"><label>SLA padrão <span class="required">*</span></label><select class="control" id="configSla"><option value="1">1 hora</option><option value="4">4 horas</option><option value="8" selected>8 horas</option><option value="16">16 horas</option><option value="24">24 horas</option></select></div>
+            <div class="form-group"><label>Região / datacenter</label><input class="control" id="configRegion" placeholder="São Paulo"></div>
+            <div class="form-group"><label>Banco / referência</label><input class="control" id="configDatabase" placeholder="db_cliente_prod"></div>
+            <div class="form-group"><label>Status</label><select class="control" id="configHealth"><option value="online">Online</option><option value="warning">Atenção</option></select></div>
+            <div class="form-group full"><label>Responsáveis de suporte <span class="required">*</span></label><div class="checkboxes" id="configSupportChecks"></div></div>
+            <div class="form-group full"><label>Observações importantes</label><textarea class="control" id="configNotes" placeholder="Janela de manutenção, contatos de escalonamento, restrições de acesso, timezone..."></textarea></div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-danger hidden" id="deleteConfigBtn">Excluir</button>
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar configuração</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script>
+    window.BipperShellConfig = {
+      app: 'central-suporte',
+      active: 'central-suporte-configuracoes',
+      menuUrl: '../../config/menu.json',
+      assetPathPrefix: '../../'
+    };
+  </script>
+  <script src="../../shared/app-shell.js"></script>
+  <script src="../../shared/custom-select.js"></script>
+  <script src="../data.js" defer></script>
+  <script src="index.js" defer></script>
+</body>
+
+</html>

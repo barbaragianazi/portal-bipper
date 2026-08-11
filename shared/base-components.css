@@ -1,5 +1,29 @@
 /* Componentes reutilizáveis. Contém estilos de botões, inputs, chips, cards, métricas, listas, prioridades, modais e grids que podem ser usados em qualquer tela nova. */
 
+.eyebrow-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: #edfdfd;
+    color: #087985;
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 18px;
+    width: 300px;
+}
+
 .btn {
     border: 0;
     border-radius: 999px;
@@ -36,7 +60,7 @@
 }
 
 .btn-secondary {
-    background: var(--surface);
+    background: var(--surface-2);
     color: var(--ink);
     border: 1px solid var(--line);
     font-size: 12px;
@@ -51,8 +75,6 @@
     box-shadow: var(--shadow-sm);
 }
 
-/* Modificador de tamanho, combina com .btn-primary/.btn-primary-acent/.btn-secondary.
-   Nunca declarar cor/fundo aqui — isso é papel das variantes acima. */
 .btn-sm {
     min-height: var(--control-height);
     padding: 0 16px;
@@ -76,6 +98,62 @@
 .icon-btn .icon {
     width: 20px;
     height: 20px;
+}
+
+.info-tip {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 auto;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    cursor: help;
+    position: relative;
+    transition: color .15s ease, background .15s ease;
+}
+
+.info-tip:hover,
+.info-tip:focus-visible {
+    color: var(--ink);
+    background: var(--surface-3);
+}
+
+.info-tip .icon {
+    width: 16px;
+    height: 16px;
+}
+
+.info-tip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: max-content;
+    max-width: 240px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #2d3748;
+    border: 1px solid rgba(255, 255, 255, .12);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.35;
+    box-shadow: 0 8px 18px rgba(7, 17, 27, .35);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity .15s ease, transform .15s ease;
+    z-index: 20;
+}
+
+.info-tip:hover::after,
+.info-tip:focus-visible::after {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .toolbar {

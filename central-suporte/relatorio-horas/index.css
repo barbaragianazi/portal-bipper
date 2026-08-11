@@ -1,0 +1,33 @@
+/* Estilos específicos da tela "Relatório de horas" da Central de Suporte. */
+/* Breadcrumb, hero, painel de filtros, metric-card, work-grid e tabela (.bp-breadcrumb, .suporte-hero, .panel, */
+/* .scope-panel, .scope-grid, .work-grid, table/th/td, .context-cell, .ticket-link, .ticket-sub, .empty) vêm de */
+/* ../index.css, compartilhado com o Painel administrativo. Aqui entra só o que é exclusivo desta tela. */
+
+/* 4 métricas cabem certinho no .metrics-grid de 4 colunas de shared/base-components.css — */
+/* inclusive a queda para 2 e 1 coluna nos breakpoints já vem de lá, sem precisar de override aqui. */
+
+.hours-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hours-trend {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+}
+
+.hours-trend .icon {
+  width: 13px;
+  height: 13px;
+}
+
+.hours-trend.up {
+  color: var(--danger-strong);
+}
+
+.hours-trend.down {
+  color: var(--success-strong);
+}

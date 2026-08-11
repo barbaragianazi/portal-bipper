@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal Bipper - Relatório de Horas</title>
+  <link rel="icon" type="image/png" href="../../shared/assets/logos/fav-icon.png">
+  <link rel="stylesheet" href="../../shared/design-tokens.css">
+  <link rel="stylesheet" href="../../shared/base-components.css">
+  <link rel="stylesheet" href="../../shared/app-shell.css">
+  <link rel="stylesheet" href="../../shared/custom-select.css">
+  <link rel="stylesheet" href="../index.css">
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <div class="brand" data-brands-url="../../shared/data/brands.json">
+        <div class="brand__area" aria-label="Marca ativa">
+          <button class="brand__logo-btn" type="button" aria-label="Selecionar marca" aria-haspopup="true"
+            aria-expanded="false">
+            <img src="../../shared/assets/logos/zoetis-dark.svg" alt="Zoetis" class="brand__logo" data-logo="dark">
+          </button>
+          <div class="brand-dropdown" role="menu" aria-label="Selecionar marca"></div>
+        </div>
+        <button class="brand__toggle" id="sidebarToggle" type="button" aria-label="Recolher menu" aria-expanded="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div data-shell-menu data-menu-url="../../config/menu.json"></div>
+
+      <div class="theme-toggle" role="group" aria-label="Tema do portal">
+        <button type="button" class="theme-toggle__btn" data-theme-choice="light" data-tooltip="Alternar para tema light" aria-label="Tema claro" aria-pressed="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </button>
+        <button type="button" class="theme-toggle__btn" data-theme-choice="dark" data-tooltip="Alternar para tema dark" aria-label="Tema escuro" aria-pressed="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="sidebar-profile" aria-label="Perfil do usuário">
+        <span class="avatar">BG</span>
+        <div>
+          <strong>Bárbara Gianazi</strong>
+          <small>barbara.gianazi@upper.net.br</small>
+        </div>
+      </div>
+    </aside>
+
+    <button class="sidebar-overlay" id="sidebarOverlay" type="button" aria-label="Fechar menu"></button>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="openMenu" type="button" aria-label="Abrir menu" aria-expanded="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+          </svg>
+        </button>
+
+        <div class="topbar-actions">
+          <div class="profile" aria-label="Perfil do usuário">
+            <span class="avatar">BG</span>
+            <div>
+              <strong>Bárbara Gianazi</strong>
+              <small>Administradora</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="content" id="suporteRelatorioHorasPage">
+        <nav class="bp-breadcrumb" aria-label="Caminho de navegação">
+          <ol class="bp-breadcrumb__path">
+            <li><a href="/">Início</a></li>
+            <li><a href="/central-suporte/">Suporte</a></li>
+            <li><span>Relatório de horas</span></li>
+          </ol>
+        </nav>
+
+        <section class="summary-card suporte-hero" aria-labelledby="suporteHeroTitle">
+          <div>
+            <h1 id="suporteHeroTitle">Relatório de horas</h1>
+            <p>Tempo lançado pela equipe em tickets e clientes.</p>
+          </div>
+          <div class="suporte-hero__actions">
+            <button class="btn btn-secondary" type="button" id="exportHours">Exportar CSV</button>
+            <button class="btn btn-primary" type="button" id="printHours">Exportar PDF</button>
+          </div>
+        </section>
+
+        <section id="hoursPage">
+          <section class="panel scope-panel">
+            <div class="scope-top"><div><strong>Filtros do relatório</strong><span>Refine por cliente, plataforma, responsável e período.</span></div></div>
+            <div class="scope-grid">
+              <div class="field"><label>Cliente</label><select class="control" id="hoursCompany"><option value="all">Todos os clientes</option></select></div>
+              <div class="field"><label>Plataforma</label><select class="control" id="hoursPlatform"><option value="all">Todas as plataformas</option></select></div>
+              <div class="field"><label>Responsável</label><select class="control" id="hoursAssignee"><option value="all">Todos os responsáveis</option></select></div>
+              <div class="field"><label>Período</label><select class="control" id="hoursPeriod"><option value="all">Todo o período</option><option value="7">Últimos 7 dias</option><option value="30">Últimos 30 dias</option></select></div>
+              <button class="btn btn-secondary btn-sm clear-scope-btn scope-grid__clear" type="button" id="hoursClear"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser-icon lucide-eraser"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21" /><path d="m5.082 11.09 8.828 8.828" /></svg>Limpar filtros</button>
+            </div>
+          </section>
+
+          <div class="metrics-grid" id="hoursMetrics"></div>
+
+          <div class="work-grid">
+            <section class="panel">
+              <div class="panel-head"><div><h2>Apontamentos</h2></div><div style="display:flex;align-items:center;gap:10px"><div class="view-toggle" role="group" aria-label="Modo de exibição"><button type="button" class="view-toggle__btn" data-view-choice="list" data-tooltip="Exibir em lista" aria-label="Exibir em lista" aria-pressed="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13"></path><path d="M8 12h13"></path><path d="M8 18h13"></path><path d="M3 6h.01"></path><path d="M3 12h.01"></path><path d="M3 18h.01"></path></svg></button><button type="button" class="view-toggle__btn" data-view-choice="card" data-tooltip="Exibir em cards" aria-label="Exibir em cards" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg></button></div><span class="badge status-progress" id="hoursCount">0 registros</span><button class="info-tip" type="button" data-tooltip="Detalhamento por ticket e atividade" aria-label="Sobre este card"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg></button></div></div>
+              <div class="table-wrap" id="hoursTableWrap">
+                <table>
+                  <thead>
+                    <tr><th>Ticket</th><th>Instância</th><th>Atividade</th><th>Data</th><th>Responsável</th><th>Horas</th></tr>
+                  </thead>
+                  <tbody id="hoursTable"></tbody>
+                </table>
+              </div>
+              <div class="card-grid" id="hoursCards" hidden></div>
+            </section>
+            <aside class="panel">
+              <div class="panel-head"><div><h2>Horas por cliente</h2></div><button class="info-tip" type="button" data-tooltip="Distribuição dos apontamentos filtrados" aria-label="Sobre este card"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg></button></div>
+              <div class="panel-body">
+                <div class="hours-donut-canvas" id="hoursDonutWrap">
+                  <canvas id="hoursDonutChart" role="img" aria-label="Distribuição de horas por cliente"></canvas>
+                  <div class="hours-donut-center"><strong id="hoursDonutTotal">0h</strong><span>total</span></div>
+                </div>
+                <ul class="hours-donut-legend" id="hoursDonutLegend"></ul>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer"><div class="drawer-head"><div><button class="ticket-link" id="drawerId"></button><span class="drawer-badges" id="drawerBadges"></span><h2 id="drawerTitle"></h2></div><button class="close" id="closeDrawer">×</button></div><div class="drawer-body" id="drawerBody"></div><div class="drawer-actions" id="drawerActions"></div></aside>
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script>
+    window.BipperShellConfig = {
+      app: 'central-suporte',
+      active: 'central-suporte-relatorio-horas',
+      menuUrl: '../../config/menu.json',
+      assetPathPrefix: '../../'
+    };
+  </script>
+  <script src="../../shared/app-shell.js"></script>
+  <script src="../../shared/custom-select.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0" defer></script>
+  <script src="../data.js" defer></script>
+  <script src="index.js" defer></script>
+</body>
+
+</html>

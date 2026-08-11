@@ -137,7 +137,7 @@
           <aside class="quick-stack" data-dashboard-area="quick" aria-label="Atalhos frequentes">
             <div class="quick-stack__header">
               <h2>Acessos rápidos</h2>
-              <p>Favoritos arrastáveis para retomar módulos com menos cliques.</p>
+              <button class="info-tip" type="button" data-tooltip="Favoritos arrastáveis para retomar módulos com menos cliques." aria-label="Sobre este card"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg></button>
             </div>
             <div class="quick-stack__body" id="quickStackBody">
               <div class="quick-stack__viewport">
@@ -478,8 +478,7 @@
             <div class="section-title" style="margin:0 0 14px">
               <div>
                 <h2>Indicadores de desempenho</h2>
-                <p>Visão rápida dos principais sinais de negócio.</p>
-              </div><button class="filter-chip" type="button">Este mês</button>
+              </div><div style="display:flex;align-items:center;gap:10px"><button class="filter-chip" type="button">Este mês</button><button class="info-tip" type="button" data-tooltip="Visão rápida dos principais sinais de negócio." aria-label="Sobre este card"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg></button></div>
             </div>
             <div class="performance">
               <div class="metric-card" style="--accent:#10b981; --soft:#e7fff5; min-height:164px;">
@@ -529,6 +528,7 @@
                     <path d="M5 12h14" />
                     <path d="m13 6 6 6-6 6" />
                   </svg></button>
+                <button class="info-tip" type="button" data-tooltip="Próximos compromissos e follow-ups." aria-label="Sobre este card"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg></button>
               </div>
             </div>
             <ol class="agenda-list" id="agendaList"></ol>
@@ -538,8 +538,7 @@
             <div class="section-title" style="margin:0 0 14px">
               <div>
                 <h2>Aprovações pendentes</h2>
-                <p>Visualize quais solicitações estão aguardando sua aprovação.</p>
-              </div>
+              </div><button class="info-tip" type="button" data-tooltip="Visualize quais solicitações estão aguardando sua aprovação." aria-label="Sobre este card"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg></button>
             </div>
 
             <div class="toolbar workflow-approval__toolbar" role="region" aria-label="Filtros de aprovação">
@@ -624,13 +623,12 @@
             <div class="section-title" style="margin:0 0 14px">
               <div>
                 <h2>Atividades recentes</h2>
-                <p>Últimas movimentações relevantes no portal.</p>
-              </div><a class="open-link" href="#">Ver todas <svg class="icon-xs" viewBox="0 0 24 24" fill="none"
+              </div><div style="display:flex;align-items:center;gap:10px"><a class="open-link" href="#">Ver todas <svg class="icon-xs" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
                   aria-hidden="true">
                   <path d="M5 12h14" />
                   <path d="m13 6 6 6-6 6" />
-                </svg></a>
+                </svg></a><button class="info-tip" type="button" data-tooltip="Últimas movimentações relevantes no portal." aria-label="Sobre este card"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg></button></div>
             </div>
             <ul class="activity-list">
               <li><span class="activity-icon" style="--accent:#ff6b00; --soft:#fff1e8"><svg class="icon"
