@@ -94,6 +94,10 @@
       logo.src = resolveAssetUrl(brand[variant] || fallback || brand.logoLight);
       logo.alt = brand.footerLogoName || brand.name;
     });
+
+    document.querySelectorAll('[data-brand-name]').forEach((el) => {
+      el.textContent = brand.name;
+    });
   }
 
   function createIcon(name) {
